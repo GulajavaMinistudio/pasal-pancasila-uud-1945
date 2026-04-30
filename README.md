@@ -12,22 +12,23 @@ Produk ini ditargetkan sebagai **Progressive Web App (PWA)** agar tetap dapat di
 
 ## Fitur Utama
 
-| ID   | Fitur                                         | Prioritas |
-| ---- | --------------------------------------------- | --------- |
-| F-01 | Tampilan 5 Sila Pancasila                     | Tinggi    |
-| F-02 | Tampilan Butir-Butir Pancasila per Sila       | Tinggi    |
-| F-03 | Tampilan Pembukaan UUD 1945 (4 Alinea)        | Tinggi    |
-| F-04 | Daftar dan Isi Pasal UUD 1945 Pasca-Amandemen | Tinggi    |
-| F-05 | Navigasi Berdasarkan 21 Bab UUD 1945          | Tinggi    |
-| F-06 | Tampilan UUD 1945 Asli (Sebelum Amandemen)    | Sedang    |
-| F-07 | Tampilan Detail Amandemen (I-IV)              | Sedang    |
-| F-08 | Pencarian Pasal Real-time (Fuse.js)           | Tinggi    |
-| F-09 | Berbagi Konten (Web Share API + Clipboard)    | Sedang    |
-| F-10 | Deep Link / URL per Pasal                     | Tinggi    |
-| F-11 | Koreksi Pasal & Saran Masukan (Google Forms)  | Rendah    |
-| F-12 | Halaman Tentang Aplikasi                      | Rendah    |
-| F-13 | Mode Offline (PWA)                            | Sedang    |
-| F-14 | Tampilan Responsif (Mobile, Tablet, Desktop)  | Tinggi    |
+| ID    | Fitur                                                      | Prioritas |
+| ----- | ---------------------------------------------------------- | --------- |
+| F-01  | Tampilan 5 Sila Pancasila                                  | Tinggi    |
+| F-02  | Tampilan Butir-Butir Pancasila per Sila                    | Tinggi    |
+| F-03  | Tampilan Pembukaan UUD 1945 (4 Alinea)                     | Tinggi    |
+| F-04  | Daftar dan Isi Pasal UUD 1945 Pasca-Amandemen              | Tinggi    |
+| F-05  | Navigasi Berdasarkan 21 Bab UUD 1945                       | Tinggi    |
+| F-06  | Tampilan UUD 1945 Asli (Sebelum Amandemen)                 | Sedang    |
+| F-07  | Tampilan Detail Amandemen (I-IV)                           | Sedang    |
+| F-07b | Perbandingan Pasal Side-by-Side (Asli vs. Pasca-Amandemen) | Sedang    |
+| F-08  | Pencarian Pasal Real-time (Fuse.js)                        | Tinggi    |
+| F-09  | Berbagi Konten (Web Share API + Clipboard)                 | Sedang    |
+| F-10  | Deep Link / URL per Pasal                                  | Tinggi    |
+| F-11  | Koreksi Pasal & Saran Masukan (Google Forms)               | Rendah    |
+| F-12  | Halaman Tentang Aplikasi                                   | Rendah    |
+| F-13  | Mode Offline (PWA)                                         | Sedang    |
+| F-14  | Tampilan Responsif (Mobile, Tablet, Desktop)               | Tinggi    |
 
 ## Tech Stack
 
@@ -63,39 +64,44 @@ Tidak ada backend API atau database server-side. Seluruh data dikemas bersama ap
 
 ## Routing
 
-| Route               | Konten                                   |
-| ------------------- | ---------------------------------------- |
-| `/`                 | Halaman utama (redirect ke `/pancasila`) |
-| `/pancasila`        | Daftar 5 Sila Pancasila                  |
-| `/sila/:nomor`      | Detail dan Butir-butir Sila tertentu     |
-| `/butir-pancasila`  | Butir-butir Pancasila per Sila           |
-| `/pembukaan`        | 4 Alinea Pembukaan UUD 1945              |
-| `/pasal`            | Daftar semua Pasal UUD 1945              |
-| `/pasal/:nomor`     | Detail isi Pasal tertentu                |
-| `/bab-pasal`        | Navigasi 21 Bab UUD 1945                 |
-| `/bab-pasal/:nomor` | Navigasi langsung ke Bab tertentu        |
-| `/uud-asli`         | Daftar Pasal UUD 1945 versi asli         |
-| `/amandemen`        | Daftar Pasal dengan keterangan amandemen |
-| `/cari`             | Halaman pencarian (`?q=kata-kunci`)      |
-| `/tentang`          | Halaman informasi aplikasi               |
+| Route               | Konten                                                         |
+| ------------------- | -------------------------------------------------------------- |
+| `/`                 | Halaman utama (redirect ke `/pancasila`)                       |
+| `/pancasila`        | Daftar 5 Sila Pancasila                                        |
+| `/sila/:nomor`      | Detail dan Butir-butir Sila tertentu                           |
+| `/butir-pancasila`  | Butir-butir Pancasila per Sila                                 |
+| `/pembukaan`        | 4 Alinea Pembukaan UUD 1945                                    |
+| `/pasal`            | Daftar semua Pasal UUD 1945                                    |
+| `/pasal/:nomor`     | Detail isi Pasal tertentu                                      |
+| `/bab-pasal`        | Navigasi 21 Bab UUD 1945                                       |
+| `/bab-pasal/:nomor` | Navigasi langsung ke Bab tertentu                              |
+| `/uud-asli`         | Daftar Pasal UUD 1945 versi asli                               |
+| `/amandemen`        | Daftar Pasal dengan keterangan amandemen                       |
+| `/amandemen/:nomor` | Perbandingan side-by-side Pasal versi asli vs. pasca-amandemen |
+| `/cari`             | Halaman pencarian (`?q=kata-kunci`)                            |
+| `/tentang`          | Halaman informasi aplikasi                                     |
 
 ## Design System
 
 Aplikasi mengikuti identitas visual aplikasi Android existing dengan palet warna merah-putih yang mencerminkan identitas nasional Indonesia:
 
-| Token                | Warna     | Penggunaan                        |
-| -------------------- | --------- | --------------------------------- |
-| Primary              | `#C62828` | Header, primary button, tab aktif |
-| Primary Dark         | `#B71C1C` | Hover state, header shadow        |
-| Accent Indicator     | `#FFB300` | Tab indicator, highlight          |
-| Accent Orange        | `#E64A19` | Secondary button, icon tint       |
-| Text Primary         | `#5d5d5d` | Body text, heading, konten pasal  |
-| Text Secondary       | `#989898` | Subtitle, meta info, placeholder  |
-| Background           | `#ffffff` | Halaman utama                     |
-| Background Secondary | `#f2f2f2` | Halaman sekunder, search page     |
-| Surface Variant      | `#ECEFF1` | Search input background           |
-| Badge Amandemen      | `#53d397` | Badge keterangan amandemen        |
-| Divider              | `#dbdbdb` | Garis pemisah, border             |
+| Token                | Warna     | Penggunaan                                |
+| -------------------- | --------- | ----------------------------------------- |
+| Primary              | `#C62828` | Header, primary button, tab aktif         |
+| Primary Dark         | `#B71C1C` | Hover state, header shadow                |
+| Accent Indicator     | `#FFB300` | Tab indicator, highlight                  |
+| Accent Orange        | `#E64A19` | Secondary button, icon tint               |
+| Text Primary         | `#5d5d5d` | Body text, heading, konten pasal          |
+| Text Secondary       | `#989898` | Subtitle, meta info, placeholder          |
+| Background           | `#ffffff` | Halaman utama                             |
+| Background Secondary | `#f2f2f2` | Halaman sekunder, search page             |
+| Surface Variant      | `#ECEFF1` | Search input background                   |
+| Badge Amandemen      | `#53d397` | Badge keterangan amandemen (umum)         |
+| Badge Amandemen I    | `#1565C0` | Badge perbandingan — Amandemen I (1999)   |
+| Badge Amandemen II   | `#2E7D32` | Badge perbandingan — Amandemen II (2000)  |
+| Badge Amandemen III  | `#E65100` | Badge perbandingan — Amandemen III (2001) |
+| Badge Amandemen IV   | `#4A148C` | Badge perbandingan — Amandemen IV (2002)  |
+| Divider              | `#dbdbdb` | Garis pemisah, border                     |
 
 ### Responsif Breakpoint
 
@@ -152,7 +158,7 @@ Pengembangan mengikuti alur ketat tanpa melompat fase:
 
 ```
 PRD → Specification → Planning → Implementation → Testing → Deployment → Monitoring
- ✅       ✅            ❌             ❌             ❌          ❌           ❌
+ ✅       ✅            ✅             ❌             ❌          ❌           ❌
 ```
 
 ## Lisensi

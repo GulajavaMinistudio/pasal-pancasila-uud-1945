@@ -1,8 +1,8 @@
 ---
 title: Spesifikasi Teknis Aplikasi Web Pancasila & UUD 1945
-version: 1.0.0
+version: 1.1.0
 date_created: 2026-04-28
-last_updated: 2026-04-29
+last_updated: 2026-04-30
 owner: Development Team
 status: final
 tags:
@@ -39,20 +39,20 @@ Dokumen ini merupakan spesifikasi teknis untuk pengembangan aplikasi web **Panca
 
 ## 2. Definitions
 
-| Istilah            | Definisi                                                                                                   |
-| ------------------ | ---------------------------------------------------------------------------------------------------------- |
-| **PWA**            | Progressive Web App — aplikasi web yang dapat diinstal dan berfungsi secara offline melalui Service Worker |
-| **SSG**            | Static Site Generation — proses prerender halaman HTML statis pada saat build time                         |
-| **SPA**            | Single Page Application — aplikasi web yang berinteraksi tanpa page reload penuh                           |
-| **Deep Link**      | URL spesifik yang mengarah langsung ke konten tertentu (misal: `/pasal/7A`)                                |
-| **Service Worker** | Script yang berjalan di background browser untuk caching dan fungsi offline                                |
-| **Web Share API**  | API native browser untuk berbagi konten ke aplikasi lain                                                   |
-| **Debounce**       | Teknik penundaan eksekusi fungsi sampai user berhenti mengetik dalam jeda waktu tertentu                   |
-| **LCP**            | Largest Contentful Paint — metrik Core Web Vital untuk kecepatan render konten utama                       |
-| **CLS**            | Cumulative Layout Shift — metrik stabilitas layout saat halaman dimuat                                     |
+| Istilah            | Definisi                                                                                                                      |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| **PWA**            | Progressive Web App — aplikasi web yang dapat diinstal dan berfungsi secara offline melalui Service Worker                    |
+| **SSG**            | Static Site Generation — proses prerender halaman HTML statis pada saat build time                                            |
+| **SPA**            | Single Page Application — aplikasi web yang berinteraksi tanpa page reload penuh                                              |
+| **Deep Link**      | URL spesifik yang mengarah langsung ke konten tertentu (misal: `/pasal/7A`)                                                   |
+| **Service Worker** | Script yang berjalan di background browser untuk caching dan fungsi offline                                                   |
+| **Web Share API**  | API native browser untuk berbagi konten ke aplikasi lain                                                                      |
+| **Debounce**       | Teknik penundaan eksekusi fungsi sampai user berhenti mengetik dalam jeda waktu tertentu                                      |
+| **LCP**            | Largest Contentful Paint — metrik Core Web Vital untuk kecepatan render konten utama                                          |
+| **CLS**            | Cumulative Layout Shift — metrik stabilitas layout saat halaman dimuat                                                        |
 | **INP**            | Interaction to Next Paint — metrik Core Web Vitals untuk responsivitas interaksi pengguna (menggantikan FID sejak Maret 2024) |
-| **Fuse.js**        | Library pencarian fuzzy (approximate string matching) berbasis client-side                                 |
-| **JSON**           | JavaScript Object Notation — format data teks yang digunakan untuk semua konten aplikasi                   |
+| **Fuse.js**        | Library pencarian fuzzy (approximate string matching) berbasis client-side                                                    |
+| **JSON**           | JavaScript Object Notation — format data teks yang digunakan untuk semua konten aplikasi                                      |
 
 ---
 
@@ -66,7 +66,7 @@ Dokumen ini merupakan spesifikasi teknis untuk pengembangan aplikasi web **Panca
 - **REQ-004**: Aplikasi harus menampilkan daftar dan isi lengkap Pasal UUD 1945 pasca-amandemen (Pasal 1–37)
 - **REQ-005**: Aplikasi harus menyediakan navigasi hierarki Berdasarkan 21 Bab UUD 1945
 - **REQ-006**: Aplikasi harus menampilkan Pasal UUD 1945 versi asli sebelum amandemen
-- **REQ-007**: Aplikasi harus menampilkan keterangan amandemen (I–IV) pada pasal yang diamandemen
+- **REQ-007**: Aplikasi harus menampilkan keterangan amandemen (I–IV) pada pasal yang diamandemen, termasuk menyediakan halaman perbandingan side-by-side antara versi asli UUD 1945 dan versi pasca-amandemen per pasal yang dapat diakses melalui URL unik `/amandemen/:nomor`
 - **REQ-008**: Aplikasi harus menyediakan fitur pencarian real-time dengan debounce pada seluruh isi pasal
 - **REQ-009**: Aplikasi harus mendukung berbagi konten via Web Share API atau fallback Clipboard API
 - **REQ-010**: Setiap konten harus memiliki URL unik yang dapat di-bookmark dan dibagikan
@@ -222,22 +222,23 @@ interface BabPasalData {
 
 Aplikasi menggunakan client-side routing dengan URL yang bersifat shareable dan deep-linkable.
 
-| Route              | Konten                                             | Parameter                        |
-| ------------------ | -------------------------------------------------- | -------------------------------- |
-| `/`                | Halaman utama / Landing page dengan navigasi ke 7 konten utama | —                                |
-| `/pancasila`       | Daftar 5 Sila Pancasila                            | —                                |
-| `/sila/:nomor`     | Detail dan Butir-butir Sila tertentu               | `nomor`: `1` s.d. `5`            |
-| `/butir-pancasila` | Butir-butir Pancasila per Sila (semua sila)        | —                                |
-| `/pembukaan`       | 4 Alinea Pembukaan UUD 1945                        | —                                |
-| `/pasal`           | Daftar semua Pasal UUD 1945                        | —                                |
-| `/pasal/:nomor`    | Detail isi Pasal tertentu                          | `nomor`: `1`, `6A`, `7B`, dsb.   |
-| `/bab-pasal`       | Navigasi 21 Bab UUD 1945 (semua bab)               | —                                |
-| `/bab-pasal/:nomor`| Navigasi langsung ke Bab tertentu                  | `nomor`: `1` s.d. `21`           |
-| `/uud-asli`        | Daftar Pasal UUD 1945 versi asli                   | —                                |
-| `/amandemen`       | Daftar Pasal dengan keterangan amandemen           | —                                |
-| `/cari`            | Halaman pencarian                                  | `q`: query string (optional)     |
-| `/tentang`         | Halaman informasi aplikasi                         | —                                |
-| `*`                | Halaman 404 Not Found                              | —                                |
+| Route               | Konten                                                         | Parameter                      |
+| ------------------- | -------------------------------------------------------------- | ------------------------------ |
+| `/`                 | Halaman utama / Landing page dengan navigasi ke 7 konten utama | —                              |
+| `/pancasila`        | Daftar 5 Sila Pancasila                                        | —                              |
+| `/sila/:nomor`      | Detail dan Butir-butir Sila tertentu                           | `nomor`: `1` s.d. `5`          |
+| `/butir-pancasila`  | Butir-butir Pancasila per Sila (semua sila)                    | —                              |
+| `/pembukaan`        | 4 Alinea Pembukaan UUD 1945                                    | —                              |
+| `/pasal`            | Daftar semua Pasal UUD 1945                                    | —                              |
+| `/pasal/:nomor`     | Detail isi Pasal tertentu                                      | `nomor`: `1`, `6A`, `7B`, dsb. |
+| `/bab-pasal`        | Navigasi 21 Bab UUD 1945 (semua bab)                           | —                              |
+| `/bab-pasal/:nomor` | Navigasi langsung ke Bab tertentu                              | `nomor`: `1` s.d. `21`         |
+| `/uud-asli`         | Daftar Pasal UUD 1945 versi asli                               | —                              |
+| `/amandemen`        | Daftar Pasal dengan keterangan amandemen                       | —                              |
+| `/amandemen/:nomor` | Perbandingan side-by-side Pasal versi asli vs. pasca-amandemen | `nomor`: `1`, `6A`, `7B`, dsb. |
+| `/cari`             | Halaman pencarian                                              | `q`: query string (optional)   |
+| `/tentang`          | Halaman informasi aplikasi                                     | —                              |
+| `*`                 | Halaman 404 Not Found                                          | —                              |
 
 ### 4.3 API Interfaces
 
@@ -294,7 +295,11 @@ if ('serviceWorker' in navigator) {
 - **AC-005**: Given pengguna mengklik "Pasal 7A" pada daftar pasal, When navigasi berlangsung, Then halaman `/pasal/7A` menampilkan isi lengkap Pasal 7A beserta ayat-ayatnya
 - **AC-006**: Given pengguna membuka `/bab-pasal`, When halaman dimuat, Then 21 Bab ditampilkan dengan daftar pasal di dalamnya, dan Bab dapat di-expand/collapse
 - **AC-007**: Given pengguna membuka `/uud-asli`, When halaman dimuat, Then daftar pasal versi asli ditampilkan dengan filter berdasarkan Bab
-- **AC-008**: Given pengguna membuka `/amandemen`, When halaman dimuat, Then daftar pasal yang diamandemen ditampilkan beserta keterangan amandemen I–IV
+- **AC-008**: Given pengguna membuka `/amandemen`, When halaman dimuat, Then daftar pasal yang diamandemen ditampilkan beserta badge keterangan amandemen I–IV, dikelompokkan per nomor amandemen, dan setiap baris pasal memiliki tombol/link "Lihat Perbandingan"
+- **AC-008a**: Given pengguna membuka `/amandemen/7`, When halaman dimuat, Then halaman perbandingan Pasal 7 ditampilkan dengan dua kolom: kolom kiri menampilkan teks Pasal 7 versi asli UUD 1945, kolom kanan menampilkan teks Pasal 7 pasca-amandemen dengan badge amandemen berwarna per ayat
+- **AC-008b**: Given pengguna membuka `/amandemen/7A`, When halaman dimuat, Then kolom kiri menampilkan keterangan "Pasal ini tidak ada pada UUD 1945 asli (ditambahkan melalui amandemen)" dan kolom kanan menampilkan isi Pasal 7A pasca-amandemen dengan badge amandemen
+- **AC-008c**: Given pengguna membuka `/amandemen/Dihapus` atau pasal yang telah dihapus, When halaman dimuat, Then kolom kiri menampilkan teks asli pasal tersebut dan kolom kanan menampilkan keterangan "Pasal ini telah dihapus melalui amandemen"
+- **AC-008d**: Given pengguna membuka `/amandemen/999` (nomor pasal tidak valid), When halaman dimuat, Then halaman 404 informatif ditampilkan
 
 ### 5.2 Pencarian
 

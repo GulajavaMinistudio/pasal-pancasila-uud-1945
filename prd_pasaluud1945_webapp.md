@@ -5,9 +5,10 @@
 ### 1.1 Document Title and Version
 
 - **PRD:** Pancasila & UUD 1945 Web App
-- **Version:** 1.0.0
-- **Tanggal:** 28 April 2026
+- **Version:** 1.1.0
+- **Tanggal:** 30 April 2026
 - **Penulis:** Product Manager (berdasarkan analisis aplikasi Android v4.0.0)
+- **Changelog:** v1.1.0 — Menambahkan fitur F-07b Perbandingan Pasal Side-by-Side (sebelumnya masuk Non-Goals)
 - **Status:** Draft
 
 ### 1.2 Product Summary
@@ -42,7 +43,7 @@ Produk ini ditargetkan sebagai **Progressive Web App (PWA)** agar tetap dapat di
 
 - Fitur login/autentikasi pengguna (bukan kebutuhan saat ini)
 - Sistem komentar atau diskusi antar pengguna
-- Perbandingan pasal antar amendemen secara visual (diff view)
+- Perbandingan pasal antar amandemen secara diff view karakter-per-karakter (word-diff atau character-diff)
 - Terjemahan ke bahasa asing
 - Fitur pencarian pasal berdasarkan topik hukum dengan AI/semantik
 - Backend API baru (data tetap menggunakan JSON yang sudah ada)
@@ -103,9 +104,16 @@ Produk ini ditargetkan sebagai **Progressive Web App (PWA)** agar tetap dapat di
   - Menampilkan pasal-pasal UUD 1945 dalam versi asli sebelum amandemen
   - Filter berdasarkan Bab
 
-- **F-07: Tampilan Detail Amandemen** (Priority: **Sedang**)
-  - Menampilkan pasal-pasal yang diamandemen beserta keterangan amandemennya (Amandemen I-IV)
+- **F-07: Tampilan Detail Amandemen & Perbandingan Pasal** (Priority: **Sedang**)
+  - Menampilkan daftar pasal-pasal yang diamandemen beserta badge keterangan amandemennya (Amandemen I-IV), dikelompokkan per nomor amandemen
   - Menampilkan urutan amandemen ke berapa setiap pasal mengalami perubahan
+  - **F-07b**: Untuk setiap pasal yang diamandemen, tersedia halaman perbandingan **side-by-side** yang menampilkan:
+    - Kolom kiri: teks pasal dari UUD 1945 **versi asli** (1945, sebelum amandemen)
+    - Kolom kiri: keterangan "Pasal tidak ada pada UUD 1945 asli" jika pasal adalah pasal baru hasil amandemen (contoh: Pasal 7A, 7B, 22A, dst.)
+    - Kolom kanan: teks pasal **pasca-amandemen terakhir** dengan badge berwarna per ayat menunjukkan nomor amandemen yang mengubah ayat tersebut
+    - Badge warna per amandemen: Amandemen I (biru `#1565C0`), II (hijau `#2E7D32`), III (oranye `#E65100`), IV (ungu `#4A148C`)
+    - Keterangan keterbatasan data: perbandingan hanya mencakup **asli vs. akhir** — bukan per-step per amandemen, karena data intermediate tidak tersedia
+  - Halaman perbandingan dapat diakses via URL unik `/amandemen/:nomor` (contoh: `/amandemen/7`, `/amandemen/7A`)
 
 - **F-08: Pencarian Pasal** (Priority: **Tinggi**)
   - Input pencarian real-time dengan debounce

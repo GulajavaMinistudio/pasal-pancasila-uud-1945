@@ -1,8 +1,8 @@
 ---
 title: Spesifikasi Data Schema Pancasila & UUD 1945
-version: 1.0.0
+version: 1.1.0
 date_created: 2026-04-28
-last_updated: 2026-04-29
+last_updated: 2026-04-30
 owner: Development Team
 status: final
 tags:
@@ -730,6 +730,274 @@ function enrichPasalData(): EnrichedPasal[] {
 
 ---
 
+### 7.4 Transformasi Perbandingan Pasal (Side-by-Side View)
+
+Transformasi ini dibutuhkan untuk fitur **F-07b** — halaman perbandingan `/amandemen/:nomor`. Fungsi ini menggabungkan data dari dua file JSON (`pasaluud45noamandemen.json` dan `pasaluud45_ket_amandemen.json`) untuk menghasilkan struktur view siap pakai.
+
+#### Keterbatasan Data yang Perlu Dicatat
+
+> **Penting:** Data yang tersedia hanya dua snapshot: UUD asli (1945) dan UUD pasca-amandemen terakhir (2002). **Tidak tersedia data intermediate** (misalnya: kondisi setelah Amandemen I tetapi sebelum Amandemen II). Oleh karena itu, untuk pasal dengan `amandemen: "1/2"` atau `"3/4"` (diubah di dua amandemen berbeda), perbandingan hanya menampilkan **asli vs. akhir**. Informasi amandemen per ayat diperoleh melalui parsing label inline `"(Amendemen Pertama/Kedua/Ketiga/Keempat)"` yang terdapat di dalam teks setiap ayat pada `pasaluud45_ket_amandemen.json`.
+
+#### TypeScript Interfaces Baru
+
+```typescript
+/**
+ * Nomor amandemen yang valid (1 = Amandemen I, dst.)
+ */
+type AmandemenNumber = '1' | '2' | '3' | '4';
+
+/**
+ * Label teks amandemen sebagaimana tertulis di dalam data JSON
+ */
+type AmandemenLabel =
+  | 'Amendemen Pertama'
+  | 'Amendemen Kedua'
+  | 'Amendemen Ketiga'
+  | 'Amendemen Keempat';
+
+/**
+ * Warna badge per nomor amandemen (sesuai design token)
+ */
+const AMANDEMEN_BADGE_COLOR: Record<AmandemenNumber, string> = {
+  '1': '#1565C0', // Biru  — Amandemen I  (1999)
+  '2': '#2E7D32', // Hijau — Amandemen II (2000)
+  '3': '#E65100', // Oranye — Amandemen III (2001)
+  '4': '#4A148C', // Ungu  — Amandemen IV (2002)
+};
+
+/**
+ * Representasi satu ayat dalam tampilan perbandingan.
+ * Setiap ayat diklasifikasikan berdasarkan statusnya terhadap amandemen.
+ */
+interface AyatComparisonItem {
+  /**
+   * Klasifikasi status ayat:
+   * - 'unchanged'  : Ayat tidak berubah dari versi asli
+   * - 'added'      : Ayat baru, tidak ada di UUD asli (hasil amandemen)
+   * - 'modified'   : Ayat berubah dari versi asli (teks berbeda)
+   * - 'deleted'    : Ayat ada di versi asli tetapi dihapus di pasca-amandemen
+   */
+  readonly status: 'unchanged' | 'added' | 'modified' | 'deleted';
+  /** Nomor amandemen yang membuat perubahan pada ayat ini (null jika unchanged/deleted) */
+  readonly amandemenNumber: AmandemenNumber | null;
+  /** Label teks amandemen, diparse dari teks ayat (null jika tidak ada) */
+  readonly amandemenLabel: AmandemenLabel | null;
+  /** Teks ayat dari versi asli UUD 1945 (null jika ayat adalah tambahan baru) */
+  readonly textAsli: string | null;
+  /** Teks ayat dari versi pasca-amandemen, sudah dibersihkan dari suffix label amandemen */
+  readonly textBaru: string | null;
+  /** Indeks ayat (0-based) dari sumber data asalnya */
+  readonly ayatIndex: number;
+}
+
+/**
+ * Struktur lengkap satu pasal untuk tampilan perbandingan side-by-side.
+ * Dihasilkan oleh fungsi buildPasalComparison().
+ */
+interface PasalComparisonView {
+  /** Nama pasal, contoh: "Pasal 7", "Pasal 7A" */
+  readonly namapasal: string;
+  /** Nomor pasal diekstrak dari namapasal, contoh: "7", "7A" */
+  readonly nomor: string;
+  /** Nama bab tempat pasal berada */
+  readonly babpasal: string;
+  /**
+   * Keterangan amandemen dari field `amandemen` di JSON:
+   * "0" = tidak diamandemen, "1" = amandemen I, "3/4" = amandemen III & IV, dst.
+   */
+  readonly amandemen: string;
+  /**
+   * True jika pasal ini tidak ada di UUD 1945 asli.
+   * Ini terjadi pada pasal-pasal baru hasil amandemen seperti:
+   * Pasal 6A, 7A, 7B, 7C, 18A, 18B, 20A, 22A, 22B, 22C, 22D, 22E,
+   * 23A, 23B, 23C, 23D, 23E, 23F, 23G, 24A, 24B, 24C, 25A, 28A-28J, dst.
+   */
+  readonly isNewPasal: boolean;
+  /**
+   * True jika pasal ini ada di UUD asli tetapi dihapus oleh amandemen.
+   * Contoh: Pasal di Bab IV (Dewan Pertimbangan Agung) yang dihapus oleh Amandemen IV.
+   */
+  readonly isDeletedPasal: boolean;
+  /** Array item ayat untuk ditampilkan di view perbandingan */
+  readonly ayat: readonly AyatComparisonItem[];
+}
+```
+
+#### Fungsi Utilitas: `parseAmandemenFromText()`
+
+```typescript
+/**
+ * Mengekstrak nomor amandemen dari label teks inline pada isi ayat.
+ *
+ * Contoh input:
+ *   "Kedaulatan berada di tangan rakyat... (Amendemen Ketiga)"
+ * Contoh output:
+ *   { label: 'Amendemen Ketiga', number: '3' }
+ *
+ * @param text - Teks isi ayat yang mungkin mengandung label amandemen
+ * @returns Object { label, number } atau null jika tidak ada label amandemen
+ */
+function parseAmandemenFromText(
+  text: string
+): { label: AmandemenLabel; number: AmandemenNumber } | null {
+  const LABEL_MAP: Record<AmandemenLabel, AmandemenNumber> = {
+    'Amendemen Pertama': '1',
+    'Amendemen Kedua': '2',
+    'Amendemen Ketiga': '3',
+    'Amendemen Keempat': '4',
+  };
+
+  for (const [label, number] of Object.entries(LABEL_MAP)) {
+    if (text.includes(label)) {
+      return { label: label as AmandemenLabel, number: number as AmandemenNumber };
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Membersihkan teks ayat dari suffix label amandemen inline.
+ *
+ * Contoh input:
+ *   "Kedaulatan berada di tangan rakyat... (Amendemen Ketiga)"
+ * Contoh output:
+ *   "Kedaulatan berada di tangan rakyat..."
+ *
+ * @param text - Teks isi ayat
+ * @returns Teks bersih tanpa suffix amandemen
+ */
+function stripAmandemenLabel(text: string): string {
+  return text
+    .replace(/\s*\(Amendemen Pertama(?: dan Keempat)?\)/, '')
+    .replace(/\s*\(Amendemen Kedua(?: dan Keempat)?\)/, '')
+    .replace(/\s*\(Amendemen Ketiga(?: dan Keempat)?\)/, '')
+    .replace(/\s*\(Amendemen Keempat\)/, '')
+    .trim();
+}
+```
+
+#### Fungsi Utama: `buildPasalComparison()`
+
+```typescript
+import noAmandemenData from '../data/pasaluud45noamandemen.json';
+import ketAmandemenData from '../data/pasaluud45_ket_amandemen.json';
+
+/**
+ * Membangun struktur PasalComparisonView untuk tampilan perbandingan side-by-side.
+ *
+ * Logika:
+ * 1. Cari pasal di pasaluud45_ket_amandemen.json berdasarkan nomor pasal
+ * 2. Cari pasal yang sama di pasaluud45noamandemen.json
+ * 3. Jika tidak ada di noamandemen → isNewPasal = true
+ * 4. Jika pasaluud45_ket_amandemen menunjukkan pasal dihapus → isDeletedPasal = true
+ * 5. Bandingkan ayat per posisi, tentukan status masing-masing ayat
+ * 6. Untuk setiap ayat pasca-amandemen, parse label amandemen inline
+ *
+ * @param nomor - Nomor pasal dari URL param, contoh: "7", "7A", "28C"
+ * @returns PasalComparisonView atau null jika pasal tidak ditemukan
+ */
+function buildPasalComparison(nomor: string): PasalComparisonView | null {
+  const targetName = `Pasal ${nomor}`;
+
+  // Cari di data pasca-amandemen (sumber utama)
+  const ketItem = ketAmandemenData.data.find(
+    p => p.namapasal.toLowerCase() === targetName.toLowerCase()
+  );
+  if (!ketItem) return null;
+
+  // Cari di data asli
+  const asliItem = noAmandemenData.data.find(
+    p => p.namapasal.toLowerCase() === targetName.toLowerCase()
+  );
+
+  const isNewPasal = !asliItem;
+  const isDeletedPasal =
+    ketItem.arrayisi.length === 1 &&
+    ketItem.arrayisi[0].isi.includes('dihapus');
+
+  const ayat: AyatComparisonItem[] = [];
+
+  if (isDeletedPasal) {
+    // Pasal dihapus: tampilkan ayat asli dengan status 'deleted'
+    const asliAyat = asliItem?.arrayisi ?? [];
+    asliAyat.forEach((a, i) => {
+      ayat.push({
+        status: 'deleted',
+        amandemenNumber: null,
+        amandemenLabel: null,
+        textAsli: a.isi,
+        textBaru: null,
+        ayatIndex: i,
+      });
+    });
+  } else {
+    // Pasal ada: bandingkan ayat pasca-amandemen vs asli
+    ketItem.arrayisi.forEach((ketAyat, i) => {
+      const parsed = parseAmandemenFromText(ketAyat.isi);
+      const cleanText = stripAmandemenLabel(ketAyat.isi);
+      const asliAyat = asliItem?.arrayisi[i] ?? null;
+
+      let status: AyatComparisonItem['status'];
+      if (isNewPasal) {
+        status = 'added';
+      } else if (!asliAyat) {
+        status = 'added'; // Ayat baru yang tidak ada di versi asli
+      } else if (parsed !== null) {
+        status = 'modified'; // Ada label amandemen → pasti berubah
+      } else {
+        status = 'unchanged';
+      }
+
+      ayat.push({
+        status,
+        amandemenNumber: parsed?.number ?? null,
+        amandemenLabel: parsed?.label ?? null,
+        textAsli: asliAyat?.isi ?? null,
+        textBaru: cleanText,
+        ayatIndex: i,
+      });
+    });
+
+    // Ayat asli yang tidak ada di pasca-amandemen → deleted
+    if (asliItem) {
+      const extraAsliAyat = asliItem.arrayisi.slice(ketItem.arrayisi.length);
+      extraAsliAyat.forEach((a, i) => {
+        ayat.push({
+          status: 'deleted',
+          amandemenNumber: null,
+          amandemenLabel: null,
+          textAsli: a.isi,
+          textBaru: null,
+          ayatIndex: ketItem.arrayisi.length + i,
+        });
+      });
+    }
+  }
+
+  return {
+    namapasal: ketItem.namapasal,
+    nomor,
+    babpasal: ketItem.babpasal,
+    amandemen: ketItem.amandemen,
+    isNewPasal,
+    isDeletedPasal,
+    ayat,
+  };
+}
+```
+
+#### Aturan Warna Badge di UI
+
+| Status Ayat | Kolom Kiri (Asli)                       | Kolom Kanan (Pasca-Amandemen)                    |
+| ----------- | --------------------------------------- | ------------------------------------------------ |
+| `unchanged` | Teks normal, tanpa badge                | Teks normal, tanpa badge                         |
+| `added`     | — (kosong / placeholder)                | Teks + badge warna sesuai `amandemenNumber`      |
+| `modified`  | Teks asli (strikethrough opsional)      | Teks baru + badge warna sesuai `amandemenNumber` |
+| `deleted`   | Teks asli + background merah muda tipis | — (kosong / placeholder)                         |
+
+---
+
 ## 8. Dependencies & External Integrations
 
 - **DAT-EXT-001**: Tidak ada dependensi ke external API — seluruh data bersifat self-contained
@@ -742,15 +1010,18 @@ function enrichPasalData(): EnrichedPasal[] {
 
 ### 9.1 Edge Cases dalam Data
 
-| Skenario                              | Lokasi                                | Handling                                                             |
-| ------------------------------------- | ------------------------------------- | -------------------------------------------------------------------- |
-| Pasal dengan 1 ayat saja              | `Pasal 37`                            | Render tanpa nomor ayat (atau dengan nomor 1)                        |
-| Pasal tanpa amandemen                 | `amandemen: "0"`                      | Tidak tampilkan badge amandemen                                      |
-| Bab IV (Dihapus)                      | `isi_bab: ["Pasal sudah dihapus..."]` | Tampilkan pesan khusus, tidak navigable ke detail pasal              |
-| Nomor pasal alfanumerik               | `"Pasal 6A"`, `"Pasal 22A"`           | Parsing regex: `/^Pasal\s+(\d+[A-Z]?)$/`                             |
-| `nama_bab` tidak konsisten case       | `"Bab I"` vs `"BAB II"`               | Normalisasi ke title case saat render                                |
-| File JSON dalam satu baris (minified) | Semua file                            | Di-format ulang (prettify) saat commit ke repo web untuk readability |
-| Teks mengandung tanda baca khusus     | `"Permusyawaratan/Perwakilan"`        | Pertahankan original, escape HTML saat render                        |
+| Skenario                              | Lokasi                                              | Handling                                                                                                                                                  |
+| ------------------------------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pasal dengan 1 ayat saja              | `Pasal 37`                                          | Render tanpa nomor ayat (atau dengan nomor 1)                                                                                                             |
+| Pasal tanpa amandemen                 | `amandemen: "0"`                                    | Tidak tampilkan badge amandemen; di halaman `/amandemen` pasal ini tidak dimunculkan                                                                      |
+| Bab IV (Dihapus)                      | `isi_bab: ["Pasal sudah dihapus..."]`               | Di halaman perbandingan: kolom kanan tampilkan pesan penghapusan, kolom kiri tampilkan teks asli                                                          |
+| Nomor pasal alfanumerik               | `"Pasal 6A"`, `"Pasal 22A"`                         | Parsing regex: `/^Pasal\s+(\d+[A-Z]?)$/`                                                                                                                  |
+| Pasal baru hasil amandemen            | `Pasal 7A`, `Pasal 22A`, dst.                       | `isNewPasal: true`; kolom kiri tampilkan keterangan "Pasal ini tidak ada pada UUD 1945 asli"                                                              |
+| Ayat mengalami dua amandemen berbeda  | `amandemen: "1/2"`, `"3/4"`                         | Perbandingan hanya asli vs. akhir; badge menampilkan amandemen terakhir yang mengubah ayat tersebut                                                       |
+| `nama_bab` tidak konsisten case       | `"Bab I"` vs `"BAB II"`                             | Normalisasi ke title case saat render                                                                                                                     |
+| File JSON dalam satu baris (minified) | Semua file                                          | Di-format ulang (prettify) saat commit ke repo web untuk readability                                                                                      |
+| Teks mengandung tanda baca khusus     | `"Permusyawaratan/Perwakilan"`                      | Pertahankan original, escape HTML saat render                                                                                                             |
+| Suffix label amandemen inline         | `"...dilaksanakan menurut UUD. (Amendemen Ketiga)"` | Dibersihkan oleh `stripAmandemenLabel()` sebelum ditampilkan di kolom kanan; label diparsing oleh `parseAmandemenFromText()` untuk menentukan warna badge |
 
 ### 9.2 Contoh Validasi Schema (Zod)
 
@@ -786,6 +1057,8 @@ Dokumen schema dianggap valid apabila:
 - [ ] **VAL-DAT-004**: Edge cases dan anomali dalam data telah teridentifikasi dengan handling strategy
 - [ ] **VAL-DAT-005**: Transformasi data untuk kebutuhan web telah didokumentasikan
 - [ ] **VAL-DAT-006**: Acceptance criteria untuk integritas data telah mencakup cross-file consistency
+- [ ] **VAL-DAT-007**: Interface `PasalComparisonView`, `AyatComparisonItem`, tipe `AmandemenNumber`, dan `AmandemenLabel` telah terdokumentasi di §7.4
+- [ ] **VAL-DAT-008**: Fungsi `buildPasalComparison()`, `parseAmandemenFromText()`, dan `stripAmandemenLabel()` telah memiliki spesifikasi input/output dan kasus edge yang terdokumentasi
 
 ---
 
@@ -802,4 +1075,4 @@ Dokumen schema dianggap valid apabila:
 
 ---
 
-*Dokumen ini merupakan spesifikasi data schema v1.0.0 dan menjadi referensi utama untuk konsumsi dan transformasi data dalam implementasi aplikasi web.*
+*Dokumen ini merupakan spesifikasi data schema v1.1.0 dan menjadi referensi utama untuk konsumsi dan transformasi data dalam implementasi aplikasi web.*
