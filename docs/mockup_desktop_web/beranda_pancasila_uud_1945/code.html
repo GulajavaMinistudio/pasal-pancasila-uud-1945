@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portal Konstitusi RI - Pancasila &amp; UUD 1945</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Public Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#f0d4d0",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#ffe2de",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "secondary-fixed": "#e4e2e2",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "outline-variant": "#e4beba",
+                    "primary": "#a20513",
+                    "tertiary-fixed-dim": "#88ceff",
+                    "on-secondary-fixed-variant": "#464747",
+                    "primary-container": "#c62828",
+                    "on-primary-fixed-variant": "#93000e",
+                    "on-primary-fixed": "#410003",
+                    "on-tertiary-fixed": "#001e2f",
+                    "surface-container": "#ffe9e6",
+                    "on-tertiary-container": "#d1eaff",
+                    "on-secondary-container": "#636262",
+                    "on-background": "#271816",
+                    "primary-fixed-dim": "#ffb4ac",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#006e9d",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#00557a",
+                    "surface-container-low": "#fff0ef",
+                    "inverse-primary": "#ffb4ac",
+                    "on-surface-variant": "#5b403d",
+                    "surface": "#fff8f7",
+                    "tertiary-fixed": "#c8e6ff",
+                    "background": "#fff8f7",
+                    "secondary-container": "#e1dfdf",
+                    "on-surface": "#271816",
+                    "primary-fixed": "#ffdad6",
+                    "outline": "#8f706c",
+                    "surface-container-highest": "#f9dcd9",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#fff8f7",
+                    "surface-tint": "#b91d20",
+                    "on-error": "#ffffff",
+                    "secondary": "#5e5e5e",
+                    "secondary-fixed-dim": "#c7c6c6",
+                    "on-primary-container": "#ffe0dd",
+                    "inverse-on-surface": "#ffedea",
+                    "surface-variant": "#f9dcd9",
+                    "inverse-surface": "#3e2c2a",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1120px",
+                    "lg": "24px",
+                    "3xl": "64px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "xs": "4px",
+                    "base": "8px",
+                    "2xl": "48px",
+                    "md": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Public Sans"],
+                    "label-lg": ["Public Sans"],
+                    "headline-md": ["Public Sans"],
+                    "label-md": ["Public Sans"],
+                    "title-md": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "title-lg": ["Public Sans"],
+                    "body-md": ["Public Sans"],
+                    "display-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<nav class="sticky top-0 w-full z-50 bg-red-800 dark:bg-red-900 border-b border-red-900 shadow-lg font-public-sans tracking-tight">
+<div class="flex justify-between items-center h-16 px-6 max-w-full">
+<!-- Brand -->
+<a class="text-xl font-bold text-white flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+                Konstitusi RI
+            </a>
+<!-- Navigation Links (Desktop) -->
+<ul class="hidden md:flex items-center gap-6 h-full">
+<li class="h-full flex items-center">
+<!-- Active State: Beranda -->
+<a class="text-white border-b-4 border-yellow-500 pb-1 hover:bg-red-700 transition-colors scale-95 active:scale-90 font-bold h-full flex items-center pt-1" href="#">Beranda</a>
+</li>
+<li class="h-full flex items-center">
+<a class="text-red-100 hover:text-white hover:bg-red-700 transition-colors scale-95 active:scale-90 h-full flex items-center border-b-4 border-transparent" href="#">Pancasila</a>
+</li>
+<li class="h-full flex items-center">
+<a class="text-red-100 hover:text-white hover:bg-red-700 transition-colors scale-95 active:scale-90 h-full flex items-center border-b-4 border-transparent" href="#">UUD 1945</a>
+</li>
+<li class="h-full flex items-center">
+<a class="text-red-100 hover:text-white hover:bg-red-700 transition-colors scale-95 active:scale-90 h-full flex items-center border-b-4 border-transparent" href="#">Amandemen</a>
+</li>
+</ul>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-4 text-white">
+<button class="hover:bg-red-700 transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">account_balance</span>
+</button>
+<button class="hover:bg-red-700 transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">info</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center w-full pt-3xl pb-3xl">
+<!-- Hero Section -->
+<header class="w-full max-w-container-max px-lg text-center mb-2xl">
+<div class="inline-flex items-center justify-center p-md bg-surface-container-high rounded-full mb-md">
+<span class="material-symbols-outlined text-primary-container text-4xl" style="font-variation-settings: 'FILL' 1;">local_police</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-md">Pancasila &amp; UUD 1945</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Portal resmi untuk mengeksplorasi landasan ideologi dan konstitusi negara Republik Indonesia. Pelajari butir-butir, pasal-pasal, dan sejarah amandemen dengan antarmuka yang bersih dan berwibawa.
+            </p>
+</header>
+<!-- Bento Grid Navigation -->
+<section class="w-full max-w-container-max px-lg grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-lg auto-rows-[220px]">
+<!-- Card: 5 Sila Pancasila (Large Focus) -->
+<a class="md:col-span-2 lg:col-span-2 row-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-[0_8px_24px_rgba(198,40,40,0.08)] transition-all group overflow-hidden relative" href="#">
+<div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-surface-container-high to-transparent rounded-bl-full opacity-50 pointer-events-none"></div>
+<div class="relative z-10">
+<div class="w-12 h-12 bg-primary-container/10 rounded-lg flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">5 Sila Pancasila</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                        Eksplorasi lima dasar falsafah negara yang menjadi pedoman kehidupan berbangsa dan bernegara bagi seluruh rakyat Indonesia.
+                    </p>
+</div>
+<div class="relative z-10 flex justify-end">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</a>
+<!-- Card: Pembukaan UUD 1945 -->
+<a class="md:col-span-1 lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group relative" href="#">
+<div class="flex items-start justify-between relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface">Pembukaan UUD 1945</h3>
+<span class="material-symbols-outlined text-outline group-hover:text-primary-container transition-colors">menu_book</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm relative z-10">
+                    Teks proklamasi kemerdekaan dan tujuan berdirinya negara.
+                </p>
+</a>
+<!-- Card: Daftar Pasal -->
+<a class="md:col-span-1 lg:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group" href="#">
+<span class="material-symbols-outlined text-tertiary text-3xl mb-sm">format_list_numbered</span>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs">Daftar Pasal</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Akses cepat ke seluruh pasal.</p>
+</div>
+</a>
+<!-- Card: Butir-butir Pancasila -->
+<a class="md:col-span-1 lg:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group" href="#">
+<span class="material-symbols-outlined text-tertiary text-3xl mb-sm">psychology</span>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs">Butir-butir Pancasila</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Pedoman penghayatan dan pengamalan.</p>
+</div>
+</a>
+<!-- Card: Struktur Bab -->
+<a class="md:col-span-1 lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group" href="#">
+<div class="flex gap-md items-center h-full">
+<div class="w-16 h-16 bg-surface-container rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">account_tree</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Struktur Bab</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Navigasi konstitusi berdasarkan hierarki bab dan bagian.</p>
+</div>
+</div>
+</a>
+<!-- Card: UUD Asli -->
+<a class="md:col-span-1 lg:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group" href="#">
+<span class="material-symbols-outlined text-outline text-3xl mb-sm">history_edu</span>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs">UUD Asli</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Naskah otentik sebelum perubahan.</p>
+</div>
+</a>
+<!-- Card: Amandemen -->
+<a class="md:col-span-1 lg:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] transition-all group" href="#">
+<span class="material-symbols-outlined text-outline text-3xl mb-sm">track_changes</span>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-xs">Amandemen</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Riwayat perubahan UUD I-IV.</p>
+</div>
+</a>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-8 mt-auto flex flex-col items-center justify-center space-y-4 border-t border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-950">
+<div class="font-bold text-red-800 font-public-sans text-xs">
+            Portal Konstitusi RI
+        </div>
+<ul class="flex gap-6">
+<li><a class="font-public-sans text-xs text-slate-500 hover:text-red-700 opacity-80 hover:opacity-100 transition-opacity" href="#">Kontak</a></li>
+<li><a class="font-public-sans text-xs text-slate-500 hover:text-red-700 opacity-80 hover:opacity-100 transition-opacity" href="#">Peta Situs</a></li>
+<li><a class="font-public-sans text-xs text-slate-500 hover:text-red-700 opacity-80 hover:opacity-100 transition-opacity" href="#">Kebijakan Privasi</a></li>
+</ul>
+<p class="font-public-sans text-xs text-slate-800 dark:text-slate-200">
+            © 2024 Sekretariat Jenderal MPR RI - Portal Konstitusi
+        </p>
+</footer>
+</body></html>

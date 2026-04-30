@@ -190,7 +190,7 @@ Produk ini ditargetkan sebagai **Progressive Web App (PWA)** agar tetap dapat di
 - Tipografi yang nyaman dibaca untuk konten teks panjang (font size minimal 16px pada mobile)
 - Dark mode support (opsional, fase berikutnya)
 - Animasi transisi yang halus antar konten
-- Tab navigasi dapat di-scroll secara horizontal pada mobile (seperti aplikasi Android)
+- Bottom navigation (mobile) menampilkan 4 tab utama: Beranda, Pasal, Amandemen, dan Tentang — fixed di bagian bawah layar
 - Sticky header dengan search bar yang selalu mudah diakses
 
 ---
@@ -445,7 +445,7 @@ Budi, seorang mahasiswa hukum semester 3, sedang mengerjakan makalah tentang ame
   - Tidak ada scroll horizontal pada layar mobile
   - Font size minimal 16px pada konten teks
   - Tombol/link memiliki area tap minimal 44x44px (accessibility)
-  - Navigasi tab pada mobile dapat di-scroll horizontal (mengikuti pola aplikasi Android)
+  - Bottom navigation (mobile) menampilkan tab aktif dengan visual feedback warna merah primary
 
 ### 10.14 Melihat Halaman Tentang Aplikasi
 

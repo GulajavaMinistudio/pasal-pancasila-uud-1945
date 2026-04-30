@@ -1,8 +1,8 @@
 ---
 title: Spesifikasi Design System & UI/UX Aplikasi Web Pancasila & UUD 1945
-version: 1.0.0
+version: 1.1.0
 date_created: 2026-04-28
-last_updated: 2026-04-29
+last_updated: 2026-04-30
 owner: UI/UX & Development Team
 status: final
 tags:
@@ -71,11 +71,12 @@ Dokumen ini mendefinisikan *Design System* dan spesifikasi *User Interface / Use
 
 ### 3.2 Responsive Requirements
 
-- **REQ-DES-013**: Layout mobile (< 768px): tab navigasi horizontal scroll, konten full-width, padding 16px
+- **REQ-DES-013**: Layout mobile (< 768px): **bottom navigation 4 item** (fixed bottom), konten full-width dengan padding 16px, dan `padding-bottom` minimal 76px agar konten tidak tertutup bottom navigation bar
 - **REQ-DES-014**: Layout tablet (768px - 1023px): sidebar navigasi collapsible, konten 2/3 width
 - **REQ-DES-015**: Layout desktop (>= 1024px): sidebar navigasi fixed kiri, konten utama di kanan dengan max-width 900px
 - **REQ-DES-016**: Font size heading menyesuaikan: mobile `1.25rem` (20px), tablet/desktop `1.5rem` (24px)
 - **REQ-DES-017**: Tidak ada scroll horizontal pada viewport >= 320px
+- **REQ-DES-018**: Bottom navigation hanya ditampilkan di mobile (< 768px); disembunyikan di tablet dan desktop menggunakan Bootstrap `d-md-none`
 
 ### 3.3 Accessibility Constraints
 
@@ -216,18 +217,18 @@ $utilities: map-merge(
 
 ### 4.3 Bootstrap Component Usage Mapping
 
-| Komponen Android     | Komponen Bootstrap  | Class/Attribute                                          |
-| -------------------- | ------------------- | -------------------------------------------------------- |
-| Toolbar/AppBar merah | Navbar              | `navbar navbar-dark bg-primary`                          |
-| TabLayout            | Nav tabs atau Pills | `nav nav-tabs` atau `nav nav-pills`                      |
-| Tab indicator kuning | Active state        | `.nav-tabs .nav-link.active` dengan border-bottom kuning |
-| CardView             | Card                | `card`, `card-body`, `card-title`                        |
-| RecyclerView (list)  | List group          | `list-group`, `list-group-item`                          |
-| Search EditText      | Form input          | `form-control`                                           |
-| FAB (tombol bulat)   | Button              | `btn btn-primary rounded-circle`                         |
-| Badge                | Badge               | `badge bg-success`                                       |
-| Dialog               | Modal               | `modal fade`, `modal-dialog`, `modal-content`            |
-| Progress indicator   | Spinner             | `spinner-border text-primary`                            |
+| Komponen Android          | Komponen Bootstrap      | Class/Attribute                                                              |
+| ------------------------- | ----------------------- | ---------------------------------------------------------------------------- |
+| Toolbar/AppBar merah      | Navbar                  | `navbar navbar-dark bg-primary`                                              |
+| **BottomNavBar** (mobile) | Custom nav fixed-bottom | `position-fixed bottom-0 start-0 end-0 d-md-none`                            |
+| Tab indicator aktif       | Active state            | `.bottom-nav-item.active` dengan icon & teks `#C62828`, background `#FFEBEE` |
+| CardView                  | Card                    | `card`, `card-body`, `card-title`                                            |
+| RecyclerView (list)       | List group              | `list-group`, `list-group-item`                                              |
+| Search EditText           | Form input              | `form-control`                                                               |
+| FAB (tombol bulat)        | Button                  | `btn btn-primary rounded-circle`                                             |
+| Badge                     | Badge                   | `badge bg-success`                                                           |
+| Dialog                    | Modal                   | `modal fade`, `modal-dialog`, `modal-content`                                |
+| Progress indicator        | Spinner                 | `spinner-border text-primary`                                                |
 
 ---
 
@@ -236,7 +237,7 @@ $utilities: map-merge(
 ### 5.1 Warna dan Brand Identity
 
 - **AC-DES-001**: Given halaman dimuat, When dicek dengan color picker, Then background header menggunakan `#C62828`
-- **AC-DES-002**: Given tab navigasi aktif, When dicek, Then indicator aktif menggunakan `#FFB300` dengan ketebalan 3px
+- **AC-DES-002**: Given bottom navigation aktif, When tab diklik, Then tab aktif menampilkan icon dan label berwarna `#C62828` dengan background `#FFEBEE`, tab lain berwarna `#989898`
 - **AC-DES-003**: Given badge amandemen ditampilkan, When dicek, Then background badge menggunakan `#53d397` dengan teks putih
 - **AC-DES-004**: Given input pencarian dirender, When dicek, Then background input menggunakan `#ECEFF1`
 - **AC-DES-005**: Given konten pasal ditampilkan, When dicek, Then teks isi pasal menggunakan `#5d5d5d` dengan ukuran `16px`
@@ -249,7 +250,7 @@ $utilities: map-merge(
 
 ### 5.3 Layout Responsif
 
-- **AC-DES-009**: Given viewport lebar 375px, When halaman dimuat, Then tab navigasi horizontal scrollable dan konten full-width dengan padding 16px
+- **AC-DES-009**: Given viewport lebar 375px, When halaman dimuat, Then **bottom navigation tampil fixed di bagian bawah viewport** (tidak overlay konten), ikon dan label tab aktif berwarna `#C62828` dengan background merah muda `#FFEBEE`, tab tidak aktif berwarna `#989898`
 - **AC-DES-010**: Given viewport lebar 1024px, When halaman dimuat, Then sidebar navigasi fixed di kiri dengan lebar 280px dan konten utama di kanan
 - **AC-DES-011**: Given viewport di-resize dari desktop ke mobile, When transisi berlangsung, Then layout beralih ke mobile tanpa scroll horizontal
 
@@ -333,7 +334,8 @@ Aplikasi Android menggunakan pola:
 - **RecyclerView** untuk daftar item yang panjang
 
 Di web, pola ini diterjemahkan menjadi:
-- **Sticky Header** merah dengan teks putih + horizontal scrollable tab nav
+- **Sticky Header** merah dengan teks putih + icon pencarian dan ikon gedung/logo di kiri
+- **Bottom Navigation** 4 tab (fixed bottom, mobile only, `d-md-none`) — Beranda, Pasal, Amandemen, Tentang
 - **Sidebar / Off-canvas menu** di mobile (hamburger menu), sidebar fixed di desktop
 - **Card component** dengan shadow dan border-radius
 - **Virtual scrolling / pagination** tidak diperlukan karena dataset < 500 item
@@ -366,21 +368,50 @@ Di web, pola ini diterjemahkan menjadi:
 - **Position**: Sticky top, z-index 50
 - **Tap Target**: Icon minimal 44x44px dengan padding
 
-### 9.2 Tab Navigation
+### 9.2 Bottom Navigation (Mobile Only)
 
 ```
-+-------------------------------------------------------------+
-|  Pancasila | Butir | Pembukaan | Pasal | Bab | ...  |
-+-------------------------------------------------------------+
-           ^^^ Indicator kuning 3px
++------------------------------------------------------------------+
+| [Home]        [Pasal]      [Amandemen]      [Tentang]            |
+|  Beranda       Pasal        Amandemen        Tentang             |
++------------------------------------------------------------------+
 ```
 
-- **Background**: `var(--color-primary)` (#C62828)
-- **Text Inactive**: Putih transparan 80% (`rgba(255,255,255,0.8)`)
-- **Text Active**: Putih opaque, weight 700
-- **Indicator**: `var(--color-accent-indicator)` (#FFB300), height 3px, border-radius full
-- **Behavior**: Horizontal scroll pada mobile, flex-wrap pada desktop
-- **Position**: Sticky di bawah header
+> Hanya ditampilkan di mobile (< 768px). Di tablet dan desktop, navigasi menggunakan sidebar.
+
+- **Position**: `fixed`, `bottom: 0`, `left: 0`, `right: 0`, z-index 100
+- **Height**: 60px + `env(safe-area-inset-bottom)` untuk safe area iPhone
+- **Background**: `#ffffff` (putih) dengan shadow atas `box-shadow: 0 -2px 8px rgba(0,0,0,0.08)`
+- **Border Top**: 1px solid `#dbdbdb`
+- **Display**: `d-flex d-md-none justify-content-around align-items-center`
+- **Content Padding**: Halaman utama harus memiliki `padding-bottom: 76px` agar tidak tertutup
+
+#### Tab Items
+
+| Tab       | Route        | Icon Bootstrap        | Icon Material Symbol |
+| --------- | ------------ | --------------------- | -------------------- |
+| Beranda   | `/`          | `bi-house-fill`       | `home` (FILL=1)      |
+| Pasal     | `/pasal`     | `bi-journal-text`     | `gavel`              |
+| Amandemen | `/amandemen` | `bi-clock-history`    | `history_edu`        |
+| Tentang   | `/tentang`   | `bi-info-circle-fill` | `info` (FILL=1)      |
+
+#### State: Active
+
+- **Icon & Label**: Warna `#C62828` (merah primary)
+- **Background**: `#FFEBEE` (merah muda sangat muda), border-radius 12px, padding 4px 12px
+- **Font Weight**: 600
+
+#### State: Inactive
+
+- **Icon & Label**: Warna `#989898` (abu-abu)
+- **Background**: Transparan
+- **Font Weight**: 400
+
+#### Label
+
+- **Size**: 12px (`0.75rem`)
+- **Spacing**: Margin-top 2px dari icon
+- **Overflow**: Teks terpotong dengan `text-truncate` jika terlalu panjang
 
 ### 9.3 Content Card
 
@@ -510,37 +541,52 @@ Di web, pola ini diterjemahkan menjadi:
 </article>
 ```
 
-### 10.3 Contoh Bootstrap Tabs Navigation
+### 10.3 Contoh Bootstrap Bottom Navigation (Mobile)
 
 ```html
-<!-- Menggunakan Bootstrap Nav tabs dengan custom indicator -->
-<ul class="nav nav-tabs border-0 overflow-auto" role="tablist"
-    style="background-color: #C62828; white-space: nowrap;">
-  <li class="nav-item">
-    <a class="nav-link active text-white fw-bold" data-bs-toggle="tab" href="#pancasila"
-       style="border-bottom: 3px solid #FFB300; background: transparent;">
-      Pancasila
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link text-white-50" data-bs-toggle="tab" href="#butir"
-       style="border-bottom: 3px solid transparent;">
-      Butir
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link text-white-50" data-bs-toggle="tab" href="#pembukaan"
-       style="border-bottom: 3px solid transparent;">
-      Pembukaan
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link text-white-50" data-bs-toggle="tab" href="#pasal"
-       style="border-bottom: 3px solid transparent;">
-      Pasal
-    </a>
-  </li>
-</ul>
+<!-- Bottom Navigation — hanya tampil di mobile (d-md-none) -->
+<nav class="d-flex d-md-none justify-content-around align-items-center
+            position-fixed bottom-0 start-0 end-0 bg-white border-top"
+     style="height: 60px; padding-bottom: env(safe-area-inset-bottom);
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.08); z-index: 100;">
+
+  <!-- Tab: Beranda (Active) -->
+  <a href="/" class="d-flex flex-column align-items-center justify-content-center
+                     text-decoration-none px-3 py-1 rounded-3"
+     style="color: #C62828; background-color: #FFEBEE;">
+    <i class="bi bi-house-fill" style="font-size: 1.25rem;"></i>
+    <span style="font-size: 0.75rem; font-weight: 600; margin-top: 2px;">Beranda</span>
+  </a>
+
+  <!-- Tab: Pasal (Inactive) -->
+  <a href="/pasal" class="d-flex flex-column align-items-center justify-content-center
+                          text-decoration-none px-3 py-1"
+     style="color: #989898;">
+    <i class="bi bi-journal-text" style="font-size: 1.25rem;"></i>
+    <span style="font-size: 0.75rem; font-weight: 400; margin-top: 2px;">Pasal</span>
+  </a>
+
+  <!-- Tab: Amandemen (Inactive) -->
+  <a href="/amandemen" class="d-flex flex-column align-items-center justify-content-center
+                              text-decoration-none px-3 py-1"
+     style="color: #989898;">
+    <i class="bi bi-clock-history" style="font-size: 1.25rem;"></i>
+    <span style="font-size: 0.75rem; font-weight: 400; margin-top: 2px;">Amandemen</span>
+  </a>
+
+  <!-- Tab: Tentang (Inactive) -->
+  <a href="/tentang" class="d-flex flex-column align-items-center justify-content-center
+                            text-decoration-none px-3 py-1"
+     style="color: #989898;">
+    <i class="bi bi-info-circle-fill" style="font-size: 1.25rem;"></i>
+    <span style="font-size: 0.75rem; font-weight: 400; margin-top: 2px;">Tentang</span>
+  </a>
+</nav>
+
+<!-- Pastikan konten utama memiliki padding-bottom agar tidak tertutup -->
+<main style="padding-bottom: 76px;"> <!-- 60px navbar + 16px buffer -->
+  <!-- ... konten halaman ... -->
+</main>
 ```
 
 ### 10.4 Contoh Bootstrap Badge untuk Amandemen
@@ -582,7 +628,8 @@ Di web, pola ini diterjemahkan menjadi:
 | User mengubah root font size ke 20px       | Semua ukuran `rem` menyesuaikan secara proporsional                                                                                           |
 | Sistem mode gelap aktif                    | Tambahkan media query `prefers-color-scheme: dark` untuk mengubah background ke `#121212` dan text ke `#e0e0e0` (enhancement fase berikutnya) |
 | Viewport < 320px                           | Padding horizontal berkurang ke 12px, font size tetap 16px minimum                                                                            |
-| Scroll pada tab navigasi                   | Gunakan `overflow-x-auto` dengan `scrollbar-hide` dan indikator scroll shadow                                                                 |
+| Scroll pada sidebar navigasi desktop       | Gunakan `overflow-y-auto` dengan `scrollbar-hide` dan indikator scroll shadow di sidebar desktop                                              |
+| Bottom nav tertutup konten                 | Pastikan `<main>` memiliki `padding-bottom: 76px` di mobile; gunakan CSS variable `--bottom-nav-height: 60px`                                 |
 | Badge amandemen pada pasal tanpa amandemen | Badge tidak dirender sama sekali (jangan render elemen kosong)                                                                                |
 
 ---

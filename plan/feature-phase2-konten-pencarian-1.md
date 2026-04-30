@@ -168,7 +168,7 @@ AC-008a, AC-008b, AC-008c, AC-008d
 | TASK-027 | Implementasi validasi parameter `/sila/:nomor` — jika nomor bukan 1–5, redirect ke halaman 404                                    |           |      |
 | TASK-028 | Implementasi validasi parameter `/bab-pasal/:nomor` — jika nomor bukan 1–21, redirect ke halaman 404                              |           |      |
 | TASK-029 | Implementasi validasi parameter `/pasal/:nomor` — jika nomor tidak ditemukan di data, tampilkan halaman 404 dengan pesan spesifik |           |      |
-| TASK-030 | Update `TabNavigation.js` — tab yang aktif harus sinkron dengan URL saat ini (termasuk navigasi via browser back/forward)         |           |      |
+| TASK-030 | Update `BottomNavigation.js` — tab yang aktif harus sinkron dengan URL saat ini (termasuk navigasi via browser back/forward)      |           |      |
 | TASK-031 | Implementasi breadcrumb sederhana di halaman detail (Pasal Detail, Sila Detail, Bab Detail) untuk UX navigasi                     |           |      |
 
 ### Implementation Phase 2.7 — Testing Phase 2
@@ -192,7 +192,7 @@ AC-008a, AC-008b, AC-008c, AC-008d
 | TASK-043 | E2E test: `/cari?q=kedaulatan` direct URL — input terisi dan hasil langsung muncul                             |           |      |
 | TASK-044 | E2E test: pencarian tanpa hasil — pesan empty state tampil                                                     |           |      |
 | TASK-045 | E2E test: klik hasil pencarian — navigasi ke halaman detail pasal                                              |           |      |
-| TASK-046 | E2E test: browser back/forward — tab navigasi aktif sinkron dengan URL                                         |           |      |
+| TASK-046 | E2E test: browser back/forward — bottom navigation active tab sinkron dengan URL                               |           |      |
 | TASK-047 | Verifikasi CI pipeline pass (semua 14 route, search, 404)                                                      |           |      |
 | TASK-048 | E2E test: `/tentang` — informasi aplikasi tampil lengkap dan kedua link Google Forms membuka target yang benar |           |      |
 
@@ -254,7 +254,7 @@ File yang dimodifikasi di Phase 2:
 
 - **FILE-017**: `src/router/routes.js` — tambah 10 route baru + catch-all 404 (termasuk `/amandemen/:nomor`)
 - **FILE-018**: `src/components/AppHeader.js` — tambah klik search icon → `/cari`
-- **FILE-019**: `src/components/TabNavigation.js` — sinkronisasi active tab dengan URL
+- **FILE-019**: `src/components/BottomNavigation.js` — sinkronisasi active tab dengan URL
 
 ---
 

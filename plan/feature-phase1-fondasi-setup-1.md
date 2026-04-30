@@ -61,81 +61,81 @@ yang berjalan, CI/CD pipeline, design system, client-side router, landing page `
 - GOAL-001: Menyiapkan project scaffold Vite, semua dependencies, tooling (ESLint, Prettier,
   TypeScript, Vitest, Playwright), dan GitHub repository dengan branch protection.
 
-| Task | Description | Completed | Date |
-| ---- | ----------- | --------- | ---- |
-| TASK-001 | Initialize Vite project: `npm create vite@latest pasaluud1945web -- --template vanilla` | | |
-| TASK-002 | Install dependencies produksi: `bootstrap@5.3`, `bootstrap-icons`, `fuse.js` | | |
-| TASK-003 | Install devDependencies: `typescript`, `vitest`, `@vitest/browser`, `playwright`, `eslint`, `prettier`, `sass`, `vite-plugin-pwa` | | |
-| TASK-004 | Konfigurasi `tsconfig.json` dengan strict mode (untuk type checking, bukan transpile) | | |
-| TASK-005 | Konfigurasi ESLint (`eslint.config.js`) dengan rules: `no-unused-vars`, `no-console`, `prefer-const` | | |
-| TASK-006 | Konfigurasi Prettier (`.prettierrc`) dengan `singleQuote: true`, `semi: true`, `tabWidth: 2` | | |
-| TASK-007 | Konfigurasi Vitest (`vitest.config.js`) dengan coverage provider `v8`, threshold 80% | | |
-| TASK-008 | Konfigurasi Playwright (`playwright.config.js`) dengan browsers: Chromium, Firefox, WebKit | | |
-| TASK-009 | Konfigurasi `vite.config.js`: base path, output dir `dist/`, SASS preprocessor | | |
-| TASK-010 | Buat `package.json` scripts: `dev`, `build`, `preview`, `test`, `test:e2e`, `lint`, `type-check` | | |
-| TASK-011 | Inisialisasi GitHub repository + branch `main` + branch protection rule (require PR + CI pass) | | |
-| TASK-012 | Konfigurasi `.gitignore`: `node_modules/`, `dist/`, `.env*`, `coverage/` | | |
+| Task     | Description                                                                                                                       | Completed | Date |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
+| TASK-001 | Initialize Vite project: `npm create vite@latest pasaluud1945web -- --template vanilla`                                           |           |      |
+| TASK-002 | Install dependencies produksi: `bootstrap@5.3`, `bootstrap-icons`, `fuse.js`                                                      |           |      |
+| TASK-003 | Install devDependencies: `typescript`, `vitest`, `@vitest/browser`, `playwright`, `eslint`, `prettier`, `sass`, `vite-plugin-pwa` |           |      |
+| TASK-004 | Konfigurasi `tsconfig.json` dengan strict mode (untuk type checking, bukan transpile)                                             |           |      |
+| TASK-005 | Konfigurasi ESLint (`eslint.config.js`) dengan rules: `no-unused-vars`, `no-console`, `prefer-const`                              |           |      |
+| TASK-006 | Konfigurasi Prettier (`.prettierrc`) dengan `singleQuote: true`, `semi: true`, `tabWidth: 2`                                      |           |      |
+| TASK-007 | Konfigurasi Vitest (`vitest.config.js`) dengan coverage provider `v8`, threshold 80%                                              |           |      |
+| TASK-008 | Konfigurasi Playwright (`playwright.config.js`) dengan browsers: Chromium, Firefox, WebKit                                        |           |      |
+| TASK-009 | Konfigurasi `vite.config.js`: base path, output dir `dist/`, SASS preprocessor                                                    |           |      |
+| TASK-010 | Buat `package.json` scripts: `dev`, `build`, `preview`, `test`, `test:e2e`, `lint`, `type-check`                                  |           |      |
+| TASK-011 | Inisialisasi GitHub repository + branch `main` + branch protection rule (require PR + CI pass)                                    |           |      |
+| TASK-012 | Konfigurasi `.gitignore`: `node_modules/`, `dist/`, `.env*`, `coverage/`                                                          |           |      |
 
 ### Implementation Phase 1.2 — CI/CD Pipeline & Hosting
 
 - GOAL-002: Menyiapkan GitHub Actions CI pipeline otomatis dan konfigurasi deployment ke
   Vercel atau Netlify dengan SPA fallback yang benar.
 
-| Task | Description | Completed | Date |
-| ---- | ----------- | --------- | ---- |
-| TASK-013 | Buat `.github/workflows/ci.yml` dengan jobs: `lint`, `type-check`, `unit-test`, `build` | | |
-| TASK-014 | Konfigurasi Lighthouse CI: `lighthouserc.json` dengan URL `http://localhost:4173`, thresholds P≥90, A≥90, SEO≥95, PWA≥80 | | |
-| TASK-015 | Tambahkan job `lighthouse-ci` ke CI pipeline (berjalan setelah `build`) | | |
-| TASK-016 | Konfigurasi Vercel: `vercel.json` dengan `rewrites: [{ source: "/(.*)", destination: "/index.html" }]` untuk SPA fallback | | |
-| TASK-017 | Alternatif Netlify: buat `public/_redirects` dengan konten `/* /index.html 200` | | |
-| TASK-018 | Setup GitHub Secrets: `VERCEL_TOKEN` (atau `NETLIFY_AUTH_TOKEN`), `GA_MEASUREMENT_ID` | | |
-| TASK-019 | Verifikasi CI pipeline pass pada initial commit (kosong) | | |
+| Task     | Description                                                                                                               | Completed | Date |
+| -------- | ------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
+| TASK-013 | Buat `.github/workflows/ci.yml` dengan jobs: `lint`, `type-check`, `unit-test`, `build`                                   |           |      |
+| TASK-014 | Konfigurasi Lighthouse CI: `lighthouserc.json` dengan URL `http://localhost:4173`, thresholds P≥90, A≥90, SEO≥95, PWA≥80  |           |      |
+| TASK-015 | Tambahkan job `lighthouse-ci` ke CI pipeline (berjalan setelah `build`)                                                   |           |      |
+| TASK-016 | Konfigurasi Vercel: `vercel.json` dengan `rewrites: [{ source: "/(.*)", destination: "/index.html" }]` untuk SPA fallback |           |      |
+| TASK-017 | Alternatif Netlify: buat `public/_redirects` dengan konten `/* /index.html 200`                                           |           |      |
+| TASK-018 | Setup GitHub Secrets: `VERCEL_TOKEN` (atau `NETLIFY_AUTH_TOKEN`), `GA_MEASUREMENT_ID`                                     |           |      |
+| TASK-019 | Verifikasi CI pipeline pass pada initial commit (kosong)                                                                  |           |      |
 
 ### Implementation Phase 1.3 — Migrasi Data & Data Layer
 
 - GOAL-003: Memindahkan 7 file JSON dari Android assets ke `/public/data/`, membuat
   TypeScript interfaces untuk semua schema, dan data loader functions.
 
-| Task | Description | Completed | Date |
-| ---- | ----------- | --------- | ---- |
-| TASK-020 | Copy 7 file JSON ke `public/data/`: `silapancasila.json`, `butir_pancasila.json`, `pembukaanuud.json`, `pasaluud45.json`, `pasaluud45noamandemen.json`, `pasaluud45_ket_amandemen.json`, `babpasal.json` | | |
-| TASK-021 | Format ulang dan validasi JSON (pastikan valid JSON, tidak ada trailing commas) | | |
-| TASK-022 | Buat `src/types/data.ts` dengan semua TypeScript interfaces dari `spec-data-schema §4`: `SilaPancasilaData`, `ButirPancasilaData`, `PembukaanUUDData`, `PasalUUDData`, `PasalUUDNoAmandemenData`, `PasalUUDKetAmandemenData`, `BabPasalData` | | |
-| TASK-023 | Buat `src/data/loader.js` dengan fungsi async: `loadSilaPancasila()`, `loadButirPancasila()`, `loadPembukaanUUD()`, `loadPasalUUD()`, `loadPasalUUDNoAmandemen()`, `loadPasalUUDKetAmandemen()`, `loadBabPasal()` | | |
-| TASK-024 | Implementasi caching in-memory di data loader (fetch sekali, simpan di module-level cache) | | |
-| TASK-025 | Buat `src/data/fixture/` dengan copy JSON untuk testing (immutable test fixtures) | | |
-| TASK-026 | Validasi semua 7 JSON dapat di-load dan data-nya sesuai TypeScript interfaces | | |
+| Task     | Description                                                                                                                                                                                                                                  | Completed | Date |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
+| TASK-020 | Copy 7 file JSON ke `public/data/`: `silapancasila.json`, `butir_pancasila.json`, `pembukaanuud.json`, `pasaluud45.json`, `pasaluud45noamandemen.json`, `pasaluud45_ket_amandemen.json`, `babpasal.json`                                     |           |      |
+| TASK-021 | Format ulang dan validasi JSON (pastikan valid JSON, tidak ada trailing commas)                                                                                                                                                              |           |      |
+| TASK-022 | Buat `src/types/data.ts` dengan semua TypeScript interfaces dari `spec-data-schema §4`: `SilaPancasilaData`, `ButirPancasilaData`, `PembukaanUUDData`, `PasalUUDData`, `PasalUUDNoAmandemenData`, `PasalUUDKetAmandemenData`, `BabPasalData` |           |      |
+| TASK-023 | Buat `src/data/loader.js` dengan fungsi async: `loadSilaPancasila()`, `loadButirPancasila()`, `loadPembukaanUUD()`, `loadPasalUUD()`, `loadPasalUUDNoAmandemen()`, `loadPasalUUDKetAmandemen()`, `loadBabPasal()`                            |           |      |
+| TASK-024 | Implementasi caching in-memory di data loader (fetch sekali, simpan di module-level cache)                                                                                                                                                   |           |      |
+| TASK-025 | Buat `src/data/fixture/` dengan copy JSON untuk testing (immutable test fixtures)                                                                                                                                                            |           |      |
+| TASK-026 | Validasi semua 7 JSON dapat di-load dan data-nya sesuai TypeScript interfaces                                                                                                                                                                |           |      |
 
 ### Implementation Phase 1.4 — Design System & Base Layout
 
 - GOAL-004: Mengimplementasikan design tokens dari `spec-design-uiux §4.1`, mengkustomisasi
-  Bootstrap 5, dan membangun base layout (Header, Tab Navigation, konten area responsif).
+  Bootstrap 5, dan membangun base layout (Header, **Bottom Navigation** (mobile), Sidebar (desktop), konten area responsif).
 
-| Task | Description | Completed | Date |
-| ---- | ----------- | --------- | ---- |
-| TASK-027 | Buat `src/assets/_variables.scss` dengan semua Bootstrap overrides: `$primary: #C62828`, `$success: #53d397`, `$warning: #FFB300`, `$danger: #E64A19`, `$secondary: #5d5d5d` | | |
-| TASK-028 | Buat `src/assets/main.scss`: import `_variables.scss`, import `bootstrap/scss/bootstrap`, tambah CSS custom properties (`:root { --color-primary: #C62828; ... }`) | | |
-| TASK-029 | Buat `index.html` dengan struktur dasar: `<html lang="id">`, meta charset, viewport, favicon placeholder, link ke manifest (placeholder), mount point `<div id="app">` | | |
-| TASK-030 | Buat `src/components/AppHeader.js` — Bootstrap Navbar: background `#C62828`, judul app, tombol menu (mobile), ikon search dan share | | |
-| TASK-031 | Buat `src/components/TabNavigation.js` — horizontal scrollable tabs dengan indicator kuning `#FFB300`, 7 tab: Pancasila, Butir, Pembukaan, Pasal, Bab Pasal, UUD Asli, Amandemen | | |
-| TASK-032 | Buat `src/components/AppLayout.js` — layout container responsif: full-width mobile, sidebar fixed desktop (280px), main content area | | |
-| TASK-033 | Buat `src/components/PageContainer.js` — wrapper untuk konten halaman dengan padding standar 16px | | |
-| TASK-034 | Verifikasi layout di 3 breakpoint: mobile 375px, tablet 768px, desktop 1024px | | |
+| Task     | Description                                                                                                                                                                                                                                                                                                                                                                                        | Completed | Date |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
+| TASK-027 | Buat `src/assets/_variables.scss` dengan semua Bootstrap overrides: `$primary: #C62828`, `$success: #53d397`, `$warning: #FFB300`, `$danger: #E64A19`, `$secondary: #5d5d5d`                                                                                                                                                                                                                       |           |      |
+| TASK-028 | Buat `src/assets/main.scss`: import `_variables.scss`, import `bootstrap/scss/bootstrap`, tambah CSS custom properties (`:root { --color-primary: #C62828; ... }`)                                                                                                                                                                                                                                 |           |      |
+| TASK-029 | Buat `index.html` dengan struktur dasar: `<html lang="id">`, meta charset, viewport, favicon placeholder, link ke manifest (placeholder), mount point `<div id="app">`                                                                                                                                                                                                                             |           |      |
+| TASK-030 | Buat `src/components/AppHeader.js` — Bootstrap Navbar: background `#C62828`, judul app, tombol menu (mobile), ikon search dan share                                                                                                                                                                                                                                                                |           |      |
+| TASK-031 | Buat `src/components/BottomNavigation.js` — Bootstrap Bottom Navigation Bar untuk **mobile only** (`d-md-none`): 4 tab (Beranda, Pasal, Amandemen, Tentang), fixed bottom, background putih, shadow atas. Tab aktif: icon & label `#C62828`, background `#FFEBEE`. Tab tidak aktif: `#989898`. Icon Bootstrap Icons: `bi-house-fill`, `bi-journal-text`, `bi-clock-history`, `bi-info-circle-fill` |           |      |
+| TASK-032 | Buat `src/components/AppLayout.js` — layout container responsif: full-width mobile, sidebar fixed desktop (280px), main content area                                                                                                                                                                                                                                                               |           |      |
+| TASK-033 | Buat `src/components/PageContainer.js` — wrapper untuk konten halaman dengan padding standar 16px                                                                                                                                                                                                                                                                                                  |           |      |
+| TASK-034 | Verifikasi layout di 3 breakpoint: mobile 375px, tablet 768px, desktop 1024px                                                                                                                                                                                                                                                                                                                      |           |      |
 
 ### Implementation Phase 1.5 — Client-Side Router
 
 - GOAL-005: Mengimplementasikan client-side router berbasis `history.pushState` yang
   menangani semua 14 route, parameter dinamis, dan 404 fallback.
 
-| Task | Description | Completed | Date |
-| ---- | ----------- | --------- | ---- |
-| TASK-035 | Buat `src/router/router.js` — Router class dengan `navigate(path)`, `back()`, `addRoute(pattern, handler)` | | |
-| TASK-036 | Implementasi `popstate` event listener untuk browser back/forward button | | |
-| TASK-037 | Implementasi route matching dengan parameter dinamis: `/pasal/:nomor`, `/sila/:nomor`, `/bab-pasal/:nomor` menggunakan regex parsing | | |
-| TASK-038 | Daftarkan semua 14 route dari `spec-architecture §4.2` di `src/router/routes.js` | | |
-| TASK-039 | Implementasi link interception — klik `<a href="...">` yang intra-app tidak reload halaman | | |
-| TASK-040 | Implementasi halaman 404 placeholder (akan dikembangkan di Phase 2) | | |
-| TASK-041 | Buat `src/main.js` sebagai entry point: init router, mount AppHeader, TabNavigation, render halaman awal | | |
+| Task     | Description                                                                                                                          | Completed | Date |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------ | --------- | ---- |
+| TASK-035 | Buat `src/router/router.js` — Router class dengan `navigate(path)`, `back()`, `addRoute(pattern, handler)`                           |           |      |
+| TASK-036 | Implementasi `popstate` event listener untuk browser back/forward button                                                             |           |      |
+| TASK-037 | Implementasi route matching dengan parameter dinamis: `/pasal/:nomor`, `/sila/:nomor`, `/bab-pasal/:nomor` menggunakan regex parsing |           |      |
+| TASK-038 | Daftarkan semua 14 route dari `spec-architecture §4.2` di `src/router/routes.js`                                                     |           |      |
+| TASK-039 | Implementasi link interception — klik `<a href="...">` yang intra-app tidak reload halaman                                           |           |      |
+| TASK-040 | Implementasi halaman 404 placeholder (akan dikembangkan di Phase 2)                                                                  |           |      |
+| TASK-041 | Buat `src/main.js` sebagai entry point: init router, mount AppHeader, BottomNavigation, render halaman awal                          |           |      |
 
 ### Implementation Phase 1.6 — Landing Page & Halaman Konten Phase 1
 
@@ -143,34 +143,34 @@ yang berjalan, CI/CD pipeline, design system, client-side router, landing page `
   dikunjungi via URL langsung: Pancasila (`/pancasila`), Sila Detail (`/sila/:nomor`),
   Butir Pancasila (`/butir-pancasila`), dan Pembukaan UUD 1945 (`/pembukaan`).
 
-| Task | Description | Completed | Date |
-| ---- | ----------- | --------- | ---- |
-| TASK-042 | Buat `src/pages/PancasilaPage.js` — menampilkan 5 Sila dengan nomor urut, teks lengkap, dan link ke detail sila. Data dari `loadSilaPancasila()` | | |
-| TASK-043 | Buat `src/pages/SilaDetailPage.js` — detail satu sila berdasarkan parameter `/:nomor` (1–5), tampilkan teks sila + daftar butir-butirnya dari `loadButirPancasila()` | | |
-| TASK-044 | Buat `src/pages/ButirPancasilaPage.js` — semua sila dengan daftar butir yang dapat di-expand/collapse (Bootstrap Accordion). Data dari `loadButirPancasila()` | | |
-| TASK-045 | Buat `src/pages/PembukaanPage.js` — 4 alinea Pembukaan UUD 1945 berurutan dengan label "Alinea 1" s.d. "Alinea 4". Data dari `loadPembukaanUUD()` | | |
-| TASK-046 | Implementasi tombol "Bagikan" placeholder (UI hanya, fungsionalitas di Phase 3) pada setiap halaman | | |
-| TASK-047 | Implementasi loading state (Bootstrap spinner) dan error state saat data gagal dimuat | | |
-| TASK-048 | Buat `src/pages/HomePage.js` sebagai landing page `/` yang menampilkan ringkasan aplikasi dan navigasi cepat ke 7 konten utama; daftarkan route `/` di router | | |
+| Task     | Description                                                                                                                                                          | Completed | Date |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
+| TASK-042 | Buat `src/pages/PancasilaPage.js` — menampilkan 5 Sila dengan nomor urut, teks lengkap, dan link ke detail sila. Data dari `loadSilaPancasila()`                     |           |      |
+| TASK-043 | Buat `src/pages/SilaDetailPage.js` — detail satu sila berdasarkan parameter `/:nomor` (1–5), tampilkan teks sila + daftar butir-butirnya dari `loadButirPancasila()` |           |      |
+| TASK-044 | Buat `src/pages/ButirPancasilaPage.js` — semua sila dengan daftar butir yang dapat di-expand/collapse (Bootstrap Accordion). Data dari `loadButirPancasila()`        |           |      |
+| TASK-045 | Buat `src/pages/PembukaanPage.js` — 4 alinea Pembukaan UUD 1945 berurutan dengan label "Alinea 1" s.d. "Alinea 4". Data dari `loadPembukaanUUD()`                    |           |      |
+| TASK-046 | Implementasi tombol "Bagikan" placeholder (UI hanya, fungsionalitas di Phase 3) pada setiap halaman                                                                  |           |      |
+| TASK-047 | Implementasi loading state (Bootstrap spinner) dan error state saat data gagal dimuat                                                                                |           |      |
+| TASK-048 | Buat `src/pages/HomePage.js` sebagai landing page `/` yang menampilkan ringkasan aplikasi dan navigasi cepat ke 7 konten utama; daftarkan route `/` di router        |           |      |
 
 ### Implementation Phase 1.7 — Testing Phase 1
 
 - GOAL-007: Memastikan semua komponen dan halaman Phase 1 teruji dengan unit test,
   component test, dan E2E test sebelum Phase 2 dimulai.
 
-| Task | Description | Completed | Date |
-| ---- | ----------- | --------- | ---- |
-| TASK-049 | Unit test `src/router/router.js`: route matching, parameter parsing, navigate, popstate | | |
-| TASK-050 | Unit test `src/data/loader.js`: data loading, caching, error handling | | |
-| TASK-051 | Component test `AppHeader.js`: render, navigation icons, title | | |
-| TASK-052 | Component test `TabNavigation.js`: tab render, active state, scroll behavior | | |
-| TASK-053 | E2E test: buka `/pancasila` langsung via URL, verifikasi 5 sila ditampilkan | | |
-| TASK-054 | E2E test: buka `/sila/1` via URL, verifikasi Sila 1 dan butirnya ditampilkan | | |
-| TASK-055 | E2E test: buka `/butir-pancasila` via URL, verifikasi accordion berfungsi | | |
-| TASK-056 | E2E test: buka `/pembukaan` via URL, verifikasi 4 alinea ditampilkan | | |
-| TASK-057 | E2E test: navigasi antar tab tidak melakukan page reload (SPA behavior) | | |
-| TASK-058 | Verifikasi CI pipeline pass (semua jobs hijau) | | |
-| TASK-059 | E2E test: buka `/` langsung via URL, verifikasi landing page tampil dan semua shortcut navigasi utama mengarah ke route yang benar | | |
+| Task     | Description                                                                                                                        | Completed | Date |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
+| TASK-049 | Unit test `src/router/router.js`: route matching, parameter parsing, navigate, popstate                                            |           |      |
+| TASK-050 | Unit test `src/data/loader.js`: data loading, caching, error handling                                                              |           |      |
+| TASK-051 | Component test `AppHeader.js`: render, navigation icons, title                                                                     |           |      |
+| TASK-052 | Component test `BottomNavigation.js`: 4 tab render, active state sesuai URL aktif, hidden di viewport >= 768px                     |           |      |
+| TASK-053 | E2E test: buka `/pancasila` langsung via URL, verifikasi 5 sila ditampilkan                                                        |           |      |
+| TASK-054 | E2E test: buka `/sila/1` via URL, verifikasi Sila 1 dan butirnya ditampilkan                                                       |           |      |
+| TASK-055 | E2E test: buka `/butir-pancasila` via URL, verifikasi accordion berfungsi                                                          |           |      |
+| TASK-056 | E2E test: buka `/pembukaan` via URL, verifikasi 4 alinea ditampilkan                                                               |           |      |
+| TASK-057 | E2E test: navigasi via bottom navigation tidak melakukan page reload (SPA behavior), active tab sinkron dengan URL                 |           |      |
+| TASK-058 | Verifikasi CI pipeline pass (semua jobs hijau)                                                                                     |           |      |
+| TASK-059 | E2E test: buka `/` langsung via URL, verifikasi landing page tampil dan semua shortcut navigasi utama mengarah ke route yang benar |           |      |
 
 ---
 
@@ -218,7 +218,7 @@ Struktur file yang akan dibuat di Phase 1:
 - **FILE-008**: `src/router/router.js` — client-side router
 - **FILE-009**: `src/router/routes.js` — route definitions
 - **FILE-010**: `src/components/AppHeader.js` — komponen header/navbar
-- **FILE-011**: `src/components/TabNavigation.js` — komponen tab nav
+- **FILE-011**: `src/components/BottomNavigation.js` — komponen bottom navigation bar (mobile only)
 - **FILE-012**: `src/components/AppLayout.js` — layout wrapper responsif
 - **FILE-013**: `src/components/PageContainer.js` — page content wrapper
 - **FILE-014**: `src/pages/PancasilaPage.js` — halaman Pancasila
@@ -245,12 +245,12 @@ Struktur file yang akan dibuat di Phase 1:
 - **TEST-001**: Unit test router — route matching & parameter parsing (Vitest)
 - **TEST-002**: Unit test data loader — fetch, cache, error handling (Vitest + mock fetch)
 - **TEST-003**: Component test AppHeader — render struktur HTML yang benar (Vitest browser)
-- **TEST-004**: Component test TabNavigation — active tab state, scroll (Vitest browser)
+- **TEST-004**: Component test BottomNavigation — 4 tab render, active state, hidden di tablet/desktop (Vitest browser)
 - **TEST-005**: E2E — `/pancasila` direct URL load, tampilkan 5 sila (Playwright)
 - **TEST-006**: E2E — `/sila/1` direct URL, parameter parsing benar (Playwright)
 - **TEST-007**: E2E — `/butir-pancasila` accordion expand/collapse (Playwright)
 - **TEST-008**: E2E — `/pembukaan` 4 alinea berurutan (Playwright)
-- **TEST-009**: E2E — navigasi via tab tidak reload halaman (Playwright)
+- **TEST-009**: E2E — navigasi via bottom navigation tidak reload halaman, active state sinkron URL (Playwright)
 - **TEST-010**: CI pipeline pass (lint, type-check, unit test, build, lighthouse-ci) (GitHub Actions)
 - **TEST-011**: E2E — `/` direct URL menampilkan landing page dan shortcut navigasi utama (Playwright)
 

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daftar Amandemen - UUD 1945</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#006e9d",
+                        "inverse-primary": "#ffb4ac",
+                        "background": "#fff8f7",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-tertiary-container": "#d1eaff",
+                        "secondary-container": "#e1dfdf",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "on-tertiary-fixed": "#001e2f",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#c62828",
+                        "on-primary-fixed-variant": "#93000e",
+                        "on-primary-container": "#ffe0dd",
+                        "on-background": "#271816",
+                        "primary": "#a20513",
+                        "tertiary": "#00557a",
+                        "surface-container-low": "#fff0ef",
+                        "surface": "#fff8f7",
+                        "surface-dim": "#f0d4d0",
+                        "inverse-on-surface": "#ffedea",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#464747",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ffe9e6",
+                        "on-secondary-container": "#636262",
+                        "surface-bright": "#fff8f7",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "tertiary-fixed": "#c8e6ff",
+                        "primary-fixed": "#ffdad6",
+                        "on-surface": "#271816",
+                        "secondary": "#5e5e5e",
+                        "secondary-fixed": "#e4e2e2",
+                        "surface-tint": "#b91d20",
+                        "outline": "#8f706c",
+                        "tertiary-fixed-dim": "#88ceff",
+                        "surface-container-high": "#ffe2de",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#f9dcd9",
+                        "on-primary-fixed": "#410003",
+                        "inverse-surface": "#3e2c2a",
+                        "outline-variant": "#e4beba",
+                        "on-surface-variant": "#5b403d",
+                        "primary-fixed-dim": "#ffb4ac",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#f9dcd9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "xl": "32px",
+                        "container-max": "1120px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "3xl": "64px",
+                        "2xl": "48px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Public Sans"],
+                        "label-md": ["Public Sans"],
+                        "title-lg": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "display-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-[80px] pt-[72px] antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#C62828] dark:bg-[#C62828] text-white dark:text-white font-['Public_Sans'] font-bold text-xl leading-tight shadow-lg shadow-black/8 fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 h-16 md:hidden">
+<div class="text-white font-bold flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span>UUD 1945</span>
+</div>
+<button class="hover:bg-white/10 active:scale-95 transition-all duration-200 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="search">search</span>
+</button>
+</header>
+<main class="max-w-md mx-auto w-full px-md flex flex-col gap-xl">
+<!-- Page Header -->
+<div class="mt-md mb-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-background">Riwayat Amandemen</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Penelusuran perubahan pasal-pasal dalam Undang-Undang Dasar 1945 dari tahun 1999 hingga 2002.</p>
+</div>
+<!-- Amandemen I (1999) -->
+<section class="flex flex-col gap-md relative">
+<div class="sticky top-[72px] z-10 bg-background/90 backdrop-blur-md py-sm">
+<div class="flex items-center gap-sm">
+<div class="w-1 h-6 bg-primary rounded-full"></div>
+<h2 class="font-title-lg text-title-lg text-on-background">Amandemen I (1999)</h2>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Card Pasal 5 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col gap-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-background">Pasal 5</h3>
+<span class="bg-surface-container text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded-full border border-outline-variant/50">Ayat 1</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Membatasi hak prerogatif Presiden dalam membentuk undang-undang, menggeser kekuasaan legislatif secara penuh kepada DPR.</p>
+<div class="pt-sm border-t border-surface-variant">
+<button class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-sm px-md rounded-lg flex items-center justify-center gap-xs hover:bg-on-primary-fixed-variant transition-colors shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-icon="compare_arrows">compare_arrows</span>
+                            Bandingkan Naskah
+                        </button>
+</div>
+</article>
+<!-- Card Pasal 7 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col gap-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-background">Pasal 7</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Pembatasan masa jabatan Presiden dan Wakil Presiden maksimal dua periode (10 tahun).</p>
+<div class="pt-sm border-t border-surface-variant">
+<button class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-sm px-md rounded-lg flex items-center justify-center gap-xs hover:bg-on-primary-fixed-variant transition-colors shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-icon="compare_arrows">compare_arrows</span>
+                            Bandingkan Naskah
+                        </button>
+</div>
+</article>
+</div>
+</section>
+<!-- Amandemen II (2000) -->
+<section class="flex flex-col gap-md relative">
+<div class="sticky top-[72px] z-10 bg-background/90 backdrop-blur-md py-sm">
+<div class="flex items-center gap-sm">
+<div class="w-1 h-6 bg-primary rounded-full"></div>
+<h2 class="font-title-lg text-title-lg text-on-background">Amandemen II (2000)</h2>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Card Pasal 18 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col gap-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-background">Pasal 18, 18A, 18B</h3>
+<span class="bg-surface-container text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded-full border border-outline-variant/50">Bab VI</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Perubahan komprehensif mengenai Pemerintah Daerah, otonomi daerah, dan pengakuan kesatuan masyarakat hukum adat.</p>
+<div class="pt-sm border-t border-surface-variant">
+<button class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-sm px-md rounded-lg flex items-center justify-center gap-xs hover:bg-on-primary-fixed-variant transition-colors shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-icon="compare_arrows">compare_arrows</span>
+                            Bandingkan Naskah
+                        </button>
+</div>
+</article>
+<!-- Card Pasal 28 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col gap-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-background">Pasal 28A - 28J</h3>
+<span class="bg-surface-container text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded-full border border-outline-variant/50">Bab XA</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Penambahan bab khusus yang merinci Hak Asasi Manusia secara ekstensif dan komprehensif.</p>
+<div class="pt-sm border-t border-surface-variant">
+<button class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-sm px-md rounded-lg flex items-center justify-center gap-xs hover:bg-on-primary-fixed-variant transition-colors shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-icon="compare_arrows">compare_arrows</span>
+                            Bandingkan Naskah
+                        </button>
+</div>
+</article>
+</div>
+</section>
+<!-- Amandemen III (2001) -->
+<section class="flex flex-col gap-md relative">
+<div class="sticky top-[72px] z-10 bg-background/90 backdrop-blur-md py-sm">
+<div class="flex items-center gap-sm">
+<div class="w-1 h-6 bg-primary rounded-full"></div>
+<h2 class="font-title-lg text-title-lg text-on-background">Amandemen III (2001)</h2>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Card Pasal 6A -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col gap-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-background">Pasal 6A</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Menetapkan mekanisme pemilihan Presiden dan Wakil Presiden secara langsung oleh rakyat.</p>
+<div class="pt-sm border-t border-surface-variant">
+<button class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-sm px-md rounded-lg flex items-center justify-center gap-xs hover:bg-on-primary-fixed-variant transition-colors shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-icon="compare_arrows">compare_arrows</span>
+                            Bandingkan Naskah
+                        </button>
+</div>
+</article>
+</div>
+</section>
+<!-- Amandemen IV (2002) -->
+<section class="flex flex-col gap-md relative mb-lg">
+<div class="sticky top-[72px] z-10 bg-background/90 backdrop-blur-md py-sm">
+<div class="flex items-center gap-sm">
+<div class="w-1 h-6 bg-primary rounded-full"></div>
+<h2 class="font-title-lg text-title-lg text-on-background">Amandemen IV (2002)</h2>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Card Pasal 31 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col gap-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-background">Pasal 31</h3>
+<span class="bg-surface-container text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded-full border border-outline-variant/50">Bab XIII</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Mewajibkan pemerintah mengusahakan dan menyelenggarakan satu sistem pendidikan nasional, serta memprioritaskan anggaran sekurang-kurangnya 20%.</p>
+<div class="pt-sm border-t border-surface-variant">
+<button class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-sm px-md rounded-lg flex items-center justify-center gap-xs hover:bg-on-primary-fixed-variant transition-colors shadow-sm active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]" data-icon="compare_arrows">compare_arrows</span>
+                            Bandingkan Naskah
+                        </button>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-white dark:bg-gray-900 shadow-[0_-4px_12px_0px_rgba(0,0,0,0.08)] border-t border-gray-200 dark:border-gray-800 fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-2 pb-safe md:hidden font-['Public_Sans'] text-[12px] font-semibold transition-colors duration-300 ease-in-out">
+<a class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 pt-2 hover:bg-gray-50 dark:hover:bg-gray-800 w-full h-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span>Beranda</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 pt-2 hover:bg-gray-50 dark:hover:bg-gray-800 w-full h-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="menu_book">menu_book</span>
+<span>Pasal</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#C62828] dark:text-red-400 border-t-2 border-[#C62828] pt-2 hover:bg-gray-50 dark:hover:bg-gray-800 w-full h-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="history_edu" data-weight="fill" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span>Amandemen</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 pt-2 hover:bg-gray-50 dark:hover:bg-gray-800 w-full h-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="info">info</span>
+<span>Tentang</span>
+</a>
+</nav>
+</body></html>

@@ -105,11 +105,11 @@ Aplikasi mengikuti identitas visual aplikasi Android existing dengan palet warna
 
 ### Responsif Breakpoint
 
-| Breakpoint            | Layout                                      |
-| --------------------- | ------------------------------------------- |
-| Mobile (< 768px)      | Tab horizontal scroll, konten full-width    |
-| Tablet (768px–1023px) | Sidebar collapsible, konten 2/3 width       |
-| Desktop (>= 1024px)   | Sidebar fixed kiri (280px), konten di kanan |
+| Breakpoint            | Layout                                                    |
+| --------------------- | --------------------------------------------------------- |
+| Mobile (< 768px)      | Bottom navigation (fixed bottom 4 tab), konten full-width |
+| Tablet (768px–1023px) | Sidebar collapsible, konten 2/3 width                     |
+| Desktop (>= 1024px)   | Sidebar fixed kiri (280px), konten di kanan               |
 
 ## Target Performa
 

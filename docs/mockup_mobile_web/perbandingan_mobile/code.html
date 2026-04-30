@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UUD 1945 - Perbandingan Amandemen Pasal 7</title>
+<!-- Google Fonts: Public Sans & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#e4beba",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#464747",
+                        "on-background": "#271816",
+                        "surface-container-highest": "#f9dcd9",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "tertiary-container": "#006e9d",
+                        "surface-variant": "#f9dcd9",
+                        "on-secondary-container": "#636262",
+                        "surface": "#fff8f7",
+                        "surface-tint": "#b91d20",
+                        "primary-fixed": "#ffdad6",
+                        "outline": "#8f706c",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-surface": "#271816",
+                        "inverse-primary": "#ffb4ac",
+                        "secondary": "#5e5e5e",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#5b403d",
+                        "surface-dim": "#f0d4d0",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#93000e",
+                        "inverse-surface": "#3e2c2a",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "background": "#fff8f7",
+                        "surface-container-high": "#ffe2de",
+                        "primary-container": "#c62828",
+                        "on-tertiary-container": "#d1eaff",
+                        "surface-container-low": "#fff0ef",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#88ceff",
+                        "primary": "#a20513",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#ffedea",
+                        "on-primary-container": "#ffe0dd",
+                        "secondary-fixed": "#e4e2e2",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#c8e6ff",
+                        "surface-container": "#ffe9e6",
+                        "secondary-container": "#e1dfdf",
+                        "on-primary-fixed": "#410003",
+                        "tertiary": "#00557a",
+                        "surface-bright": "#fff8f7",
+                        "primary-fixed-dim": "#ffb4ac"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "gutter": "24px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "container-max": "1120px",
+                        "sm": "8px",
+                        "2xl": "48px",
+                        "lg": "24px",
+                        "3xl": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Public Sans"],
+                        "label-md": ["Public Sans"],
+                        "label-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "title-lg": ["Public Sans"],
+                        "display-lg": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "headline-lg": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; }
+        /* Tonal Levels */
+        .level-0 { @apply bg-background; }
+        .level-1 { @apply bg-surface-container-lowest shadow-[0_4px_4px_rgba(0,0,0,0.04)] border border-outline-variant/30; }
+        .level-2 { @apply bg-surface-container shadow-[0_8px_8px_rgba(0,0,0,0.08)]; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="level-0 min-h-screen text-on-background pb-24 md:hidden">
+<!-- TopAppBar (From JSON) -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 h-16 bg-[#C62828] dark:bg-red-950 text-white font-['Public_Sans'] font-bold text-lg border-b border-red-800 dark:border-red-900 shadow-lg shadow-black/20">
+<div class="text-white text-xl font-bold flex items-center gap-2">
+<!-- Using JSON strict icon, although functionally it might be considered a menu/home in the broader system -->
+<button aria-label="Menu" class="flex items-center justify-center p-1 hover:bg-red-700 dark:hover:bg-red-900 transition-colors rounded-full active:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">account_balance</span>
+</button>
+<span>UUD 1945</span>
+</div>
+<button aria-label="Search" class="flex items-center justify-center p-1 hover:bg-red-700 dark:hover:bg-red-900 transition-colors rounded-full active:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">search</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-md flex flex-col gap-lg">
+<!-- Context Header -->
+<section class="flex flex-col gap-xs mt-base">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">compare_arrows</span>
+<span class="font-label-lg text-label-lg text-primary tracking-widest uppercase opacity-80">Perbandingan</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-background">Pasal 7</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Masa jabatan Presiden dan Wakil Presiden Republik Indonesia.</p>
+</section>
+<!-- Divider -->
+<hr class="border-t border-outline-variant/50 w-full"/>
+<!-- Naskah Asli Section -->
+<section class="flex flex-col gap-base relative">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-1 h-4 bg-secondary rounded-full"></div>
+<h2 class="font-title-md text-title-md text-secondary">UUD 1945 Asli</h2>
+</div>
+<article class="level-1 rounded-lg p-md flex flex-col gap-base">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+                    Presiden dan Wakil Presiden memegang jabatannya selama masa lima tahun, dan sesudahnya dapat dipilih kembali.
+                </p>
+<div class="pt-sm border-t border-outline-variant/20 flex justify-end">
+<span class="font-label-md text-label-md text-on-surface-variant/70 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">auto_stories</span>
+                        Naskah Pra-Amandemen
+                    </span>
+</div>
+</article>
+</section>
+<!-- Pasca-Amandemen Section -->
+<section class="flex flex-col gap-base relative">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-1 h-4 bg-primary rounded-full"></div>
+<h2 class="font-title-md text-title-md text-primary">Pasca-Amandemen</h2>
+</div>
+<article class="level-1 rounded-lg p-md flex flex-col gap-base border-primary/20 bg-surface-container-low">
+<!-- Amendment Badge -->
+<div class="flex items-center self-start">
+<div class="font-label-md text-label-md bg-error-container text-on-error-container px-3 py-1 rounded-full flex items-center gap-1 border border-error/10">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+                        Amandemen Pertama
+                    </div>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed mt-xs">
+                    Presiden dan Wakil Presiden memegang jabatan selama lima tahun, dan sesudahnya dapat dipilih kembali dalam jabatan yang sama, hanya untuk satu kali masa jabatan.
+                </p>
+<div class="pt-sm border-t border-outline-variant/30 flex justify-between items-center mt-sm">
+<span class="font-label-md text-label-md text-primary bg-primary/10 px-2 py-0.5 rounded">Perubahan Signifikan</span>
+<button class="text-primary flex items-center gap-xs font-label-lg text-label-lg hover:underline">
+                        Lihat Detail <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar (From JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-white/95 backdrop-blur-sm px-2 py-3 pb-safe border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-lg bg-white dark:bg-gray-900 font-['Public_Sans'] text-[12px] font-medium">
+<!-- Beranda (Inactive) -->
+<a class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 scale-95 active:scale-90 transition-transform duration-150 p-1 w-16" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]">home</span>
+<span class="text-center w-full truncate">Beranda</span>
+</a>
+<!-- Pasal (Inactive) -->
+<a class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 scale-95 active:scale-90 transition-transform duration-150 p-1 w-16" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]">gavel</span>
+<span class="text-center w-full truncate">Pasal</span>
+</a>
+<!-- Amandemen (Active) -->
+<a class="flex flex-col items-center justify-center text-[#C62828] dark:text-red-400 bg-red-50 dark:bg-red-950/30 rounded-xl px-3 py-1 scale-95 active:scale-90 transition-transform duration-150 w-20" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="text-center w-full truncate">Amandemen</span>
+</a>
+<!-- Tentang (Inactive) -->
+<a class="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 scale-95 active:scale-90 transition-transform duration-150 p-1 w-16" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]">info</span>
+<span class="text-center w-full truncate">Tentang</span>
+</a>
+</nav>
+</body></html>
