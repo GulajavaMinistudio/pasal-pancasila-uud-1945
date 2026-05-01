@@ -2,7 +2,7 @@
 title: Spesifikasi Teknis Aplikasi Web Pancasila & UUD 1945
 version: 1.1.0
 date_created: 2026-04-28
-last_updated: 2026-04-30
+last_updated: 2026-05-01
 owner: Development Team
 status: final
 tags:
@@ -373,7 +373,7 @@ if ('serviceWorker' in navigator) {
 ### 6.4 CI/CD Integration
 
 - **Pull Request**: Unit tests, component tests, dan Lighthouse audit otomatis
-- **Main Branch**: Full E2E test suite + Lighthouse CI + deployment ke staging
+- **Main Branch**: Full E2E test suite + Lighthouse CI (tidak ada CD otomatis — deployment manual ke GitHub Pages)
 - **Pre-deployment**: Manual smoke test pada perangkat mobile dan desktop
 
 ### 6.5 PWA Testing Checklist
@@ -425,7 +425,7 @@ PWA diimplementasikan menggunakan **`vite-plugin-pwa`** yang secara otomatis men
 ### 8.1 External Systems
 
 - **EXT-001**: Browser Client — Runtime environment utama; harus mendukung ES2020+, Service Worker, dan Clipboard API
-- **EXT-002**: Hosting/CDN — Vercel/Netlify/Cloudflare Pages untuk serving static files dan SPA fallback (`index.html` untuk semua routes)
+- **EXT-002**: Hosting — **GitHub Pages** (branch `gh-pages`) untuk serving static files. SPA routing menggunakan teknik `public/404.html` redirect ke `index.html` via `sessionStorage`
 
 ### 8.2 Third-Party Services
 
@@ -435,7 +435,7 @@ PWA diimplementasikan menggunakan **`vite-plugin-pwa`** yang secara otomatis men
 ### 8.3 Infrastructure Dependencies
 
 - **INF-001**: HTTPS — Wajib untuk Service Worker registration, Web Share API, dan PWA installability
-- **INF-002**: Static File Hosting — Server harus dikonfigurasi untuk SPA fallback (semua routes mengembalikan `index.html`)
+- **INF-002**: Static File Hosting — GitHub Pages tidak mendukung server-side SPA fallback; diimplementasikan via `public/404.html` yang menyimpan path ke `sessionStorage` lalu redirect ke `index.html`
 
 ### 8.4 Data Dependencies
 

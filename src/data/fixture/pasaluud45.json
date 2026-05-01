@@ -1,0 +1,40 @@
+{
+    "data": [
+        {
+            "namapasal": "Pasal 1",
+            "arrayisi": [
+                {
+                    "isi": "Negara Indonesia ialah Negara Kesatuan yang berbentuk Republik."
+                },
+                {
+                    "isi": "Kedaulatan berada di tangan rakyat dan dilaksanakan menurut Undang-Undang Dasar."
+                },
+                {
+                    "isi": "Negara Indonesia adalah negara hukum."
+                }
+            ]
+        },
+        {
+            "namapasal": "Pasal 6A",
+            "arrayisi": [
+                {
+                    "isi": "Presiden dan Wakil Presiden dipilih dalam satu pasangan secara langsung oleh rakyat."
+                },
+                {
+                    "isi": "Pasangan calon Presiden dan Wakil Presiden diusulkan oleh partai politik atau gabungan partai politik peserta pemilihan umum sebelum pelaksanaan pemilihan umum."
+                }
+            ]
+        },
+        {
+            "namapasal": "Pasal 37",
+            "arrayisi": [
+                {
+                    "isi": "Usul perubahan pasal-pasal Undang-Undang Dasar dapat diagendakan dalam sidang Majelis Permusyawaratan Rakyat apabila diajukan oleh sekurang-kurangnya 1/3 dari jumlah anggota Majelis Permusyawaratan Rakyat."
+                },
+                {
+                    "isi": "Khusus mengenai bentuk Negara Kesatuan Republik Indonesia tidak dapat dilakukan perubahan."
+                }
+            ]
+        }
+    ]
+}

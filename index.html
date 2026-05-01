@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pancasila &amp; UUD 1945 — Referensi lengkap Pancasila dan Undang-Undang Dasar 1945 Republik Indonesia"
+    />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="manifest" href="%BASE_URL%manifest.json" />
+    <title>Pancasila &amp; UUD 1945</title>
+    <script>
+      // SPA Routing Receiver — memulihkan path yang di-redirect dari 404.html
+      // Script ini hanya aktif saat request datang dari GitHub Pages 404.html redirect
+      // (kondisi: l.search dimulai dengan '/')
+      // Referensi: https://github.com/rafgraph/spa-github-pages
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, null, decoded + l.hash);
+        }
+      })(window.location);
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+{
+    "data": [
+        {
+            "namapasal": "Pasal 1",
+            "babpasal": "Bab I Bentuk dan Kedaulatan",
+            "amandemen": "3",
+            "arrayisi": [
+                {
+                    "isi": "Negara Indonesia ialah Negara Kesatuan yang berbentuk Republik."
+                },
+                {
+                    "isi": "Kedaulatan berada di tangan rakyat dan dilaksanakan menurut Undang-Undang Dasar."
+                },
+                {
+                    "isi": "Negara Indonesia adalah negara hukum."
+                }
+            ]
+        },
+        {
+            "namapasal": "Pasal 6",
+            "babpasal": "Bab III Kekuasaan Pemerintahan Negara",
+            "amandemen": "1",
+            "arrayisi": [
+                {
+                    "isi": "Calon Presiden dan calon Wakil Presiden harus seorang warga negara Indonesia sejak kelahirannya dan tidak pernah menerima kewarganegaraan lain karena kehendaknya sendiri, tidak pernah mengkhianati negara, serta mampu secara rohani dan jasmani untuk melaksanakan tugas dan kewajiban sebagai Presiden dan Wakil Presiden."
+                },
+                {
+                    "isi": "Syarat-syarat untuk menjadi Presiden dan Wakil Presiden diatur lebih lanjut dengan undang-undang."
+                }
+            ]
+        },
+        {
+            "namapasal": "Pasal 6A",
+            "babpasal": "Bab III Kekuasaan Pemerintahan Negara",
+            "amandemen": "3/4",
+            "arrayisi": [
+                {
+                    "isi": "Presiden dan Wakil Presiden dipilih dalam satu pasangan secara langsung oleh rakyat."
+                },
+                {
+                    "isi": "Pasangan calon Presiden dan Wakil Presiden diusulkan oleh partai politik atau gabungan partai politik peserta pemilihan umum sebelum pelaksanaan pemilihan umum."
+                }
+            ]
+        },
+        {
+            "namapasal": "Pasal 2",
+            "babpasal": "Bab II Majelis Permusyawaratan Rakyat",
+            "amandemen": "0",
+            "arrayisi": [
+                {
+                    "isi": "Majelis Permusyawaratan Rakyat terdiri atas anggota Dewan Perwakilan Rakyat dan anggota Dewan Perwakilan Daerah yang dipilih melalui pemilihan umum dan diatur lebih lanjut dengan undang-undang."
+                },
+                {
+                    "isi": "Majelis Permusyawaratan Rakyat bersidang sedikitnya sekali dalam lima tahun di ibukota negara."
+                }
+            ]
+        }
+    ]
+}

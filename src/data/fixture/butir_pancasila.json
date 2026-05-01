@@ -1,0 +1,26 @@
+{
+    "data": [
+        {
+            "namasila": "Sila 1",
+            "arrayisi": [
+                {
+                    "isi": "Bangsa Indonesia menyatakan kepercayaannya dan ketakwaannya terhadap Tuhan Yang Maha Esa."
+                },
+                {
+                    "isi": "Manusia Indonesia percaya dan takwa terhadap Tuhan Yang Maha Esa, sesuai dengan agama dan kepercayaannya masing-masing menurut dasar kemanusiaan yang adil dan beradab."
+                }
+            ]
+        },
+        {
+            "namasila": "Sila 2",
+            "arrayisi": [
+                {
+                    "isi": "Mengakui dan memperlakukan manusia sesuai dengan harkat dan martabatnya sebagai makhluk Tuhan Yang Maha Esa."
+                },
+                {
+                    "isi": "Mengakui persamaan derajat, persamaan hak, dan kewajiban asasi setiap manusia, tanpa membeda-bedakan suku, keturunan, agama, kepercayaan, jenis kelamin, kedudukan sosial, warna kulit, dan sebagainya."
+                }
+            ]
+        }
+    ]
+}

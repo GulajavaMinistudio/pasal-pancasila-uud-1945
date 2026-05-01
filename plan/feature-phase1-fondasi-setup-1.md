@@ -2,9 +2,9 @@
 goal: Phase 1 — Fondasi & Setup Proyek Pancasila & UUD 1945 Web App
 version: 1.0
 date_created: 2026-04-28
-last_updated: 2026-04-28
+last_updated: 2026-05-01
 owner: Development Team
-status: 'Planned'
+status: 'In Progress'
 tags:
   - feature
   - phase1
@@ -18,7 +18,7 @@ tags:
 
 # Introduction
 
-![Status: Planned](https://img.shields.io/badge/status-Planned-blue)
+![Status: In Progress](https://img.shields.io/badge/status-In%20Progress-yellow)
 
 Phase 1 adalah fase fondasi proyek yang membangun seluruh infrastruktur teknis yang dibutuhkan
 oleh Phase 2, 3, dan 4. Output Phase 1 adalah aplikasi yang sudah memiliki project scaffold
@@ -61,50 +61,62 @@ yang berjalan, CI/CD pipeline, design system, client-side router, landing page `
 - GOAL-001: Menyiapkan project scaffold Vite, semua dependencies, tooling (ESLint, Prettier,
   TypeScript, Vitest, Playwright), dan GitHub repository dengan branch protection.
 
-| Task     | Description                                                                                                                       | Completed | Date |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-001 | Initialize Vite project: `npm create vite@latest pasaluud1945web -- --template vanilla`                                           |           |      |
-| TASK-002 | Install dependencies produksi: `bootstrap@5.3`, `bootstrap-icons`, `fuse.js`                                                      |           |      |
-| TASK-003 | Install devDependencies: `typescript`, `vitest`, `@vitest/browser`, `playwright`, `eslint`, `prettier`, `sass`, `vite-plugin-pwa` |           |      |
-| TASK-004 | Konfigurasi `tsconfig.json` dengan strict mode (untuk type checking, bukan transpile)                                             |           |      |
-| TASK-005 | Konfigurasi ESLint (`eslint.config.js`) dengan rules: `no-unused-vars`, `no-console`, `prefer-const`                              |           |      |
-| TASK-006 | Konfigurasi Prettier (`.prettierrc`) dengan `singleQuote: true`, `semi: true`, `tabWidth: 2`                                      |           |      |
-| TASK-007 | Konfigurasi Vitest (`vitest.config.js`) dengan coverage provider `v8`, threshold 80%                                              |           |      |
-| TASK-008 | Konfigurasi Playwright (`playwright.config.js`) dengan browsers: Chromium, Firefox, WebKit                                        |           |      |
-| TASK-009 | Konfigurasi `vite.config.js`: base path, output dir `dist/`, SASS preprocessor                                                    |           |      |
-| TASK-010 | Buat `package.json` scripts: `dev`, `build`, `preview`, `test`, `test:e2e`, `lint`, `type-check`                                  |           |      |
-| TASK-011 | Inisialisasi GitHub repository + branch `main` + branch protection rule (require PR + CI pass)                                    |           |      |
-| TASK-012 | Konfigurasi `.gitignore`: `node_modules/`, `dist/`, `.env*`, `coverage/`                                                          |           |      |
+| Task     | Description                                                                                                                       | Completed | Date       |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-001 | Initialize Vite project: `npm create vite@latest pasaluud1945web -- --template vanilla`                                           | ✅         | 2026-04-30 |
+| TASK-002 | Install dependencies produksi: `bootstrap@5.3`, `bootstrap-icons`, `fuse.js`                                                      | ✅         | 2026-04-30 |
+| TASK-003 | Install devDependencies: `typescript`, `vitest`, `@vitest/browser`, `playwright`, `eslint`, `prettier`, `sass`, `vite-plugin-pwa` | ✅         | 2026-04-30 |
+| TASK-004 | Konfigurasi `tsconfig.json` dengan strict mode (untuk type checking, bukan transpile)                                             | ✅         | 2026-04-30 |
+| TASK-005 | Konfigurasi ESLint (`eslint.config.js`) dengan rules: `no-unused-vars`, `no-console`, `prefer-const`                              | ✅         | 2026-04-30 |
+| TASK-006 | Konfigurasi Prettier (`.prettierrc`) dengan `singleQuote: true`, `semi: true`, `tabWidth: 2`                                      | ✅         | 2026-04-30 |
+| TASK-007 | Konfigurasi Vitest (`vitest.config.js`) dengan coverage provider `v8`, threshold 80%                                              | ✅         | 2026-04-30 |
+| TASK-008 | Konfigurasi Playwright (`playwright.config.js`) dengan browsers: Chromium, Firefox, WebKit                                        | ✅         | 2026-04-30 |
+| TASK-009 | Konfigurasi `vite.config.js`: base path, output dir `dist/`, SASS preprocessor                                                    | ✅         | 2026-04-30 |
+| TASK-010 | Buat `package.json` scripts: `dev`, `build`, `preview`, `test`, `test:e2e`, `lint`, `type-check`                                  | ✅         | 2026-04-30 |
+| TASK-011 | Inisialisasi GitHub repository + branch `main` + branch protection rule (require PR + CI pass)                                    | ⚠️         | 2026-04-30 |
+| TASK-012 | Konfigurasi `.gitignore`: `node_modules/`, `dist/`, `.env*`, `coverage/`                                                          | ✅         | 2026-04-30 |
 
-### Implementation Phase 1.2 — CI/CD Pipeline & Hosting
+> **Catatan TASK-011:** GitHub repository dan branch `main` sudah aktif (git push berhasil).
+> Branch protection rule (require PR + CI pass) perlu dikonfigurasi manual di GitHub UI → Settings → Branches.
 
-- GOAL-002: Menyiapkan GitHub Actions CI pipeline otomatis dan konfigurasi deployment ke
-  Vercel atau Netlify dengan SPA fallback yang benar.
+### Implementation Phase 1.2 — CI Pipeline & Build untuk GitHub Pages
 
-| Task     | Description                                                                                                               | Completed | Date |
-| -------- | ------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-013 | Buat `.github/workflows/ci.yml` dengan jobs: `lint`, `type-check`, `unit-test`, `build`                                   |           |      |
-| TASK-014 | Konfigurasi Lighthouse CI: `lighthouserc.json` dengan URL `http://localhost:4173`, thresholds P≥90, A≥90, SEO≥95, PWA≥80  |           |      |
-| TASK-015 | Tambahkan job `lighthouse-ci` ke CI pipeline (berjalan setelah `build`)                                                   |           |      |
-| TASK-016 | Konfigurasi Vercel: `vercel.json` dengan `rewrites: [{ source: "/(.*)", destination: "/index.html" }]` untuk SPA fallback |           |      |
-| TASK-017 | Alternatif Netlify: buat `public/_redirects` dengan konten `/* /index.html 200`                                           |           |      |
-| TASK-018 | Setup GitHub Secrets: `VERCEL_TOKEN` (atau `NETLIFY_AUTH_TOKEN`), `GA_MEASUREMENT_ID`                                     |           |      |
-| TASK-019 | Verifikasi CI pipeline pass pada initial commit (kosong)                                                                  |           |      |
+- GOAL-002: Menyiapkan GitHub Actions CI pipeline sebagai quality gate otomatis (lint →
+  type-check → unit-test → build), mengkonfigurasi Vite base path untuk GitHub Pages,
+  dan memastikan output `dist/` siap di-deploy manual ke GitHub Pages.
+
+> **Keputusan Hosting:** Aplikasi akan di-host di **GitHub Pages** dengan deployment **manual**
+> (push `dist/` ke branch `gh-pages`). Tidak ada CD otomatis ke Vercel/Netlify.
+> SPA routing di GitHub Pages menggunakan teknik `404.html` redirect.
+
+| Task     | Description                                                                                                                                                             | Completed | Date       |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-013 | Buat `.github/workflows/ci.yml` dengan jobs: `lint`, `type-check`, `unit-test`, `build` (quality gate, bukan deployment)                                                | ✅         | 2026-05-01 |
+| TASK-014 | Konfigurasi Lighthouse CI: `lighthouserc.json` dengan URL `http://localhost:4173`, thresholds P≥90, A≥90, SEO≥95, PWA≥80                                                | ✅         | 2026-05-01 |
+| TASK-015 | Tambahkan job `lighthouse-ci` ke CI pipeline (berjalan setelah `build`)                                                                                                 | ✅         | 2026-05-01 |
+| TASK-016 | Konfigurasi `vite.config.js` base path untuk GitHub Pages: `base: '/'` (jika custom domain) atau `base: '/nama-repo/'` (jika hosting di `username.github.io/nama-repo`) | ✅         | 2026-05-01 |
+| TASK-017 | Buat `public/404.html` untuk SPA routing di GitHub Pages — berisi script redirect ke `index.html` dengan path tersimpan di `sessionStorage`                             | ✅         | 2026-05-01 |
+| TASK-018 | Setup GitHub Secret: `GA_MEASUREMENT_ID` (opsional, untuk integrasi Google Analytics di Phase 3)                                                                        | ⚠️         | 2026-05-01 |
+| TASK-019 | Verifikasi `npm run build` menghasilkan folder `dist/` yang valid dan siap di-deploy manual ke GitHub Pages                                                             | ✅         | 2026-05-01 |
+
+> **Catatan TASK-018:** `GA_MEASUREMENT_ID` secret perlu dikonfigurasi manual di GitHub UI →
+> Settings → Secrets and variables → Actions → New repository secret.
+> Secret ini hanya digunakan saat integrasi Google Analytics di Phase 3.
 
 ### Implementation Phase 1.3 — Migrasi Data & Data Layer
 
 - GOAL-003: Memindahkan 7 file JSON dari Android assets ke `/public/data/`, membuat
   TypeScript interfaces untuk semua schema, dan data loader functions.
 
-| Task     | Description                                                                                                                                                                                                                                  | Completed | Date |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-020 | Copy 7 file JSON ke `public/data/`: `silapancasila.json`, `butir_pancasila.json`, `pembukaanuud.json`, `pasaluud45.json`, `pasaluud45noamandemen.json`, `pasaluud45_ket_amandemen.json`, `babpasal.json`                                     |           |      |
-| TASK-021 | Format ulang dan validasi JSON (pastikan valid JSON, tidak ada trailing commas)                                                                                                                                                              |           |      |
-| TASK-022 | Buat `src/types/data.ts` dengan semua TypeScript interfaces dari `spec-data-schema §4`: `SilaPancasilaData`, `ButirPancasilaData`, `PembukaanUUDData`, `PasalUUDData`, `PasalUUDNoAmandemenData`, `PasalUUDKetAmandemenData`, `BabPasalData` |           |      |
-| TASK-023 | Buat `src/data/loader.js` dengan fungsi async: `loadSilaPancasila()`, `loadButirPancasila()`, `loadPembukaanUUD()`, `loadPasalUUD()`, `loadPasalUUDNoAmandemen()`, `loadPasalUUDKetAmandemen()`, `loadBabPasal()`                            |           |      |
-| TASK-024 | Implementasi caching in-memory di data loader (fetch sekali, simpan di module-level cache)                                                                                                                                                   |           |      |
-| TASK-025 | Buat `src/data/fixture/` dengan copy JSON untuk testing (immutable test fixtures)                                                                                                                                                            |           |      |
-| TASK-026 | Validasi semua 7 JSON dapat di-load dan data-nya sesuai TypeScript interfaces                                                                                                                                                                |           |      |
+| Task     | Description                                                                                                                                                                                                                                  | Completed | Date       |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-020 | Copy 7 file JSON ke `public/data/`: `silapancasila.json`, `butir_pancasila.json`, `pembukaanuud.json`, `pasaluud45.json`, `pasaluud45noamandemen.json`, `pasaluud45_ket_amandemen.json`, `babpasal.json`                                     | ✅         | 2025-07-18 |
+| TASK-021 | Format ulang dan validasi JSON (pastikan valid JSON, tidak ada trailing commas)                                                                                                                                                              | ✅         | 2025-07-18 |
+| TASK-022 | Buat `src/types/data.ts` dengan semua TypeScript interfaces dari `spec-data-schema §4`: `SilaPancasilaData`, `ButirPancasilaData`, `PembukaanUUDData`, `PasalUUDData`, `PasalUUDNoAmandemenData`, `PasalUUDKetAmandemenData`, `BabPasalData` | ✅         | 2025-07-18 |
+| TASK-023 | Buat `src/data/loader.js` dengan fungsi async: `loadSilaPancasila()`, `loadButirPancasila()`, `loadPembukaanUUD()`, `loadPasalUUD()`, `loadPasalUUDNoAmandemen()`, `loadPasalUUDKetAmandemen()`, `loadBabPasal()`                            | ✅         | 2025-07-18 |
+| TASK-024 | Implementasi caching in-memory di data loader (fetch sekali, simpan di module-level cache)                                                                                                                                                   | ✅         | 2025-07-18 |
+| TASK-025 | Buat `src/data/fixture/` dengan copy JSON untuk testing (immutable test fixtures)                                                                                                                                                            | ✅         | 2025-07-18 |
+| TASK-026 | Validasi semua 7 JSON dapat di-load dan data-nya sesuai TypeScript interfaces                                                                                                                                                                | ✅         | 2025-07-18 |
 
 ### Implementation Phase 1.4 — Design System & Base Layout
 
@@ -226,9 +238,9 @@ Struktur file yang akan dibuat di Phase 1:
 - **FILE-016**: `src/pages/ButirPancasilaPage.js` — halaman Butir Pancasila
 - **FILE-017**: `src/pages/PembukaanPage.js` — halaman Pembukaan UUD
 - **FILE-018**: `public/data/` — 7 file JSON statis
-- **FILE-019**: `.github/workflows/ci.yml` — GitHub Actions CI pipeline
+- **FILE-019**: `.github/workflows/ci.yml` — GitHub Actions CI pipeline (quality gate)
 - **FILE-020**: `lighthouserc.json` — Lighthouse CI config
-- **FILE-021**: `vercel.json` atau `public/_redirects` — SPA fallback config
+- **FILE-021**: `public/404.html` — SPA routing fallback untuk GitHub Pages
 - **FILE-022**: `vite.config.js` — Vite configuration
 - **FILE-023**: `tsconfig.json` — TypeScript configuration
 - **FILE-024**: `eslint.config.js` — ESLint configuration
@@ -266,7 +278,7 @@ Struktur file yang akan dibuat di Phase 1:
   — **Mitigasi**: Selalu gunakan `vite dev` server atau deployment dengan SPA fallback
 - **ASSUMPTION-001**: 7 file JSON tersedia dan memiliki struktur yang sesuai spec-data-schema
 - **ASSUMPTION-002**: GitHub repository sudah dibuat sebelum TASK-011
-- **ASSUMPTION-003**: Developer memiliki akun Vercel atau Netlify yang aktif
+- **ASSUMPTION-003**: Hosting menggunakan GitHub Pages dengan deployment manual ke branch `gh-pages`
 
 ---
 

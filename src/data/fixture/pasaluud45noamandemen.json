@@ -1,0 +1,40 @@
+{
+    "data": [
+        {
+            "namapasal": "Pasal 1",
+            "babpasal": "Bab I Bentuk dan Kedaulatan",
+            "arrayisi": [
+                {
+                    "isi": "Negara Indonesia ialah Negara Kesatuan, yang berbentuk Republik."
+                }
+            ]
+        },
+        {
+            "namapasal": "Pasal 2",
+            "babpasal": "Bab II Majelis Permusyawaratan Rakyat",
+            "arrayisi": [
+                {
+                    "isi": "Majelis Permusyawaratan Rakyat terdiri atas anggota-anggota Dewan Perwakilan Rakyat, ditambah dengan utusan-utusan dari daerah-daerah dan golongan-golongan, menurut aturan yang ditetapkan dengan undang-undang."
+                },
+                {
+                    "isi": "Majelis Permusyawaratan Rakyat bersidang sedikitnya sekali dalam lima tahun di ibukota negara."
+                },
+                {
+                    "isi": "Segala putusan Majelis Permusyawaratan Rakyat ditetapkan dengan suara yang terbanyak."
+                }
+            ]
+        },
+        {
+            "namapasal": "Pasal 6",
+            "babpasal": "Bab III Kekuasaan Pemerintahan Negara",
+            "arrayisi": [
+                {
+                    "isi": "Presiden ialah orang Indonesia asli."
+                },
+                {
+                    "isi": "Syarat-syarat untuk menjadi Presiden dan untuk menjadi Wakil Presiden ditetapkan dengan undang-undang."
+                }
+            ]
+        }
+    ]
+}

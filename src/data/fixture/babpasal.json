@@ -1,0 +1,40 @@
+{
+    "bab_pasal": [
+        "Bab I Bentuk dan Kedaulatan",
+        "Bab II Majelis Permusyawaratan Rakyat",
+        "Bab III Kekuasaan Pemerintahan Negara"
+    ],
+    "keterangan_bab_pasal": [
+        "Bentuk dan Kedaulatan",
+        "Majelis Permusyawaratan Rakyat",
+        "Kekuasaan Pemerintahan Negara"
+    ],
+    "isi_bab_pasal": [
+        {
+            "nama_bab": "Bab I",
+            "isi_bab": [
+                "Pasal 1"
+            ]
+        },
+        {
+            "nama_bab": "BAB II",
+            "isi_bab": [
+                "Pasal 2",
+                "Pasal 3"
+            ]
+        },
+        {
+            "nama_bab": "Bab III",
+            "isi_bab": [
+                "Pasal 4",
+                "Pasal 5",
+                "Pasal 6",
+                "Pasal 6A",
+                "Pasal 7",
+                "Pasal 7A",
+                "Pasal 7B",
+                "Pasal 7C"
+            ]
+        }
+    ]
+}

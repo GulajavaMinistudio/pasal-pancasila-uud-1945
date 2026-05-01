@@ -2,7 +2,7 @@
 title: Spesifikasi Process Workflow Pengembangan Aplikasi Web Pancasila & UUD 1945
 version: 1.0.0
 date_created: 2026-04-28
-last_updated: 2026-04-29
+last_updated: 2026-05-01
 owner: Development Team
 status: final
 tags:
@@ -81,9 +81,9 @@ Workflow ini mengacu pada ketentuan di `AGENTS.md` yang mensyaratkan alur SDLC k
 ### 3.3 CI/CD Requirements
 
 - **REQ-PRC-011**: Setiap PR harus menjalankan pipeline: lint → type-check → unit-test → build → lighthouse-ci
-- **REQ-PRC-012**: Deployment ke production hanya boleh dilakukan dari branch `main` setelah semua checks pass
-- **REQ-PRC-013**: Deployment ke staging environment harus otomatis pada setiap merge ke `main`
-- **REQ-PRC-014**: Production deployment harus menggunakan manual trigger (workflow_dispatch) atau tag release
+- **REQ-PRC-012**: Deployment ke production hanya boleh dilakukan dari branch `main` setelah semua CI checks pass
+- **REQ-PRC-013**: Tidak ada CD otomatis; deployment ke GitHub Pages dilakukan secara **manual** oleh developer
+- **REQ-PRC-014**: Production deployment dilakukan dengan push `dist/` ke branch `gh-pages` secara manual setelah build lokal berhasil
 
 ### 3.4 Quality Gates
 
@@ -98,8 +98,8 @@ Workflow ini mengacu pada ketentuan di `AGENTS.md` yang mensyaratkan alur SDLC k
 
 - **CON-PRC-001**: Tim terdiri dari 1-2 developer; workflow harus ringan dan tidak over-engineered
 - **CON-PRC-002**: Proyek bersifat static site; tidak ada backend server atau database
-- **CON-PRC-003**: Deployment target adalah platform static hosting (Vercel/Netlify/Cloudflare Pages)
-- **CON-PRC-004**: Tidak ada environment staging yang kompleks; cukup preview deployment dari platform hosting
+- **CON-PRC-003**: Deployment target adalah **GitHub Pages** (branch `gh-pages`); SPA routing menggunakan teknik `public/404.html` redirect
+- **CON-PRC-004**: Tidak ada environment staging; verifikasi dilakukan lokal via `npm run preview` sebelum push ke `gh-pages`
 - **CON-PRC-005**: Semua data bersifat publik; tidak ada concern keamanan data sensitif
 
 ### 3.6 Guidelines
@@ -283,12 +283,12 @@ interface CommitMessage {
 
 ### 6.3 Phase 2: Planning (Rencana Implementasi)
 
-| Atribut           | Detail                                |
-| ----------------- | ------------------------------------- |
-| **Status**        | Complete                              |
+| Atribut           | Detail                                                                                                                                                                                                                        |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Status**        | Complete                                                                                                                                                                                                                      |
 | **Output**        | 5 dokumen di `/plan/`: `architecture-overview-pasaluud1945-1.md`, `feature-phase1-fondasi-setup-1.md`, `feature-phase2-konten-pencarian-1.md`, `feature-phase3-pwa-sharing-seo-1.md`, `feature-phase4-launch-monitoring-1.md` |
-| **Owner**         | @PlannerArchitect                     |
-| **Exit Criteria** | Plan disetujui dan siap dieksekusi    |
+| **Owner**         | @PlannerArchitect                                                                                                                                                                                                             |
+| **Exit Criteria** | Plan disetujui dan siap dieksekusi                                                                                                                                                                                            |
 
 **Aktivitas:**
 
