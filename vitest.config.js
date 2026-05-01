@@ -6,7 +6,14 @@ export default defineConfig({
     include: ['test/unit/**/*.test.js', 'test/component/**/*.test.js'],
     coverage: {
       provider: 'v8',
-      include: ['src/**/*.js'],
+      // Cakupan coverage hanya untuk file yang di-unit/component test
+      // Pages dan routes diuji via E2E Playwright, tidak via unit test
+      include: [
+        'src/components/**/*.js',
+        'src/data/loader.js',
+        'src/router/router.js',
+        'src/utils/**/*.js',
+      ],
       exclude: ['src/data/fixture/**'],
       thresholds: {
         lines: 80,

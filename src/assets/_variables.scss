@@ -1,0 +1,107 @@
+// =============================================================================
+// Bootstrap SCSS Variable Overrides — Pancasila & UUD 1945
+// =============================================================================
+//
+// PENTING: File ini WAJIB di-import SEBELUM @import 'bootstrap/scss/bootstrap'
+//          di src/assets/main.scss
+//
+// Referensi:
+//   - spec-design-uiux-pasaluud1945.md §4.1
+//   - docs/mockup_desktop_web/national_identity_design_system/DESIGN.md
+//   - docs/mockup_mobile_web/national_identity_design_system/DESIGN.md
+//   - Tailwind config di semua mockup HTML (ground truth visual)
+// =============================================================================
+
+// --- Color System -----------------------------------------------------------
+// Merah Tua = brand primary (header, CTA, active states)
+// Sumber: mockup Tailwind config "primary-container: #c62828"
+$primary:   #C62828;
+$secondary: #5d5d5d;  // Abu-abu Gelap
+$success:   #53d397;  // Hijau — badge amandemen
+$warning:   #FFB300;  // Kuning Emas — active nav indicator
+$danger:    #E64A19;  // Orange — interactive warning
+$light:     #f2f2f2;  // Background sekunder (Level 0 Floor)
+$dark:      #212529;
+
+// --- Link -------------------------------------------------------------------
+$link-color:            #C62828;
+$link-hover-color:      darken(#C62828, 10%);
+$link-decoration:       none;
+$link-hover-decoration: underline;
+
+// --- Typography -------------------------------------------------------------
+// Public Sans — typeface institusional dari DESIGN.md
+// Diload via <link> di index.html untuk performa optimal (tidak via @import CSS)
+$font-family-base:   'Public Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$font-family-code:   SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+$font-size-base:     1rem;   // 16px
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold:   700;
+$line-height-base:   1.5;
+
+// --- Body -------------------------------------------------------------------
+// Warm white: background token dari DESIGN.md
+$body-bg:    #fff8f7;
+$body-color: #271816;   // on-background token dari DESIGN.md (bukan hitam murni)
+
+// --- Border Radius ----------------------------------------------------------
+// Material Design 3 shape language: 8px default, rounded
+$border-radius:    0.5rem;    // 8px  — cards, buttons, input
+$border-radius-sm: 0.25rem;   // 4px  — badges, chips
+$border-radius-lg: 0.75rem;   // 12px — modals, bottom sheets
+$border-radius-xl: 1rem;      // 16px — larger containers
+$border-radius-pill: 9999px;
+
+// --- Spacer -----------------------------------------------------------------
+$spacer: 1rem; // 16px base (8px linear scale: xs=4, sm=8, md=16, lg=24, xl=32)
+
+// --- Navbar -----------------------------------------------------------------
+$navbar-padding-y:              0;
+$navbar-dark-color:             rgba(255, 255, 255, 0.85);
+$navbar-dark-hover-color:       #ffffff;
+$navbar-dark-active-color:      #ffffff;
+$navbar-dark-brand-color:       #ffffff;
+$navbar-dark-brand-hover-color: #ffffff;
+$navbar-dark-toggler-border-color: transparent;
+
+// --- Cards ------------------------------------------------------------------
+// Level 1 (Cards): white surface + subtle shadow + 1px border
+// Sumber: DESIGN.md "Elevation & Depth" §
+$card-border-color:     #e4beba;  // outline-variant token
+$card-box-shadow:       0 2px 8px rgba(0, 0, 0, 0.04);
+$card-border-radius:    $border-radius;
+$card-cap-bg:           transparent;
+$card-cap-padding-y:    1rem;
+$card-cap-padding-x:    1rem;
+
+// --- Form Inputs ------------------------------------------------------------
+// Search input: background ECEFF1, focus ring merah
+$input-bg:                  #ECEFF1;
+$input-border-color:        #dbdbdb;
+$input-focus-border-color:  #C62828;
+$input-focus-box-shadow:    0 0 0 0.2rem rgba(198, 40, 40, 0.15);
+$input-placeholder-color:   #989898;
+$input-border-radius:       $border-radius;
+
+// --- Buttons ----------------------------------------------------------------
+$btn-border-radius:    $border-radius;
+$btn-border-radius-sm: $border-radius-sm;
+$btn-border-radius-lg: $border-radius-lg;
+$btn-font-weight:      600;
+
+// --- Badges -----------------------------------------------------------------
+$badge-border-radius:  $border-radius-sm;
+$badge-font-weight:    $font-weight-semibold;
+
+// --- List Group -------------------------------------------------------------
+$list-group-border-color:         #e4beba;  // outline-variant
+$list-group-active-bg:            #C62828;
+$list-group-active-border-color:  #C62828;
+$list-group-hover-bg:             #fff0ef;  // surface-container-low
+
+// --- Breadcrumb -------------------------------------------------------------
+$breadcrumb-font-size:      0.875rem;
+$breadcrumb-divider-color:  #989898;
+$breadcrumb-active-color:   #271816;

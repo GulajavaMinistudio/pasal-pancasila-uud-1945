@@ -1,0 +1,106 @@
+- generic [ref=e2]:
+  - navigation "Navigasi utama" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Pancasila & UUD 1945 — Halaman Utama" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7]: UUD 1945
+      - generic [ref=e8]:
+        - button "Cari konten" [ref=e9] [cursor=pointer]:
+          - generic [ref=e10]: 
+        - text: 
+  - generic [ref=e13]:
+    - main [ref=e15]:
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - button "Bagikan" [disabled]:
+              - generic: 
+              - text: Bagikan
+          - generic [ref=e20]: 
+          - heading "Pancasila & UUD 1945" [level=1] [ref=e21]
+          - paragraph [ref=e22]: Portal resmi untuk mengeksplorasi landasan ideologi dan konstitusi negara Republik Indonesia. Pelajari butir-butir, pasal-pasal, dan sejarah amandemen dengan antarmuka yang bersih dan berwibawa.
+        - region "Navigasi cepat konten utama" [ref=e23]:
+          - link "5 Sila Pancasila Eksplorasi lima dasar falsafah negara yang menjadi pedoman kehidupan berbangsa dan bernegara." [ref=e24] [cursor=pointer]:
+            - /url: /pasal-pancasila-uud-1945/pancasila
+            - generic [ref=e25]:
+              - generic [ref=e27]: 
+              - generic [ref=e28]:
+                - heading "5 Sila Pancasila" [level=2] [ref=e29]
+                - paragraph [ref=e30]: Eksplorasi lima dasar falsafah negara yang menjadi pedoman kehidupan berbangsa dan bernegara.
+            - generic [ref=e32]: 
+          - link "Pembukaan UUD 1945 Teks proklamasi kemerdekaan dan tujuan berdirinya negara." [ref=e33] [cursor=pointer]:
+            - /url: /pasal-pancasila-uud-1945/pembukaan
+            - generic [ref=e34]:
+              - generic [ref=e36]: 
+              - generic [ref=e37]:
+                - heading "Pembukaan UUD 1945" [level=2] [ref=e38]
+                - paragraph [ref=e39]: Teks proklamasi kemerdekaan dan tujuan berdirinya negara.
+            - generic [ref=e41]: 
+          - link "Daftar Pasal Akses cepat ke seluruh pasal dalam Undang-Undang Dasar 1945." [ref=e42] [cursor=pointer]:
+            - /url: /pasal-pancasila-uud-1945/pasal
+            - generic [ref=e43]:
+              - generic [ref=e45]: 
+              - generic [ref=e46]:
+                - heading "Daftar Pasal" [level=2] [ref=e47]
+                - paragraph [ref=e48]: Akses cepat ke seluruh pasal dalam Undang-Undang Dasar 1945.
+            - generic [ref=e50]: 
+          - link "Butir Pancasila Pedoman penghayatan dan pengamalan Pancasila per sila." [ref=e51] [cursor=pointer]:
+            - /url: /pasal-pancasila-uud-1945/butir-pancasila
+            - generic [ref=e52]:
+              - generic [ref=e54]: 
+              - generic [ref=e55]:
+                - heading "Butir Pancasila" [level=2] [ref=e56]
+                - paragraph [ref=e57]: Pedoman penghayatan dan pengamalan Pancasila per sila.
+            - generic [ref=e59]: 
+          - link "Struktur Bab Navigasi konstitusi berdasarkan hierarki bab dan bagian." [ref=e60] [cursor=pointer]:
+            - /url: /pasal-pancasila-uud-1945/bab-pasal
+            - generic [ref=e61]:
+              - generic [ref=e63]: 
+              - generic [ref=e64]:
+                - heading "Struktur Bab" [level=2] [ref=e65]
+                - paragraph [ref=e66]: Navigasi konstitusi berdasarkan hierarki bab dan bagian.
+            - generic [ref=e68]: 
+          - link "UUD Asli Naskah otentik sebelum perubahan konstitusi." [ref=e69] [cursor=pointer]:
+            - /url: /pasal-pancasila-uud-1945/uud-asli
+            - generic [ref=e70]:
+              - generic [ref=e72]: 
+              - generic [ref=e73]:
+                - heading "UUD Asli" [level=2] [ref=e74]
+                - paragraph [ref=e75]: Naskah otentik sebelum perubahan konstitusi.
+            - generic [ref=e77]: 
+          - link "Amandemen Riwayat perubahan UUD 1945 dari Amandemen I sampai IV." [ref=e78] [cursor=pointer]:
+            - /url: /pasal-pancasila-uud-1945/amandemen
+            - generic [ref=e79]:
+              - generic [ref=e81]: 
+              - generic [ref=e82]:
+                - heading "Amandemen" [level=2] [ref=e83]
+                - paragraph [ref=e84]: Riwayat perubahan UUD 1945 dari Amandemen I sampai IV.
+            - generic [ref=e86]: 
+    - contentinfo [ref=e87]:
+      - generic [ref=e89]:
+        - generic [ref=e91]: Konstitusi RI
+        - paragraph [ref=e92]: © 2026 Pancasila & UUD 1945. Data bersumber dari dokumen resmi negara.
+        - generic [ref=e93]:
+          - link "Tentang aplikasi" [ref=e94] [cursor=pointer]:
+            - /url: /tentang
+            - text: Tentang
+          - link "Cari konten" [ref=e95] [cursor=pointer]:
+            - /url: /cari
+            - text: Pencarian
+  - navigation "Navigasi bawah" [ref=e96]:
+    - link "Beranda" [ref=e97] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e98]: 
+      - generic [ref=e99]: Beranda
+    - link "Pasal" [ref=e100] [cursor=pointer]:
+      - /url: /pasal
+      - generic [ref=e101]: 
+      - generic [ref=e102]: Pasal
+    - link "Amandemen" [ref=e103] [cursor=pointer]:
+      - /url: /amandemen
+      - generic [ref=e104]: 
+      - generic [ref=e105]: Amandemen
+    - link "Tentang" [ref=e106] [cursor=pointer]:
+      - /url: /tentang
+      - generic [ref=e107]: 
+      - generic [ref=e108]: Tentang
