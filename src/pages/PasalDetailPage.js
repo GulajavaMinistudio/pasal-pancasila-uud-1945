@@ -29,6 +29,7 @@ import {
   toAppHref,
 } from './pageHelpers.js';
 import { buildAmandemenBadgeHtml, buildAmandemenMap, parsePasalNomor } from '../utils/pasal.js';
+import { ShareButton } from '../components/ShareButton.js';
 
 export class PasalDetailPage {
   /**
@@ -91,12 +92,32 @@ export class PasalDetailPage {
 
       setPageTitle(pasal.namapasal);
       this.container.innerHTML = this._buildHtml({ pasal, ketAmandemen, prevPasal, nextPasal });
+      this._mountShareButton(pasal);
     } catch {
       this.container.innerHTML = buildErrorStateHtml({
         message: 'Konten pasal tidak dapat dimuat. Silakan coba lagi.',
       });
       bindRetryAction(this.container, () => this.mount());
     }
+  }
+
+  /**
+   * Mount ShareButton setelah HTML halaman di-render.
+   *
+   * Share text: "[Nama Pasal]\n[Isi tiap ayat]" sesuai planning TASK-014.
+   *
+   * @param {{ namapasal: string; arrayisi: Array<{ isi: string }> }} pasal
+   */
+  _mountShareButton(pasal) {
+    const ayatText = pasal.arrayisi
+      .map((ayat, i) => (pasal.arrayisi.length > 1 ? `(${i + 1}) ${ayat.isi}` : ayat.isi))
+      .join('\n');
+
+    new ShareButton(this.container, {
+      title: pasal.namapasal,
+      text: `${pasal.namapasal}\n${ayatText}`,
+      url: window.location.href,
+    }).mount();
   }
 
   /**

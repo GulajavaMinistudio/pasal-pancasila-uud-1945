@@ -17,6 +17,7 @@ import {
   SILA_SUMMARIES,
   toAppHref,
 } from './pageHelpers.js';
+import { ShareButton } from '../components/ShareButton.js';
 
 export class SilaDetailPage {
   /**
@@ -76,12 +77,29 @@ export class SilaDetailPage {
         silaText,
         butirSila,
       });
+      this._mountShareButton(nomorSila, silaText);
     } catch {
       this.container.innerHTML = buildErrorStateHtml({
         message: 'Detail sila tidak dapat dimuat. Silakan coba lagi.',
       });
       bindRetryAction(this.container, () => this.mount());
     }
+  }
+
+  /**
+   * Mount ShareButton setelah HTML halaman di-render.
+   *
+   * Share text: "Sila ke-[N]\n[Teks Sila]" sesuai planning TASK-015.
+   *
+   * @param {number} nomorSila
+   * @param {string} silaText
+   */
+  _mountShareButton(nomorSila, silaText) {
+    new ShareButton(this.container, {
+      title: `Sila ke-${nomorSila} Pancasila`,
+      text: `Sila ke-${nomorSila}: ${silaText}`,
+      url: window.location.href,
+    }).mount();
   }
 
   _redirectToNotFound() {

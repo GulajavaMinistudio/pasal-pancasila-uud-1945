@@ -14,6 +14,7 @@ import {
   setPageTitle,
   setSidebarContent,
 } from './pageHelpers.js';
+import { ShareButton } from '../components/ShareButton.js';
 
 export class PembukaanPage {
   /**
@@ -42,6 +43,7 @@ export class PembukaanPage {
     try {
       const alineaList = await this.pembukaanRepository.loadPembukaanUUD();
       this.container.innerHTML = this._buildHtml(alineaList);
+      this._mountAlineaShareButtons(alineaList);
     } catch {
       this.container.innerHTML = buildErrorStateHtml({
         message: 'Teks Pembukaan UUD 1945 tidak dapat dimuat. Silakan coba lagi.',
@@ -57,12 +59,6 @@ export class PembukaanPage {
   _buildHtml(alineaList) {
     return `
       <div class="page-shell">
-        <div class="page-topbar page-topbar--end">
-          <div class="page-heading__actions">
-            ${buildShareButton()}
-          </div>
-        </div>
-
         <header class="pembukaan-hero">
           <p class="pembukaan-hero__headline d-none d-lg-block">
             UNDANG-UNDANG DASAR NEGARA REPUBLIK INDONESIA TAHUN 1945
@@ -92,8 +88,30 @@ export class PembukaanPage {
         <div class="alinea-card__content">
           <h2 class="alinea-card__title">Alinea ${ALINEA_LABELS[index]}</h2>
           <p class="alinea-card__text">${text}</p>
+          <div class="alinea-card__actions">
+            ${buildShareButton('Bagikan Alinea')}
+          </div>
         </div>
       </article>
     `;
+  }
+
+  /**
+   * Mount satu ShareButton per alinea setelah HTML di-render ke DOM.
+   *
+   * Share text per alinea: "Pembukaan UUD 1945 - Alinea [N]\n[Teks Alinea]"
+   * sesuai planning TASK-016.
+   *
+   * @param {readonly string[]} alineaList
+   */
+  _mountAlineaShareButtons(alineaList) {
+    const alineaCards = this.container.querySelectorAll('.alinea-card');
+    alineaCards.forEach((cardEl, index) => {
+      new ShareButton(cardEl, {
+        title: `Pembukaan UUD 1945 — Alinea ${ALINEA_LABELS[index]}`,
+        text: `Pembukaan UUD 1945 - Alinea ${ALINEA_LABELS[index]}\n${alineaList[index] ?? ''}`,
+        url: window.location.href,
+      }).mount();
+    });
   }
 }

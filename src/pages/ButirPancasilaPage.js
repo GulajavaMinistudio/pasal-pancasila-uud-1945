@@ -15,6 +15,7 @@ import {
   SILA_SUMMARIES,
   toAppHref,
 } from './pageHelpers.js';
+import { ShareButton } from '../components/ShareButton.js';
 
 export class ButirPancasilaPage {
   /**
@@ -46,6 +47,7 @@ export class ButirPancasilaPage {
       const butirList = await this.butirRepository.loadButirPancasila();
       this.container.innerHTML = this._buildHtml(butirList);
       this._bindAccordionEvents();
+      this._mountShareButton();
     } catch {
       this.container.innerHTML = buildErrorStateHtml({
         message: 'Butir pengamalan Pancasila tidak dapat dimuat. Silakan coba lagi.',
@@ -153,5 +155,19 @@ export class ButirPancasilaPage {
         targetPanel.removeAttribute('hidden');
       }
     });
+  }
+
+  /**
+   * Mount ShareButton pada level halaman setelah HTML di-render.
+   *
+   * Share di level halaman — bukan per butir (sesuai planning TASK-017,
+   * share per butir dicatat sebagai backlog v2 di luar scope v1).
+   */
+  _mountShareButton() {
+    new ShareButton(this.container, {
+      title: 'Butir-butir Pengamalan Pancasila',
+      text: 'Butir-butir Pengamalan Pancasila — TAP MPR No. I/MPR/2003',
+      url: window.location.href,
+    }).mount();
   }
 }

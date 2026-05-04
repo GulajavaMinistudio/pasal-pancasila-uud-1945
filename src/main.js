@@ -4,15 +4,18 @@
  *
  * Tanggung jawab file ini (Composition Root):
  *   1. Import global stylesheet (design system + Bootstrap + Bootstrap Icons)
- *   2. Bangun struktur shell HTML aplikasi (header, layout, bottom nav)
- *   3. Inisialisasi Router
- *   4. Mount semua komponen layout dengan constructor injection
- *   5. Pasang onNavigate callbacks untuk sinkronisasi active state
- *   6. Daftarkan 14 routes
- *   7. Start router (popstate, link interception, dispatch route awal)
+ *   2. Registrasi Service Worker via virtual:pwa-register (Phase 3.1)
+ *   3. Bangun struktur shell HTML aplikasi (header, layout, bottom nav)
+ *   4. Inisialisasi Router
+ *   5. Mount semua komponen layout dengan constructor injection
+ *   6. Mount OfflineIndicator sebagai komponen global (Phase 3.1)
+ *   7. Pasang onNavigate callbacks untuk sinkronisasi active state
+ *   8. Daftarkan 14 routes
+ *   9. Start router (popstate, link interception, dispatch route awal)
  *
  * Referensi:
  *   - planning TASK-041
+ *   - planning TASK-006 (Phase 3.1 — SW registration)
  *   - AGENTS.md CS-3: "komposisi dependensi HANYA terjadi di entry point"
  */
 
@@ -22,12 +25,37 @@
 import './assets/main.scss';
 
 // =============================================================================
-// 2. Import Komponen & Router
+// 2. Service Worker Registration (Phase 3.1 — TASK-006)
+// Menggunakan virtual:pwa-register dari vite-plugin-pwa.
+// registerSW dipanggil di sini (bukan auto-injected) agar kita bisa
+// mendaftarkan callback onNeedRefresh dan onOfflineReady.
+// =============================================================================
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW({
+  onNeedRefresh() {
+    // Versi baru SW tersedia — dengan registerType: 'autoUpdate',
+    // halaman akan di-reload otomatis oleh Workbox. Tidak perlu prompt manual.
+  },
+  onOfflineReady() {
+    // Aplikasi sudah di-cache dan siap digunakan offline.
+  },
+  onRegisteredSW(_swUrl) {
+    // SW berhasil terdaftar.
+  },
+  onRegisterError(error) {
+    console.error('[PWA] Gagal mendaftarkan Service Worker:', error);
+  },
+});
+
+// =============================================================================
+// 3. Import Komponen & Router
 // =============================================================================
 import { AppHeader } from './components/AppHeader.js';
 import { BottomNavigation } from './components/BottomNavigation.js';
 import { AppLayout } from './components/AppLayout.js';
 import { PageContainer } from './components/PageContainer.js';
+import { OfflineIndicator } from './components/OfflineIndicator.js';
 import {
   loadBabPasal,
   loadButirPancasila,
@@ -80,6 +108,11 @@ const bottomNavContainerEl = document.createElement('div');
 bottomNavContainerEl.id = 'app-bottom-nav';
 appEl.appendChild(bottomNavContainerEl);
 
+// 5d. OfflineIndicator container — global, fixed position (Phase 3.1 TASK-010)
+const offlineIndicatorContainerEl = document.createElement('div');
+offlineIndicatorContainerEl.id = 'app-offline-indicator';
+document.body.appendChild(offlineIndicatorContainerEl);
+
 // =============================================================================
 // 6. Mount Komponen
 // =============================================================================
@@ -100,7 +133,11 @@ pageContainer.mount();
 const bottomNav = new BottomNavigation(bottomNavContainerEl, { router });
 bottomNav.mount();
 
-// 6e. Repository abstractions untuk page handlers Phase 1.6
+// 6e. OfflineIndicator — indikator status jaringan global (Phase 3.1 TASK-010)
+const offlineIndicator = new OfflineIndicator(offlineIndicatorContainerEl);
+offlineIndicator.mount();
+
+// 6f. Repository abstractions untuk page handlers Phase 1.6
 const silaRepository = { loadSilaPancasila };
 const butirRepository = { loadButirPancasila };
 const pembukaanRepository = { loadPembukaanUUD };

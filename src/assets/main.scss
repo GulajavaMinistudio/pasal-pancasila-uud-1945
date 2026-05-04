@@ -818,10 +818,17 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   border-color: var(--color-outline-variant);
   color: var(--color-on-surface-variant);
   background-color: var(--color-surface);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 
-  &:disabled {
-    opacity: 1;
-    cursor: not-allowed;
+  &:hover:not(:disabled) {
+    background-color: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+    border-color: var(--color-on-surface-variant);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 
@@ -1660,6 +1667,14 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
 
 .alinea-card__content {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.alinea-card__actions {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .alinea-card__title {
@@ -2789,4 +2804,80 @@ $amandemen-badge-colors: (
   height: 48px;
   min-width: 48px;
   background-color: var(--color-surface-container-low, #f8f9fa);
+}
+
+// =============================================================================
+// Offline Indicator (Phase 3.1 — TASK-010)
+// Referensi planning: REQ-011 — indikator visual offline/online
+// =============================================================================
+
+// --- Share Toast Notification -----------------------------------------------
+// Notifikasi ringkas "Tautan disalin!" setelah clipboard copy berhasil.
+// Muncul di atas bottom nav (mobile) atau di sudut bawah (desktop).
+// Referensi planning: TASK-018 (Phase 3.2)
+
+.share-toast {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-height) + 1rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(1rem);
+  z-index: 1050;
+  background-color: #1b5e20;  // Hijau tua — sukses
+  color: #ffffff;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: var(--fs-label-lg);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  // Transisi: slide-up 0.2s + fade-in 0.2s (TOAST_DISMISS_MS = 300ms di ShareButton.js)
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  &--visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  // Desktop: posisi lebih rendah (tidak ada bottom nav)
+  @include media-breakpoint-up(md) {
+    bottom: 1.5rem;
+  }
+}
+
+.offline-indicator {
+  position: fixed;
+  // Di atas bottom nav mobile (76px) + extra 8px gap
+  bottom: calc(var(--bottom-nav-height) + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(100% + 1rem));
+  z-index: 1040;
+  background-color: #323232;
+  color: #ffffff;
+  padding: 0.625rem 1.25rem;
+  border-radius: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  // Transisi slide-up + fade-in (HIDE_TRANSITION_MS = 300ms di OfflineIndicator.js)
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+  pointer-events: none;
+
+  &--visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // Desktop: posisi lebih rendah karena tidak ada bottom nav
+  @include media-breakpoint-up(md) {
+    bottom: 1.5rem;
+  }
+
+  strong {
+    font-weight: 600;
+  }
 }

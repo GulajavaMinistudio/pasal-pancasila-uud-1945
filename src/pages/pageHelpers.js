@@ -138,6 +138,12 @@ export function buildErrorStateHtml(config) {
 }
 
 /**
+ * Bangun HTML tombol "Bagikan".
+ *
+ * Tombol ini bersifat stateful — perlu di-aktivasi oleh komponen ShareButton
+ * setelah HTML di-inject ke DOM. Gunakan pola:
+ *   `new ShareButton(containerEl, shareData).mount()`
+ *
  * @param {string} [label]
  * @returns {string}
  */
@@ -145,8 +151,7 @@ export function buildShareButton(label = 'Bagikan') {
   return `
     <button type="button"
             class="page-share-button btn btn-outline-secondary btn-sm"
-            aria-disabled="true"
-            disabled>
+            data-share-btn>
       <i class="bi bi-share me-2" aria-hidden="true"></i>
       ${label}
     </button>
