@@ -54,6 +54,35 @@
                     "isi": "Majelis Permusyawaratan Rakyat bersidang sedikitnya sekali dalam lima tahun di ibukota negara."
                 }
             ]
+        },
+        {
+            "namapasal": "Pasal 18",
+            "babpasal": "Bab VI Pemerintahan Daerah",
+            "amandemen": "2",
+            "arrayisi": [
+                {
+                    "isi": "Negara Kesatuan Republik Indonesia dibagi atas daerah-daerah provinsi dan daerah provinsi itu dibagi atas kabupaten dan kota, yang tiap-tiap provinsi, kabupaten, dan kota itu mempunyai pemerintahan daerah, yang diatur dengan undang-undang."
+                },
+                {
+                    "isi": "Pemerintahan daerah provinsi, daerah kabupaten, dan kota mengatur dan mengurus sendiri urusan pemerintahan menurut asas otonomi dan tugas pembantuan."
+                }
+            ]
+        },
+        {
+            "namapasal": "Pasal 33",
+            "babpasal": "Bab XIV Perekonomian Nasional dan Kesejahteraan Sosial",
+            "amandemen": "4",
+            "arrayisi": [
+                {
+                    "isi": "Perekonomian disusun sebagai usaha bersama berdasar atas asas kekeluargaan."
+                },
+                {
+                    "isi": "Cabang-cabang produksi yang penting bagi negara dan yang menguasai hajat hidup orang banyak dikuasai oleh negara."
+                },
+                {
+                    "isi": "Bumi dan air dan kekayaan alam yang terkandung di dalamnya dikuasai oleh negara dan dipergunakan untuk sebesar-besar kemakmuran rakyat."
+                }
+            ]
         }
     ]
 }

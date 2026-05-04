@@ -113,25 +113,41 @@ Tidak ada framework JS (React/Vue/Angular) — pure Vanilla JavaScript.
 
 ### Tech Stack
 
-| Kategori          | Teknologi                                       |
-| ----------------- | ----------------------------------------------- |
-| **Bundler**       | Vite 5.0+                                       |
-| **Language**      | Vanilla JavaScript ES6+ (TypeScript type-check) |
-| **CSS Framework** | Bootstrap 5.3+ (dikustomisasi via SCSS)         |
-| **Search**        | Fuse.js (fuzzy search client-side)              |
-| **PWA**           | vite-plugin-pwa (Workbox — auto Service Worker) |
-| **Testing**       | Vitest (unit/component) + Playwright (E2E)      |
-| **Hosting**       | Vercel / Netlify (static + SPA fallback)        |
-| **Runtime**       | Node.js 20 LTS (build only)                     |
+| Kategori          | Teknologi                                         |
+| ----------------- | ------------------------------------------------- |
+| **Bundler**       | Vite 7.3.2                                        |
+| **Language**      | Vanilla JavaScript ES6+ (TypeScript type-check)   |
+| **CSS Framework** | Bootstrap 5.3.3 + Bootstrap Icons 1.11.3          |
+| **Search**        | Fuse.js (fuzzy search client-side)                |
+| **PWA**           | vite-plugin-pwa (Workbox — auto Service Worker)   |
+| **Testing**       | Vitest 3.2.4 (unit/component) + Playwright (E2E)  |
+| **Hosting**       | GitHub Pages (manual deploy ke branch `gh-pages`) |
+| **Runtime**       | Node.js 24.14.1 (build only)                      |
 
 ### Implementation Status
 
-| Fase    | Dokumen                                      | Status  |
-| ------- | -------------------------------------------- | ------- |
-| Phase 1 | `plan/feature-phase1-fondasi-setup-1.md`     | Planned |
-| Phase 2 | `plan/feature-phase2-konten-pencarian-1.md`  | Planned |
-| Phase 3 | `plan/feature-phase3-pwa-sharing-seo-1.md`   | Planned |
-| Phase 4 | `plan/feature-phase4-launch-monitoring-1.md` | Planned |
+| Fase    | Dokumen                                      | Status           | Tanggal Selesai |
+| ------- | -------------------------------------------- | ---------------- | --------------- |
+| Phase 1 | `plan/feature-phase1-fondasi-setup-1.md`     | ✅ Completed      | 2026-05-02      |
+| Phase 2 | `plan/feature-phase2-konten-pencarian-1.md`  | 🔵 Planned (v1.2) | —               |
+| Phase 3 | `plan/feature-phase3-pwa-sharing-seo-1.md`   | ⏳ Not Started    | —               |
+| Phase 4 | `plan/feature-phase4-launch-monitoring-1.md` | ⏳ Not Started    | —               |
+
+**Phase 1 Test Results (2026-05-02):**
+
+- Unit/Component tests: 149 passed — coverage 98.87% lines, 97.82% functions, 91.6% branches
+- E2E tests: 116 passed (Chromium + Firefox)
+- CI pipeline: semua jobs hijau ✅
+
+**Phase 2 — Tahap awal yang harus dikerjakan:**
+
+1. TASK-031 → `NotFoundPage.js` (fondasi 404)
+2. TASK-032 → Register catch-all `*` di `routes.js`
+3. TASK-004 → Helper `parsePasalNomor()` di `src/utils/pasal.js`
+4. TASK-001 → `PasalListPage.js`
+5. TASK-003 → Cross-reference badge amandemen
+6. TASK-002 → `PasalDetailPage.js`
+7. TASK-005 → Error handling 404 pasal tidak ditemukan
 
 ### Local Workflow
 

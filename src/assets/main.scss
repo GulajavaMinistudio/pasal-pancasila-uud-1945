@@ -1102,6 +1102,309 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   flex: 1;
 }
 
+// =============================================================================
+// Pasal UUD 1945 — List & Detail Pages
+// Referensi: planning TASK-001, TASK-002, TASK-003
+// =============================================================================
+
+// --- Pasal List Page ---------------------------------------------------------
+
+.pasal-search-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background-color: var(--color-surface-container);
+  border: 1px solid var(--color-outline-variant);
+  color: var(--color-on-surface-variant);
+  text-decoration: none;
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    color: var(--color-on-surface);
+    background-color: var(--color-surface-container-high, color-mix(in srgb, var(--color-surface-container) 60%, var(--color-outline-variant)));
+    text-decoration: none;
+  }
+}
+
+.pasal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pasal-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: var(--spacing-md);
+  text-decoration: none;
+  color: inherit;
+  border-radius: $border-radius;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: transparent;
+    transition: background-color 0.15s ease;
+  }
+
+  &:hover::before {
+    background-color: var(--color-primary);
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    border-color: var(--color-outline);
+  }
+}
+
+.pasal-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.pasal-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pasal-card__bab-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pasal-card__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.pasal-card__arrow {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--color-surface-container);
+  color: var(--color-on-surface-variant);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.pasal-card:hover .pasal-card__arrow {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.pasal-card__excerpt {
+  font-size: 0.9375rem;
+  color: var(--color-on-surface-variant);
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.6;
+}
+
+.pasal-card__footer {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+// Badge amandemen — hijau, matching mockup (#e6f9f0 bg, #1a8555 text, #53d397 border)
+.badge-amandemen {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background-color: #e6f9f0;
+  color: #1a8555;
+  border: 1px solid #53d397;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  i {
+    font-size: 0.7rem;
+  }
+}
+
+// Badge jumlah ayat
+.badge-ayat {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: $border-radius;
+  border: 1px solid var(--color-outline-variant);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface-variant);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+// --- Pasal Detail Page -------------------------------------------------------
+
+.pasal-detail-header {
+  padding: var(--spacing-md);
+
+  @include media-breakpoint-up(md) {
+    padding: var(--spacing-lg);
+  }
+}
+
+.pasal-detail-header__title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 0;
+  line-height: 1.1;
+}
+
+.pasal-detail-header__bab {
+  color: var(--color-on-surface-variant);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-top: 0.25rem;
+}
+
+.pasal-ayat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pasal-ayat-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1.25rem;
+  border-radius: 1rem;
+
+  @include media-breakpoint-up(md) {
+    padding: 1.75rem;
+  }
+}
+
+.pasal-ayat-card__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+
+  @include media-breakpoint-up(md) {
+    gap: 1.5rem;
+  }
+}
+
+.pasal-ayat-card__number {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-surface-container);
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  border: 1px solid var(--color-outline-variant);
+}
+
+.pasal-ayat-card__text {
+  flex: 1;
+  margin-bottom: 0;
+  color: var(--color-on-surface);
+  line-height: 1.75;
+  font-size: 1.05rem;
+  white-space: pre-wrap;
+}
+
+.pasal-ayat-card__ghost {
+  position: absolute;
+  right: -1rem;
+  bottom: -1.5rem;
+  font-size: 9rem;
+  font-weight: 900;
+  color: var(--color-outline-variant);
+  opacity: 0.35;
+  pointer-events: none;
+  line-height: 1;
+  user-select: none;
+}
+
+// --- Pasal Prev/Next Navigation ----------------------------------------------
+
+.pasal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-outline-variant);
+  gap: 1rem;
+}
+
+.pasal-nav__prev,
+.pasal-nav__next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-on-surface-variant);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: $border-radius;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-container);
+    text-decoration: none;
+  }
+}
+
+.pasal-nav__next {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.pasal-nav__prev--empty,
+.pasal-nav__next--empty {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .butir-accordion__title {
   color: var(--color-on-surface);
   font-size: 1.05rem;
@@ -1268,8 +1571,1042 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   }
 }
 
+// =============================================================================
+// Phase 2.2 — Bab Pasal List & Detail Pages
+// =============================================================================
+
+// --- Bab List Page -----------------------------------------------------------
+
+.bab-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+// --- Bab Accordion -----------------------------------------------------------
+
+.bab-accordion {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 0.875rem;
+  transition: box-shadow 0.2s ease;
+
+  &.is-open {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.bab-accordion__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-on-surface);
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--color-surface-container-low);
+  }
+
+  &[aria-expanded='true'] .bab-accordion__chevron {
+    transform: rotate(180deg);
+  }
+}
+
+.bab-accordion__badge {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-primary);
+}
+
+.bab-accordion__roman {
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.bab-accordion__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.bab-accordion__label {
+  display: block;
+  color: var(--color-on-surface);
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1rem;
+  }
+}
+
+.bab-accordion__keterangan {
+  display: block;
+  color: var(--color-on-surface-variant);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bab-accordion__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.badge-pasal-count {
+  background-color: var(--color-surface-container);
+  color: var(--color-on-surface-variant);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3em 0.6em;
+  border-radius: 999px;
+
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+.bab-accordion__chevron {
+  color: var(--color-on-surface-variant);
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.bab-accordion__body {
+  padding: 0 1.25rem 1.25rem;
+  border-top: 1px solid var(--color-outline-variant);
+  background-color: var(--color-surface-container-low);
+}
+
+.bab-accordion__pasal-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem;
+  padding: 1rem 0 0.75rem;
+  list-style: none;
+  margin: 0;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+.bab-accordion__pasal-item {
+  border-radius: $border-radius;
+  font-size: 0.875rem;
+
+  &--deleted {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--color-on-surface-variant);
+    font-size: 0.8rem;
+    font-style: italic;
+    grid-column: 1 / -1;
+  }
+}
+
+.bab-accordion__pasal-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: $border-radius;
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  i {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background-color: var(--color-surface-container);
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+}
+
+.bab-accordion__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.bab-accordion__detail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-on-surface-variant);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: $border-radius;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-container);
+    text-decoration: none;
+  }
+}
+
+// --- Bab Detail Page ---------------------------------------------------------
+
+.bab-detail-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.bab-detail-header__top {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.bab-detail-header__badge {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-primary);
+
+  @include media-breakpoint-up(md) {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+.bab-detail-header__roman {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1rem;
+  }
+}
+
+.bab-detail-header__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.bab-detail-header__title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-on-surface);
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.6rem;
+  }
+}
+
+.bab-detail-header__subtitle {
+  margin: 0;
+  color: var(--color-on-surface-variant);
+  font-size: 0.9rem;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1rem;
+  }
+}
+
+// --- Bab Detail Pasal List ---------------------------------------------------
+
+.bab-detail-pasal-list {
+  display: grid;
+  gap: var(--spacing-xs);
+}
+
+.bab-detail-pasal-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  text-decoration: none;
+  border-radius: 0.875rem;
+  color: var(--color-on-surface);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    background-color: var(--color-surface-container-low);
+    text-decoration: none;
+    color: var(--color-on-surface);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  &--deleted {
+    color: var(--color-on-surface-variant);
+    font-style: italic;
+    font-size: 0.875rem;
+    cursor: default;
+    border-radius: 0.875rem;
+    background-color: var(--color-surface-container-low);
+  }
+}
+
+.bab-detail-pasal-item__icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: var(--color-surface-container);
+  color: var(--color-primary);
+  font-size: 1rem;
+  transition: background-color 0.15s ease;
+
+  .bab-detail-pasal-item:hover & {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  .bab-detail-pasal-item--deleted & {
+    color: var(--color-on-surface-variant);
+    background-color: var(--color-surface-container);
+  }
+}
+
+.bab-detail-pasal-item__text {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.bab-detail-pasal-item__arrow {
+  color: var(--color-on-surface-variant);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+
+  .bab-detail-pasal-item:hover & {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+}
+
+// --- Bab Prev/Next Navigation ------------------------------------------------
+
+.bab-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-outline-variant);
+  gap: 1rem;
+}
+
+.bab-nav__prev,
+.bab-nav__next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-on-surface-variant);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: $border-radius;
+  max-width: 48%;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-container);
+    text-decoration: none;
+  }
+}
+
+.bab-nav__next {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin-left: auto;
+  text-align: right;
+}
+
+.bab-nav__label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bab-nav__name {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+
+  @include media-breakpoint-up(md) {
+    max-width: 280px;
+  }
+}
+
+.bab-nav__placeholder {
+  min-width: 0;
+  flex: 1;
+}
+
+// =============================================================================
+// Phase 2.3 — UUD Asli Page
+// =============================================================================
+
+// --- UUD Asli Page Header ----------------------------------------------------
+
+.uud-asli-header {
+  margin-bottom: 1.25rem;
+}
+
+.uud-asli-header__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  background-color: var(--color-surface-container);
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--color-outline-variant);
+}
+
+.uud-asli-header__desc {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+// --- UUD Asli Filter ---------------------------------------------------------
+
+.uud-asli-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.uud-asli-filter__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+
+.uud-asli-filter__select {
+  max-width: 340px;
+  border-color: var(--color-outline-variant);
+  font-size: 0.875rem;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgb(var(--color-primary-rgb, 162 5 19) / 0.15);
+  }
+}
+
+// --- UUD Asli Card -----------------------------------------------------------
+
+.uud-asli-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.uud-asli-card {
+  display: block;
+  padding: 0.875rem 1rem;
+  border-radius: $border-radius-lg;
+  border: 1px solid var(--color-outline-variant);
+  background-color: var(--color-surface);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-color: var(--color-outline);
+  }
+}
+
+.uud-asli-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.uud-asli-card__meta {
+  flex: 1;
+}
+
+.uud-asli-card__bab-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.uud-asli-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+.uud-asli-card__excerpt {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0 0 0.625rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.uud-asli-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+// --- Badge Naskah Asli -------------------------------------------------------
+
+.badge-asli {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  background-color: var(--color-surface-container);
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--color-outline-variant);
+}
+
+// =============================================================================
+// Phase 2.3 — Amandemen Page
+// =============================================================================
+
+// --- Amandemen Page Layout ---------------------------------------------------
+
+.amandemen-page-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  max-width: 680px;
+}
+
+.amandemen-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// --- Amandemen Group Section -------------------------------------------------
+
+// Color tokens per amandemen (spec TASK-012)
+$amandemen-colors: (
+  'I':   (#1565c0, #dce8fb, #1e4fa0),
+  'II':  (#2e7d32, #d6eed7, #1b5e20),
+  'III': (#e65100, #fce8d6, #bf360c),
+  'IV':  (#4a148c, #e8d5f5, #311b6d),
+);
+
+.amandemen-group {
+  border-radius: $border-radius-lg;
+  border: 1px solid var(--color-outline-variant);
+  overflow: hidden;
+  background-color: var(--color-surface);
+
+  @each $key, $colors in $amandemen-colors {
+    &--#{$key} {
+      .amandemen-group__header {
+        background-color: nth($colors, 2);
+        border-bottom-color: lighten(nth($colors, 3), 30%);
+      }
+
+      .amandemen-group__title {
+        color: nth($colors, 1);
+      }
+
+      .amandemen-badge--#{$key} {
+        background-color: nth($colors, 2);
+        color: nth($colors, 1);
+        border-color: lighten(nth($colors, 3), 25%);
+      }
+    }
+  }
+}
+
+.amandemen-group__header {
+  padding: 0.875rem 1.125rem;
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.amandemen-group__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.amandemen-group__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.amandemen-group__year {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 100px;
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-outline-variant);
+}
+
+.amandemen-group__count {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.amandemen-group__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+// --- Amandemen Row Item ------------------------------------------------------
+
+.amandemen-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1.125rem;
+  border-bottom: 1px solid var(--color-outline-variant);
+  transition: background-color 0.12s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: var(--color-surface-container-low);
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+.amandemen-row__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.amandemen-row__bab {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.15rem;
+}
+
+.amandemen-row__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  margin: 0 0 0.35rem;
+}
+
+.amandemen-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.amandemen-row__compare-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+// --- Pasal Compare Link (PasalDetailPage — TASK-021) -------------------------
+
+.pasal-compare-section {
+  margin-top: 0.5rem;
+}
+
+.pasal-compare-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-primary);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background-color: var(--color-surface-container);
+    color: var(--color-primary-dark);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// --- Comparison Card (AmandemenDetailPage — TASK-015/016/017) ----------------
+
+.comparison-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comparison-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-outline-variant);
+}
+
+.comparison-card__title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  margin: 0;
+}
+
+.comparison-card__amandemen-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.85rem;
+  border-radius: 100px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+// --- Notasi keterbatasan data (REQ-009) ---
+
+.comparison-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #fff8f0;
+  border: 1px solid #f0c080;
+  color: var(--color-on-surface-variant);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+
+  i {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    color: #e67e22;
+  }
+}
+
+// --- Comparison Grid (side-by-side dua kolom) --------------------------------
+
+.comparison-grid {
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.comparison-grid__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: var(--color-surface-container-highest);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.comparison-col-label {
+  padding: 0.625rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-on-surface-variant);
+  display: flex;
+  align-items: center;
+
+  &.comparison-col-label--original {
+    border-right: 1px solid var(--color-outline-variant);
+    color: #5d4037; // coklat tua — penanda "asli"
+  }
+
+  &.comparison-col-label--amended {
+    color: #1b5e20; // hijau tua — penanda "diamandemen"
+  }
+}
+
+.comparison-grid__body {
+  display: flex;
+  flex-direction: column;
+}
+
+// --- Comparison Row (satu baris ayat) ----------------------------------------
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--color-outline-variant);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.comparison-row--unchanged {
+    background-color: var(--color-surface);
+  }
+
+  &.comparison-row--modified {
+    background-color: #fff8e1; // kuning muda — ada perubahan
+  }
+
+  &.comparison-row--added {
+    background-color: #f1f8e9; // hijau muda — ditambahkan
+  }
+
+  &.comparison-row--deleted {
+    background-color: #fce4ec; // merah muda — dihapus
+  }
+
+  // Special rows
+  &.comparison-row--new-pasal {
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--color-surface);
+  }
+
+  &.comparison-row--deleted-pasal {
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--color-surface);
+  }
+}
+
+// --- Comparison Cell ---------------------------------------------------------
+
+.comparison-cell {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+
+  &.comparison-cell--original {
+    border-right: 1px solid var(--color-outline-variant);
+  }
+}
+
+.comparison-ayat__index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--color-surface-container-highest);
+  color: var(--color-on-surface-variant);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.comparison-ayat__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-on-surface);
+}
+
+.comparison-ayat__empty {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: 0.875rem;
+}
+
+// Badge pill per ayat yang diamandemen (TASK-017)
+.comparison-ayat__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.6rem;
+  border-radius: 100px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+// List ayat di pasal baru (isNewPasal)
+.comparison-ayat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.comparison-ayat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+// --- Placeholder states (isNewPasal & isDeletedPasal) ------------------------
+
+.comparison-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+
+  i {
+    font-size: 2rem;
+    opacity: 0.5;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+.comparison-placeholder--new {
+  background-color: #f5f5f5; // abu-abu
+  border: 1px dashed #bdbdbd;
+  color: #757575;
+}
+
+.comparison-placeholder--deleted {
+  background-color: #fce4ec; // merah muda
+  border: 1px dashed #f48fb1;
+  color: #c62828;
+}
+
+.comparison-placeholder--deleted-original {
+  background-color: #f3e5f5; // ungu muda
+  border: 1px dashed #ce93d8;
+  color: #6a1b9a;
+}
+
+// Responsif: di mobile, tampilkan kolom secara vertikal
+@include media-breakpoint-down(md) {
+  .comparison-grid__header {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-col-label--amended {
+    border-top: 1px solid var(--color-outline-variant);
+  }
+
+  .comparison-row,
+  .comparison-row--new-pasal,
+  .comparison-row--deleted-pasal {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-cell--original {
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-outline-variant);
+  }
+}
+
 // --- Accessibility: Focus Visible -------------------------------------------
 // REQ-DES-008, CON-DES-004
+
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;

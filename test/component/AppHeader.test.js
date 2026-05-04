@@ -11,7 +11,7 @@
  *   - Click pada tombol search memanggil router.navigate ke '/cari'
  */
 
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { AppHeader } from '../../src/components/AppHeader.js';
 
 // ---------------------------------------------------------------------------

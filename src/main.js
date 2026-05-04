@@ -28,7 +28,15 @@ import { AppHeader } from './components/AppHeader.js';
 import { BottomNavigation } from './components/BottomNavigation.js';
 import { AppLayout } from './components/AppLayout.js';
 import { PageContainer } from './components/PageContainer.js';
-import { loadButirPancasila, loadPembukaanUUD, loadSilaPancasila } from './data/loader.js';
+import {
+  loadBabPasal,
+  loadButirPancasila,
+  loadPasalUUD,
+  loadPasalUUDKetAmandemen,
+  loadPasalUUDNoAmandemen,
+  loadPembukaanUUD,
+  loadSilaPancasila,
+} from './data/loader.js';
 import { Router } from './router/router.js';
 import { registerRoutes } from './router/routes.js';
 
@@ -96,6 +104,10 @@ bottomNav.mount();
 const silaRepository = { loadSilaPancasila };
 const butirRepository = { loadButirPancasila };
 const pembukaanRepository = { loadPembukaanUUD };
+const pasalRepository = { loadPasalUUD };
+const pasalKetAmandemenRepository = { loadPasalUUDKetAmandemen };
+const babRepository = { loadBabPasal };
+const uudAsliRepository = { loadPasalUUDNoAmandemen };
 
 // =============================================================================
 // 7. Sinkronisasi Active State via onNavigate
@@ -110,10 +122,14 @@ router.onNavigate((path) => {
 // 8. Daftarkan Semua 14 Routes + 404 Fallback
 // =============================================================================
 registerRoutes(router, {
+  babRepository,
   butirRepository,
   contentEl: pageContainer.getContentElement(),
+  pasalKetAmandemenRepository,
+  pasalRepository,
   pembukaanRepository,
   silaRepository,
+  uudAsliRepository,
   sidebarEl: appLayout.getSidebarSlot(),
   router,
 });

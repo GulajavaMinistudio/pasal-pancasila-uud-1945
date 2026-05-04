@@ -37,17 +37,28 @@
  *   *                  → 404 Not Found
  */
 
+import { AmandemenDetailPage } from '../pages/AmandemenDetailPage.js';
+import { AmandemenPage } from '../pages/AmandemenPage.js';
+import { BabPasalDetailPage } from '../pages/BabPasalDetailPage.js';
+import { BabPasalListPage } from '../pages/BabPasalListPage.js';
 import { ButirPancasilaPage } from '../pages/ButirPancasilaPage.js';
 import { HomePage } from '../pages/HomePage.js';
 import { NotFoundPage } from '../pages/NotFoundPage.js';
 import { PancasilaPage } from '../pages/PancasilaPage.js';
+import { PasalDetailPage } from '../pages/PasalDetailPage.js';
+import { PasalListPage } from '../pages/PasalListPage.js';
 import { PembukaanPage } from '../pages/PembukaanPage.js';
 import { SilaDetailPage } from '../pages/SilaDetailPage.js';
+import { UUDAsliPage } from '../pages/UUDAsliPage.js';
 
 /**
  * @typedef {{
  *   contentEl: HTMLElement;
+ *   babRepository: { loadBabPasal: () => Promise<import('../types/data').BabPasalData> };
  *   butirRepository: { loadButirPancasila: () => Promise<Array<{ namasila: string; arrayisi: Array<{ isi: string }> }>> };
+ *   pasalRepository: { loadPasalUUD: () => Promise<Array<{ namapasal: string; arrayisi: Array<{ isi: string }> }>> };
+ *   pasalKetAmandemenRepository: { loadPasalUUDKetAmandemen: () => Promise<Array<{ namapasal: string; amandemen: string; babpasal: string }>> };
+ *   uudAsliRepository: { loadPasalUUDNoAmandemen: () => Promise<Array<{ namapasal: string; arrayisi: Array<{ isi: string }>; babpasal: string }>> };
  *   pembukaanRepository: { loadPembukaanUUD: () => Promise<readonly string[]> };
  *   silaRepository: { loadSilaPancasila: () => Promise<readonly string[]> };
  *   sidebarEl: HTMLElement;
@@ -100,27 +111,36 @@ export function registerRoutes(router, deps) {
   });
 
   router.addRoute('/pasal', () => {
-    _renderPlaceholder(contentEl, 'Daftar Pasal UUD 1945', 'Pasal 1 — Pasal 37', [
-      'Semua pasal UUD 1945 pasca-amandemen (Amandemen I–IV, 1999–2002).',
-    ]);
+    const page = new PasalListPage(contentEl, {
+      sidebarEl,
+      pasalRepository: deps.pasalRepository,
+      pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+    });
+    void page.mount();
   });
 
   router.addRoute('/bab-pasal', () => {
-    _renderPlaceholder(contentEl, 'Bab & Pasal UUD 1945', '21 Bab UUD 1945', [
-      'Navigasi berdasarkan 21 Bab struktur UUD 1945.',
-    ]);
+    const page = new BabPasalListPage(contentEl, {
+      sidebarEl,
+      babRepository: deps.babRepository,
+    });
+    void page.mount();
   });
 
   router.addRoute('/uud-asli', () => {
-    _renderPlaceholder(contentEl, 'UUD 1945 Asli', 'Naskah Asli Sebelum Amandemen', [
-      'Teks asli UUD 1945 sebagaimana disahkan pada 18 Agustus 1945.',
-    ]);
+    const page = new UUDAsliPage(contentEl, {
+      sidebarEl,
+      uudAsliRepository: deps.uudAsliRepository,
+    });
+    void page.mount();
   });
 
   router.addRoute('/amandemen', () => {
-    _renderPlaceholder(contentEl, 'Amandemen UUD 1945', 'Riwayat 4 Amandemen (1999–2002)', [
-      'Daftar pasal yang diamandemen, dikelompokkan per amandemen I–IV.',
-    ]);
+    const page = new AmandemenPage(contentEl, {
+      sidebarEl,
+      pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+    });
+    void page.mount();
   });
 
   router.addRoute('/cari', () => {
@@ -149,21 +169,37 @@ export function registerRoutes(router, deps) {
   });
 
   router.addRoute('/pasal/:nomor', ({ nomor }) => {
-    _renderPlaceholder(contentEl, `Pasal ${nomor}`, `Detail Pasal ${nomor} UUD 1945`, [
-      `Isi lengkap Pasal ${nomor} beserta keterangan amandemen.`,
-    ]);
+    const page = new PasalDetailPage(contentEl, {
+      nomor,
+      sidebarEl,
+      router: deps.router,
+      pasalRepository: deps.pasalRepository,
+      pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+    });
+    void page.mount();
   });
 
   router.addRoute('/bab-pasal/:nomor', ({ nomor }) => {
-    _renderPlaceholder(contentEl, `Bab ${nomor}`, `Pasal-pasal dalam Bab ${nomor}`, [
-      `Daftar semua pasal dalam Bab ${nomor} UUD 1945.`,
-    ]);
+    const page = new BabPasalDetailPage(contentEl, {
+      nomor,
+      sidebarEl,
+      router: deps.router,
+      babRepository: deps.babRepository,
+    });
+    void page.mount();
   });
 
+  // CATATAN URUTAN: /amandemen/:nomor HARUS didaftarkan SEBELUM /amandemen
+  // agar router (first-match) tidak mencocokkan "/amandemen/7" ke route statis "/amandemen".
   router.addRoute('/amandemen/:nomor', ({ nomor }) => {
-    _renderPlaceholder(contentEl, `Amandemen Pasal ${nomor}`, `Perbandingan Pasal ${nomor}`, [
-      `Teks asli UUD 1945 vs. Pasal ${nomor} pasca-amandemen (side-by-side).`,
-    ]);
+    const page = new AmandemenDetailPage(contentEl, {
+      nomor,
+      sidebarEl,
+      router: deps.router,
+      uudAsliRepository: deps.uudAsliRepository,
+      pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+    });
+    void page.mount();
   });
 
   // ── 404 Fallback ────────────────────────────────────────────────────────────
