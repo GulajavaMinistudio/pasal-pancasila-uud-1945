@@ -18,6 +18,7 @@
 
 import {
   bindRetryAction,
+  buildBreadcrumbHtml,
   buildErrorStateHtml,
   buildPhaseOneSidebarItems,
   buildShareButton,
@@ -150,6 +151,12 @@ export class BabPasalDetailPage {
   _buildHtml({ bab, fullName, keterangan, roman, prevBab, nextBab }) {
     return `
       <div class="page-shell">
+        ${buildBreadcrumbHtml([
+          { label: 'UUD 1945', path: '/pasal' },
+          { label: 'Batang Tubuh', path: '/bab-pasal' },
+          { label: fullName },
+        ])}
+
         <a href="${toAppHref('/bab-pasal')}" class="page-back-link">
           <i class="bi bi-arrow-left" aria-hidden="true"></i>
           Kembali ke Daftar Bab

@@ -149,12 +149,12 @@ describe('BottomNavigation', () => {
       expect(tentangTab.classList.contains('active')).toBe(true);
     });
 
-    it('tab "Beranda" TIDAK aktif saat path = "/pancasila"', () => {
+    it('tab "Beranda" aktif saat path = "/pancasila"', () => {
       const { container } = mountBottomNav('/pancasila');
 
       const berandaTab = container.querySelector('[data-bottom-nav-path="/"]');
 
-      expect(berandaTab.classList.contains('active')).toBe(false);
+      expect(berandaTab.classList.contains('active')).toBe(true);
     });
 
     it('tab "Pasal" aktif saat path = "/pasal/1" (startsWith matching)', () => {
@@ -173,13 +173,28 @@ describe('BottomNavigation', () => {
       expect(amandemenTab.classList.contains('active')).toBe(true);
     });
 
-    it('tidak ada tab aktif (kecuali default logic) saat path = "/pembukaan"', () => {
-      // /pembukaan tidak cocok dengan tab manapun
+    it('tab "Beranda" aktif saat path = "/pembukaan"', () => {
       const { container } = mountBottomNav('/pembukaan');
 
-      const activeTabs = container.querySelectorAll('[data-bottom-nav-path].active');
+      const berandaTab = container.querySelector('[data-bottom-nav-path="/"]');
 
-      expect(activeTabs).toHaveLength(0);
+      expect(berandaTab.classList.contains('active')).toBe(true);
+    });
+
+    it('tab "Pasal" aktif saat path = "/bab-pasal/1"', () => {
+      const { container } = mountBottomNav('/bab-pasal/1');
+
+      const pasalTab = container.querySelector('[data-bottom-nav-path="/pasal"]');
+
+      expect(pasalTab.classList.contains('active')).toBe(true);
+    });
+
+    it('tab "Pasal" aktif saat path = "/uud-asli"', () => {
+      const { container } = mountBottomNav('/uud-asli');
+
+      const pasalTab = container.querySelector('[data-bottom-nav-path="/pasal"]');
+
+      expect(pasalTab.classList.contains('active')).toBe(true);
     });
   });
 

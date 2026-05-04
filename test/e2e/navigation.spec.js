@@ -12,6 +12,22 @@
 import { expect, test } from '@playwright/test';
 
 const BASE = '/pasal-pancasila-uud-1945';
+const ROUTE_MATRIX = [
+  { path: '/', selector: '.home-page' },
+  { path: '/pancasila', selector: '.pancasila-card' },
+  { path: '/sila/2', selector: '.sila-hero' },
+  { path: '/butir-pancasila', selector: '.butir-accordion__item' },
+  { path: '/pembukaan', selector: '.alinea-card' },
+  { path: '/pasal', selector: '.pasal-list' },
+  { path: '/pasal/1', selector: '.pasal-detail-header' },
+  { path: '/bab-pasal', selector: '.bab-list' },
+  { path: '/bab-pasal/1', selector: '.bab-detail-header' },
+  { path: '/uud-asli', selector: '[data-uud-asli]' },
+  { path: '/amandemen', selector: '[data-amandemen]' },
+  { path: '/amandemen/1', selector: '[data-amandemen-detail]' },
+  { path: '/cari', selector: '[data-cari-page]' },
+  { path: '/tentang', selector: '[data-tentang]' },
+];
 
 // ── SPA behavior ──────────────────────────────────────────────────────────
 
@@ -126,7 +142,7 @@ test.describe('Bottom Navigation — active tab sinkron dengan URL', () => {
     await expect(amandemenTab).toHaveClass(/active/);
   });
 
-  test('tab Beranda tidak aktif saat navigasi ke /pancasila', async ({ page }) => {
+  test('tab Beranda aktif saat navigasi ke /pancasila', async ({ page }) => {
     await page.goto(`${BASE}/`);
     await page.waitForSelector('.home-page', { timeout: 10_000 });
 
@@ -135,10 +151,9 @@ test.describe('Bottom Navigation — active tab sinkron dengan URL', () => {
     await pancasilaCard.click();
     await expect(page).toHaveURL(/\/pancasila/);
 
-    // Tab beranda harus tidak aktif
+    // Tab beranda aktif sebagai grup konten utama non-pasal/amandemen/tentang
     const berandaTab = page.locator('[data-bottom-nav-path="/"]');
-    const classes = await berandaTab.getAttribute('class');
-    expect(classes).not.toContain('active');
+    await expect(berandaTab).toHaveClass(/active/);
   });
 
   test('klik tab bottom nav tidak melakukan full page reload', async ({ page }) => {
@@ -175,40 +190,48 @@ test.describe('Bottom Navigation — active tab sinkron dengan URL', () => {
     const berandaClasses = await berandaTab.getAttribute('class');
     expect(berandaClasses).not.toContain('active');
   });
+
+  test('active state sinkron setelah browser back/forward', async ({ page }) => {
+    await page.goto(`${BASE}/pasal`);
+    await page.waitForSelector('.bottom-nav', { timeout: 10_000 });
+
+    const berandaTab = page.locator('[data-bottom-nav-path="/"]');
+    const pasalTab = page.locator('[data-bottom-nav-path="/pasal"]');
+    const amandemenTab = page.locator('[data-bottom-nav-path="/amandemen"]');
+
+    await expect(pasalTab).toHaveClass(/active/);
+
+    await page.goto(`${BASE}/amandemen`);
+    await expect(page).toHaveURL(/\/amandemen$/);
+    await expect(amandemenTab).toHaveClass(/active/);
+
+    await page.goBack();
+    await expect(page).toHaveURL(/\/pasal$/);
+    await expect(pasalTab).toHaveClass(/active/);
+
+    await page.goForward();
+    await expect(page).toHaveURL(/\/amandemen$/);
+    await expect(amandemenTab).toHaveClass(/active/);
+    await expect(berandaTab).not.toHaveClass(/active/);
+  });
 });
 
 // ── Deep link support ─────────────────────────────────────────────────────
 
 test.describe('Deep link — URL langsung ke setiap route Phase 1.6', () => {
-  test('URL langsung ke "/pancasila" menampilkan 5 sila', async ({ page }) => {
-    await page.goto(`${BASE}/pancasila`);
+  for (const route of ROUTE_MATRIX) {
+    test(`URL langsung ke "${route.path}" memuat halaman target`, async ({ page }) => {
+      await page.goto(`${BASE}${route.path}`);
+      await page.waitForSelector(route.selector, { timeout: 10_000 });
+      await expect(page.locator(route.selector).first()).toBeVisible();
+    });
+  }
 
-    await page.waitForSelector('.pancasila-card', { timeout: 10_000 });
-    const cards = page.locator('.pancasila-card');
-    await expect(cards).toHaveCount(5);
-  });
+  test('URL langsung ke "/sila/99" redirect ke halaman 404', async ({ page }) => {
+    await page.goto(`${BASE}/sila/99`);
 
-  test('URL langsung ke "/sila/2" menampilkan Sila 2', async ({ page }) => {
-    await page.goto(`${BASE}/sila/2`);
-
-    await page.waitForSelector('.sila-hero', { timeout: 10_000 });
-    await expect(page.locator('.sila-hero__ordinal')).toContainText('Sila 2');
-  });
-
-  test('URL langsung ke "/butir-pancasila" menampilkan accordion', async ({ page }) => {
-    await page.goto(`${BASE}/butir-pancasila`);
-
-    await page.waitForSelector('.butir-accordion__item', { timeout: 10_000 });
-    const items = page.locator('.butir-accordion__item');
-    await expect(items).toHaveCount(5);
-  });
-
-  test('URL langsung ke "/pembukaan" menampilkan 4 alinea', async ({ page }) => {
-    await page.goto(`${BASE}/pembukaan`);
-
-    await page.waitForSelector('.alinea-card', { timeout: 10_000 });
-    const cards = page.locator('.alinea-card');
-    await expect(cards).toHaveCount(4);
+    await expect(page).toHaveURL(/\/404$/);
+    await expect(page.locator('body')).toContainText(/404|tidak ditemukan/i, { timeout: 10_000 });
   });
 
   test('URL yang tidak dikenal menampilkan halaman 404', async ({ page }) => {

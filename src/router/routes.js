@@ -42,6 +42,7 @@ import { AmandemenPage } from '../pages/AmandemenPage.js';
 import { BabPasalDetailPage } from '../pages/BabPasalDetailPage.js';
 import { BabPasalListPage } from '../pages/BabPasalListPage.js';
 import { ButirPancasilaPage } from '../pages/ButirPancasilaPage.js';
+import { CariPage } from '../pages/CariPage.js';
 import { HomePage } from '../pages/HomePage.js';
 import { NotFoundPage } from '../pages/NotFoundPage.js';
 import { PancasilaPage } from '../pages/PancasilaPage.js';
@@ -49,6 +50,7 @@ import { PasalDetailPage } from '../pages/PasalDetailPage.js';
 import { PasalListPage } from '../pages/PasalListPage.js';
 import { PembukaanPage } from '../pages/PembukaanPage.js';
 import { SilaDetailPage } from '../pages/SilaDetailPage.js';
+import { TentangPage } from '../pages/TentangPage.js';
 import { UUDAsliPage } from '../pages/UUDAsliPage.js';
 
 /**
@@ -144,15 +146,17 @@ export function registerRoutes(router, deps) {
   });
 
   router.addRoute('/cari', () => {
-    _renderPlaceholder(contentEl, 'Pencarian', 'Cari Konten', [
-      'Pencarian real-time di seluruh konten Pancasila & UUD 1945.',
-    ]);
+    const page = new CariPage(contentEl, {
+      sidebarEl,
+      router: deps.router,
+      pasalRepository: deps.pasalRepository,
+    });
+    void page.mount();
   });
 
   router.addRoute('/tentang', () => {
-    _renderPlaceholder(contentEl, 'Tentang Aplikasi', 'Pancasila & UUD 1945', [
-      'Informasi tentang aplikasi, sumber data, dan versi.',
-    ]);
+    const page = new TentangPage(contentEl, { sidebarEl });
+    page.mount();
   });
 
   // ── Dynamic Routes (with parameters) ───────────────────────────────────────
@@ -208,45 +212,4 @@ export function registerRoutes(router, deps) {
     const page = new NotFoundPage(contentEl, { router: deps.router });
     page.mount();
   });
-}
-
-// =============================================================================
-// Private: Placeholder Renderer (Phase 1.5 only — akan dihapus di Phase 1.6)
-// =============================================================================
-
-/**
- * Render placeholder halaman ke contentEl.
- * contentEl sudah memiliki class .page-container dari PageContainer,
- * sehingga placeholder TIDAK perlu menambahkan wrapper tersebut.
- *
- * @param {HTMLElement} el
- * @param {string} title - Judul singkat (untuk <title> dan heading)
- * @param {string} subtitle - Subjudul halaman
- * @param {string[]} details - Keterangan tambahan (array of string)
- */
-function _renderPlaceholder(el, title, subtitle, details = []) {
-  el.innerHTML = `
-    <div class="text-center py-5 px-3">
-      <div class="mb-3" aria-hidden="true">
-        <i class="bi bi-building-columns"
-           style="font-size: 3rem; color: var(--color-primary); opacity: 0.4;"></i>
-      </div>
-
-      <h1 class="fs-3 fw-bold" style="color: var(--color-on-surface);">
-        ${subtitle}
-      </h1>
-
-      ${details.map((d) => `<p class="mt-2 mb-1" style="color: var(--color-text-secondary);">${d}</p>`).join('')}
-
-      <div class="mt-4 d-inline-flex align-items-center gap-2 px-3 py-2 rounded-3"
-           style="background: var(--color-surface-container); color: var(--color-text-secondary);
-                  font-size: 0.875rem;">
-        <i class="bi bi-hourglass-split" aria-hidden="true"></i>
-        <span>Konten sedang disiapkan — Phase 1.6</span>
-      </div>
-    </div>
-  `;
-
-  // Update document title untuk aksesibilitas dan tab browser
-  document.title = `${title} — Pancasila & UUD 1945`;
 }

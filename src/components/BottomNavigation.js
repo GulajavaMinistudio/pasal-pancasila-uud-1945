@@ -116,10 +116,31 @@ export class BottomNavigation {
    * @returns {boolean}
    */
   _isTabActive(tabPath) {
-    if (tabPath === '/') {
-      return this._currentPath === '/';
+    return this._resolveActiveTabPath() === tabPath;
+  }
+
+  /**
+   * Grouping route ke salah satu dari 4 tab utama bottom navigation.
+   * @returns {string}
+   */
+  _resolveActiveTabPath() {
+    if (
+      this._currentPath.startsWith('/pasal') ||
+      this._currentPath.startsWith('/bab-pasal') ||
+      this._currentPath.startsWith('/uud-asli')
+    ) {
+      return '/pasal';
     }
-    return this._currentPath.startsWith(tabPath);
+
+    if (this._currentPath.startsWith('/amandemen')) {
+      return '/amandemen';
+    }
+
+    if (this._currentPath.startsWith('/tentang')) {
+      return '/tentang';
+    }
+
+    return '/';
   }
 
   // ---------------------------------------------------------------------------

@@ -38,10 +38,22 @@ const AMANDEMEN_ORDER = ['1', '2', '3', '4'];
 
 /** Metadata tiap kelompok amandemen */
 const AMANDEMEN_META = {
-  1: { label: 'Amandemen I', year: '1999', cssClass: 'amandemen-group--I' },
-  2: { label: 'Amandemen II', year: '2000', cssClass: 'amandemen-group--II' },
-  3: { label: 'Amandemen III', year: '2001', cssClass: 'amandemen-group--III' },
-  4: { label: 'Amandemen IV', year: '2002', cssClass: 'amandemen-group--IV' },
+  1: { label: 'Amandemen I', year: '1999' },
+  2: { label: 'Amandemen II', year: '2000' },
+  3: { label: 'Amandemen III', year: '2001' },
+  4: { label: 'Amandemen IV', year: '2002' },
+};
+
+/**
+ * Lebar kolom Bootstrap per amandemen:
+ * I & II tampil berdampingan pada layar besar (col-lg-6);
+ * III & IV selalu full-width karena memiliki lebih banyak item.
+ */
+const AMANDEMEN_COL_CLASS = {
+  1: 'col-12 col-lg-6',
+  2: 'col-12 col-lg-6',
+  3: 'col-12',
+  4: 'col-12',
 };
 
 export class AmandemenPage {
@@ -117,7 +129,7 @@ export class AmandemenPage {
           Undang-Undang Dasar 1945 (1999–2002). Klik "Lihat Perbandingan" untuk
           melihat teks asli vs. teks pasca-amandemen secara berdampingan.
         </p>
-        <div class="amandemen-groups" data-amandemen-groups>
+        <div class="row g-4" data-amandemen-groups>
           ${sectionsHtml}
         </div>
       </div>
@@ -162,25 +174,28 @@ function _buildAmandemenSectionHtml(amandemenKey, pasalList) {
   const meta = AMANDEMEN_META[amandemenKey];
   if (!meta) return '';
 
+  const colClass = AMANDEMEN_COL_CLASS[amandemenKey] ?? 'col-12';
   const itemsHtml = pasalList.map((pasal) => _buildPasalRowHtml(pasal, amandemenKey)).join('');
 
   return `
-    <section
-      class="amandemen-group ${meta.cssClass}"
-      data-amandemen-section="${amandemenKey}"
-      aria-label="${meta.label}"
-    >
-      <div class="amandemen-group__header">
-        <div class="amandemen-group__title-row">
-          <h2 class="amandemen-group__title">${meta.label}</h2>
-          <span class="amandemen-group__year">${meta.year}</span>
+    <div class="${colClass}">
+      <section
+        class="card amandemen-group border rounded-3 shadow-sm overflow-hidden h-100"
+        data-amandemen-section="${amandemenKey}"
+        aria-label="${meta.label}"
+      >
+        <div class="amandemen-group__header card-header border-bottom p-3 p-md-4">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h2 class="amandemen-group__title h5 mb-0">${meta.label}</h2>
+            <span class="amandemen-group__year badge rounded-pill border">${meta.year}</span>
+          </div>
+          <span class="amandemen-group__count text-muted small">${pasalList.length} pasal diubah</span>
         </div>
-        <span class="amandemen-group__count">${pasalList.length} pasal diubah</span>
-      </div>
-      <div class="amandemen-group__body">
-        ${itemsHtml}
-      </div>
-    </section>
+        <div class="card-body amandemen-group__body p-3 d-flex flex-column gap-3">
+          ${itemsHtml}
+        </div>
+      </section>
+    </div>
   `;
 }
 
@@ -194,28 +209,42 @@ function _buildPasalRowHtml(pasal, amandemenKey) {
   const meta = AMANDEMEN_META[amandemenKey];
 
   return `
-    <div
-      class="amandemen-row"
+    <article
+      class="card amandemen-card border rounded-3"
       data-pasal="${_escapeAttr(pasal.namapasal)}"
       data-amandemen-item
     >
-      <div class="amandemen-row__info">
-        <span class="amandemen-row__bab">${_escapeHtml(pasal.babpasal)}</span>
-        <h3 class="amandemen-row__title">${_escapeHtml(pasal.namapasal)}</h3>
-        <span class="amandemen-badge amandemen-badge--${amandemenKey}" aria-label="${meta?.label ?? ''}">
-          ${meta?.label ?? ''}
-        </span>
+      <div class="card-body p-3">
+        <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+          <div class="flex-grow-1 min-w-0">
+            <span class="amandemen-row__bab d-block text-uppercase small lh-sm mb-1">
+              ${_escapeHtml(pasal.babpasal)}
+            </span>
+            <h3 class="amandemen-row__title h6 fw-bold mb-0">
+              ${_escapeHtml(pasal.namapasal)}
+            </h3>
+          </div>
+          <span
+            class="amandemen-badge amandemen-badge--${amandemenKey} flex-shrink-0"
+            aria-label="${meta?.label ?? ''}"
+          >
+            ${meta?.label ?? ''}
+          </span>
+        </div>
+        <div class="border-top pt-2 mt-1">
+          <a
+            class="amandemen-compare-link"
+            href="${toAppHref(`/amandemen/${urlSafe}`)}"
+            aria-label="Lihat perbandingan ${_escapeAttr(pasal.namapasal)}"
+            data-compare-link
+          >
+            <i class="bi bi-arrow-left-right d-md-none me-2" aria-hidden="true"></i>
+            <span>Lihat Perbandingan</span>
+            <i class="bi bi-arrow-right-short ms-1 d-none d-md-inline" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
-      <a
-        class="btn btn-sm btn-outline-secondary amandemen-row__compare-btn"
-        href="${toAppHref(`/amandemen/${urlSafe}`)}"
-        aria-label="Lihat perbandingan ${_escapeAttr(pasal.namapasal)}"
-        data-compare-link
-      >
-        Lihat Perbandingan
-        <i class="bi bi-arrow-right-short" aria-hidden="true"></i>
-      </a>
-    </div>
+    </article>
   `;
 }
 

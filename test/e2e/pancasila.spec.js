@@ -125,12 +125,11 @@ test.describe('Halaman Detail Sila (/sila/1)', () => {
     await expect(page).toHaveTitle(/Sila 1/);
   });
 
-  test('/sila/6 (tidak valid) menampilkan error state', async ({ page }) => {
+  test('/sila/6 (tidak valid) redirect ke halaman 404', async ({ page }) => {
     await page.goto(`${BASE}/sila/6`);
 
-    // Halaman harus menampilkan pesan error (tidak ada data sila ke-6)
-    const errorState = page.locator('[data-error], .alert-danger');
-    await expect(errorState.first()).toBeVisible({ timeout: 10_000 });
+    await expect(page).toHaveURL(/\/404$/);
+    await expect(page.locator('body')).toContainText(/404|tidak ditemukan/i, { timeout: 10_000 });
   });
 });
 

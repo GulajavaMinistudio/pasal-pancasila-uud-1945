@@ -1,6 +1,7 @@
 # AGENTS.md — Aplikasi Pancasila dan UUD 1945
 
 ## Repository Overview
+<!-- markdownlint-disable -->
 
 Aplikasi web **Pancasila & UUD 1945** adalah Progressive Web App (PWA) statis berbasis
 Vanilla JavaScript + Vite + Bootstrap 5 yang memigrasi konten dari aplikasi Android (v4.0.0)
@@ -35,9 +36,10 @@ pasaluud1945web/
 │   │   ├── SilaDetailPage.js     # /sila/:nomor
 │   │   ├── ButirPancasilaPage.js # /butir-pancasila
 │   │   ├── PembukaanPage.js      # /pembukaan
-│   │   ├── PasalPage.js          # /pasal
+│   │   ├── PasalListPage.js      # /pasal
 │   │   ├── PasalDetailPage.js    # /pasal/:nomor
-│   │   ├── BabPasalPage.js       # /bab-pasal dan /bab-pasal/:nomor
+│   │   ├── BabPasalListPage.js   # /bab-pasal
+│   │   ├── BabPasalDetailPage.js # /bab-pasal/:nomor
 │   │   ├── UUDAsliPage.js        # /uud-asli
 │   │   ├── AmandemenPage.js      # /amandemen
 │   │   ├── AmandemenDetailPage.js# /amandemen/:nomor (perbandingan side-by-side)
@@ -126,12 +128,12 @@ Tidak ada framework JS (React/Vue/Angular) — pure Vanilla JavaScript.
 
 ### Implementation Status
 
-| Fase    | Dokumen                                      | Status           | Tanggal Selesai |
-| ------- | -------------------------------------------- | ---------------- | --------------- |
-| Phase 1 | `plan/feature-phase1-fondasi-setup-1.md`     | ✅ Completed      | 2026-05-02      |
-| Phase 2 | `plan/feature-phase2-konten-pencarian-1.md`  | 🔵 Planned (v1.2) | —               |
-| Phase 3 | `plan/feature-phase3-pwa-sharing-seo-1.md`   | ⏳ Not Started    | —               |
-| Phase 4 | `plan/feature-phase4-launch-monitoring-1.md` | ⏳ Not Started    | —               |
+| Fase    | Dokumen                                      | Status        | Tanggal Selesai |
+| ------- | -------------------------------------------- | ------------- | --------------- |
+| Phase 1 | `plan/feature-phase1-fondasi-setup-1.md`     | ✅ Completed   | 2026-05-02      |
+| Phase 2 | `plan/feature-phase2-konten-pencarian-1.md`  | ✅ Completed   | 2026-05-04      |
+| Phase 3 | `plan/feature-phase3-pwa-sharing-seo-1.md`   | ⏳ Not Started | —               |
+| Phase 4 | `plan/feature-phase4-launch-monitoring-1.md` | ⏳ Not Started | —               |
 
 **Phase 1 Test Results (2026-05-02):**
 
@@ -139,15 +141,17 @@ Tidak ada framework JS (React/Vue/Angular) — pure Vanilla JavaScript.
 - E2E tests: 116 passed (Chromium + Firefox)
 - CI pipeline: semua jobs hijau ✅
 
-**Phase 2 — Tahap awal yang harus dikerjakan:**
+**Phase 2 Test Results (2026-05-04):**
 
-1. TASK-031 → `NotFoundPage.js` (fondasi 404)
-2. TASK-032 → Register catch-all `*` di `routes.js`
-3. TASK-004 → Helper `parsePasalNomor()` di `src/utils/pasal.js`
-4. TASK-001 → `PasalListPage.js`
-5. TASK-003 → Cross-reference badge amandemen
-6. TASK-002 → `PasalDetailPage.js`
-7. TASK-005 → Error handling 404 pasal tidak ditemukan
+- Unit/Component tests: 309 passed
+- E2E tests: 354 passed (Chromium + Firefox)
+- Verifikasi pipeline lokal (`lint`, `type-check`, `test`, `test:e2e`, `build`): semua lulus ✅
+
+**Phase 3 — Fokus berikutnya:**
+
+1. Eksekusi `plan/feature-phase3-pwa-sharing-seo-1.md`
+2. Prioritaskan task fondasi PWA/service worker terlebih dahulu
+3. Lanjutkan ke fitur sharing dan SEO sesuai urutan planning
 
 ### Local Workflow
 

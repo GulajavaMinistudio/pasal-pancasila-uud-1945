@@ -154,6 +154,39 @@ export function buildShareButton(label = 'Bagikan') {
 }
 
 /**
+ * @param {Array<{ label: string; path?: string }>} items
+ * @returns {string}
+ */
+export function buildBreadcrumbHtml(items) {
+  if (!Array.isArray(items) || items.length === 0) return '';
+
+  const list = items
+    .map((item, index) => {
+      const isLast = index === items.length - 1;
+      const label = _escapeHtml(item.label);
+
+      if (isLast || !item.path) {
+        return `<li class="page-breadcrumb__item active" aria-current="page">${label}</li>`;
+      }
+
+      return `
+        <li class="page-breadcrumb__item">
+          <a href="${toAppHref(item.path)}" class="page-breadcrumb__link">${label}</a>
+        </li>
+      `;
+    })
+    .join('');
+
+  return `
+    <nav class="page-breadcrumb" aria-label="Breadcrumb">
+      <ol class="page-breadcrumb__list">
+        ${list}
+      </ol>
+    </nav>
+  `;
+}
+
+/**
  * @param {SidebarNavItem} item
  * @returns {string}
  */
@@ -212,4 +245,17 @@ function _isSidebarItemActive(currentPath, itemPath) {
   }
 
   return currentPath === itemPath;
+}
+
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+function _escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }

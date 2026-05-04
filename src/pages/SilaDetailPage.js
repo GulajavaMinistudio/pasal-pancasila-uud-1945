@@ -5,6 +5,7 @@
 
 import {
   bindRetryAction,
+  buildBreadcrumbHtml,
   buildErrorStateHtml,
   buildPhaseOneSidebarItems,
   buildShareButton,
@@ -49,7 +50,7 @@ export class SilaDetailPage {
 
     const nomorSila = _parseSilaNumber(this.nomor);
     if (nomorSila === null) {
-      this._renderInvalidState();
+      this._redirectToNotFound();
       return;
     }
 
@@ -66,7 +67,7 @@ export class SilaDetailPage {
       const butirSila = butirList[nomorSila - 1];
 
       if (!silaText || !butirSila) {
-        this._renderInvalidState();
+        this._redirectToNotFound();
         return;
       }
 
@@ -83,19 +84,8 @@ export class SilaDetailPage {
     }
   }
 
-  _renderInvalidState() {
-    setPageTitle('Sila Tidak Ditemukan');
-    this.container.innerHTML = buildErrorStateHtml({
-      title: 'Sila tidak ditemukan',
-      message: 'Nomor sila harus berada pada rentang 1 sampai 5.',
-      retryLabel: 'Kembali ke Daftar Sila',
-    });
-
-    const retryButton = this.container.querySelector('[data-action="retry"]');
-    if (!retryButton) return;
-    retryButton.addEventListener('click', () => {
-      this.router.navigate('/pancasila');
-    });
+  _redirectToNotFound() {
+    this.router.navigate('/404');
   }
 
   /**
@@ -111,6 +101,11 @@ export class SilaDetailPage {
 
     return `
       <div class="page-shell">
+        ${buildBreadcrumbHtml([
+          { label: 'Pancasila', path: '/pancasila' },
+          { label: `Sila ${state.nomorSila}` },
+        ])}
+
         <div class="page-topbar">
           <a class="page-back-link" href="${toAppHref('/pancasila')}">
             <i class="bi bi-arrow-left" aria-hidden="true"></i>

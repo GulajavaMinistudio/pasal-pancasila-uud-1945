@@ -18,6 +18,7 @@
 
 import {
   bindRetryAction,
+  buildBreadcrumbHtml,
   buildErrorStateHtml,
   buildPhaseOneSidebarItems,
   buildShareButton,
@@ -141,6 +142,12 @@ export class PasalDetailPage {
 
     return `
       <div class="page-shell">
+        ${buildBreadcrumbHtml([
+          { label: 'UUD 1945', path: '/pasal' },
+          { label: 'Batang Tubuh', path: '/bab-pasal' },
+          { label: babLabel || pasal.namapasal },
+        ])}
+
         <div class="page-topbar">
           <a class="page-back-link" href="${toAppHref('/pasal')}">
             <i class="bi bi-arrow-left" aria-hidden="true"></i>

@@ -741,6 +741,49 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   line-height: 1.65;
 }
 
+.page-breadcrumb {
+  margin-bottom: 1rem;
+}
+
+.page-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+
+  &:not(:last-child)::after {
+    content: '/';
+    color: var(--color-outline);
+  }
+
+  &.active {
+    color: var(--color-on-surface);
+    font-weight: 600;
+  }
+}
+
+.page-breadcrumb__link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+}
+
 .page-topbar {
   display: flex;
   align-items: center;
@@ -1268,6 +1311,82 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+// --- Cari Page (TASK-033 s.d. TASK-041) -------------------------------------
+
+.cari-page {
+  gap: 1rem;
+}
+
+.search-pasal__input-wrap {
+  position: relative;
+}
+
+.search-pasal__icon {
+  position: absolute;
+  top: 50%;
+  left: 0.95rem;
+  transform: translateY(-50%);
+  color: var(--color-on-surface-variant);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.search-pasal__input {
+  width: 100%;
+  border-radius: 0.8rem;
+  border: 1px solid var(--color-outline-variant);
+  background-color: #eceff1;
+  color: var(--color-on-surface);
+  padding: 0.8rem 0.95rem 0.8rem 2.8rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &::placeholder {
+    color: var(--color-on-surface-variant);
+  }
+
+  &:focus-visible {
+    outline: 0;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 25%, transparent);
+  }
+}
+
+.cari-search-note {
+  font-size: 0.875rem;
+}
+
+.cari-search-state {
+  font-size: 0.9rem;
+}
+
+.cari-empty-state {
+  border: 1px dashed var(--color-outline-variant);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface-variant);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cari-result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cari-result-card__excerpt {
+  -webkit-line-clamp: 3;
+}
+
+.cari-mark {
+  background-color: #ffe7ad;
+  color: var(--color-on-surface);
+  padding: 0 0.1rem;
+  border-radius: 0.2rem;
 }
 
 // --- Pasal Detail Page -------------------------------------------------------
@@ -2157,153 +2276,139 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   max-width: 680px;
 }
 
-.amandemen-groups {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
 // --- Amandemen Group Section -------------------------------------------------
-
-// Color tokens per amandemen (spec TASK-012)
-$amandemen-colors: (
-  'I':   (#1565c0, #dce8fb, #1e4fa0),
-  'II':  (#2e7d32, #d6eed7, #1b5e20),
-  'III': (#e65100, #fce8d6, #bf360c),
-  'IV':  (#4a148c, #e8d5f5, #311b6d),
-);
+// Layout utama menggunakan Bootstrap row g-4 + col-12/col-lg-6.
+// Bootstrap card class menangani border, background, dan border-radius.
 
 .amandemen-group {
-  border-radius: $border-radius-lg;
-  border: 1px solid var(--color-outline-variant);
-  overflow: hidden;
-  background-color: var(--color-surface);
-
-  @each $key, $colors in $amandemen-colors {
-    &--#{$key} {
-      .amandemen-group__header {
-        background-color: nth($colors, 2);
-        border-bottom-color: lighten(nth($colors, 3), 30%);
-      }
-
-      .amandemen-group__title {
-        color: nth($colors, 1);
-      }
-
-      .amandemen-badge--#{$key} {
-        background-color: nth($colors, 2);
-        color: nth($colors, 1);
-        border-color: lighten(nth($colors, 3), 25%);
-      }
-    }
+  // Aksen border kiri warna primer — hanya di mobile (mengikuti pola mockup mobile)
+  @include media-breakpoint-down(md) {
+    border-left: 4px solid var(--color-primary) !important;
   }
 }
 
 .amandemen-group__header {
-  padding: 0.875rem 1.125rem;
-  border-bottom: 1px solid var(--color-outline-variant);
-}
-
-.amandemen-group__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.25rem;
+  background-color: var(--color-surface-container-low, #f8f9fa);
 }
 
 .amandemen-group__title {
-  font-size: 1.1rem;
   font-weight: 700;
-  margin: 0;
+  color: var(--color-primary);
 }
 
 .amandemen-group__year {
   font-size: 0.8125rem;
   font-weight: 600;
-  padding: 0.2rem 0.65rem;
-  border-radius: 100px;
   background-color: var(--color-surface);
   color: var(--color-text-secondary);
-  border: 1px solid var(--color-outline-variant);
 }
 
 .amandemen-group__count {
   font-size: 0.8125rem;
-  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
-.amandemen-group__body {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
+// --- Amandemen Card Item (satu card per pasal yang diamandemen) ---------------
 
-// --- Amandemen Row Item ------------------------------------------------------
-
-.amandemen-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.875rem 1.125rem;
-  border-bottom: 1px solid var(--color-outline-variant);
-  transition: background-color 0.12s ease;
-
-  &:last-child {
-    border-bottom: none;
-  }
+.amandemen-card {
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
 
   &:hover {
-    background-color: var(--color-surface-container-low);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.1) !important;
+    transform: translateY(-1px);
   }
-
-  @include media-breakpoint-down(sm) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-}
-
-.amandemen-row__info {
-  flex: 1;
-  min-width: 0;
 }
 
 .amandemen-row__bab {
-  display: block;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 0.15rem;
 }
 
 .amandemen-row__title {
-  font-size: 0.9375rem;
-  font-weight: 700;
   color: var(--color-on-surface);
-  margin: 0 0 0.35rem;
 }
+
+// --- Badge warna per amandemen (kunci numerik '1'–'4') -----------------------
+// Kunci numerik agar konsisten dengan JS yang menghasilkan .amandemen-badge--1/2/3/4
+
+$amandemen-badge-colors: (
+  '1': (#1565c0, #dce8fb, #1e4fa0),
+  '2': (#2e7d32, #d6eed7, #1b5e20),
+  '3': (#e65100, #fce8d6, #bf360c),
+  '4': (#4a148c, #e8d5f5, #311b6d),
+);
 
 .amandemen-badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.15rem 0.6rem;
+  padding: 0.2rem 0.65rem;
   border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.6875rem;
+  font-weight: 700;
   border: 1px solid transparent;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
 }
 
-.amandemen-row__compare-btn {
-  white-space: nowrap;
-  flex-shrink: 0;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  display: inline-flex;
+@each $key, $colors in $amandemen-badge-colors {
+  .amandemen-badge--#{$key} {
+    background-color: nth($colors, 2);
+    color: nth($colors, 1);
+    border-color: lighten(nth($colors, 3), 25%);
+  }
+}
+
+// --- Compare Link (responsif: tombol penuh mobile → tautan teks desktop) -----
+
+.amandemen-compare-link {
+  display: flex;
   align-items: center;
-  gap: 0.2rem;
+  justify-content: center;
+  gap: 0.375rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+
+  &:hover,
+  &:focus {
+    background-color: var(--color-primary-dark, #8b0000);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @include media-breakpoint-up(md) {
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+    color: var(--color-primary);
+    font-size: 0.8125rem;
+    justify-content: flex-start;
+    border-radius: 0;
+    font-weight: 600;
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      color: var(--color-primary-dark, #8b0000);
+      text-decoration: underline;
+    }
+
+    &:active {
+      transform: none;
+    }
+  }
 }
 
 // --- Pasal Compare Link (PasalDetailPage — TASK-021) -------------------------
@@ -2623,4 +2728,65 @@ $amandemen-colors: (
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+// Phase 2.4 — Tentang Page (TASK-030)
+// =============================================================================
+
+// --- Tentang Hero Section ----------------------------------------------------
+
+.tentang-hero {
+  padding-top: 0.5rem;
+}
+
+.tentang-logo-circle {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background-color: var(--color-surface-container, #ffe9e6);
+  border: 4px solid var(--color-surface, #fff8f7);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tentang-logo-icon {
+  font-size: 3rem;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.tentang-app-name {
+  color: var(--color-on-surface);
+}
+
+.tentang-version-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-container-low, #f8f9fa);
+  border-color: var(--color-outline-variant) !important;
+}
+
+// --- Tentang Description -----------------------------------------------------
+
+.tentang-description {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+// --- Tentang Sumber Data -----------------------------------------------------
+
+.tentang-sumber-data {
+  .card-header {
+    background-color: var(--color-surface-container-low, #f8f9fa) !important;
+  }
+}
+
+.tentang-source-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background-color: var(--color-surface-container-low, #f8f9fa);
 }
