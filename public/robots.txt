@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Tidak perlu di-crawl — halaman pencarian tidak memiliki konten unik
+Disallow: /cari
+
+Sitemap: https://pasaluud1945.web.app/sitemap.xml

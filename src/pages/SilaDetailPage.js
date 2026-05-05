@@ -18,6 +18,7 @@ import {
   toAppHref,
 } from './pageHelpers.js';
 import { ShareButton } from '../components/ShareButton.js';
+import { updateMetaTags } from '../utils/seo.js';
 
 export class SilaDetailPage {
   /**
@@ -77,6 +78,7 @@ export class SilaDetailPage {
         silaText,
         butirSila,
       });
+      this._updateSeoMeta(nomorSila, silaText);
       this._mountShareButton(nomorSila, silaText);
     } catch {
       this.container.innerHTML = buildErrorStateHtml({
@@ -84,6 +86,22 @@ export class SilaDetailPage {
       });
       bindRetryAction(this.container, () => this.mount());
     }
+  }
+
+  /**
+   * Perbarui SEO meta tags dengan teks sila aktual setelah data dimuat.
+   * Override nilai template yang sudah di-set di routes.js.
+   *
+   * @param {number} nomorSila
+   * @param {string} silaText
+   */
+  _updateSeoMeta(nomorSila, silaText) {
+    const silaShort = silaText.replace(/\.$/, '');
+    updateMetaTags({
+      title: `Sila ${nomorSila} Pancasila — ${silaShort}`,
+      description: `Teks lengkap dan butir-butir pengamalan Sila ke-${nomorSila} Pancasila: "${silaShort}". Dasar negara Indonesia.`,
+      path: `/sila/${nomorSila}`,
+    });
   }
 
   /**

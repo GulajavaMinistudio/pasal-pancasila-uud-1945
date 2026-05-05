@@ -30,6 +30,7 @@ import {
 } from './pageHelpers.js';
 import { buildAmandemenBadgeHtml, buildAmandemenMap, parsePasalNomor } from '../utils/pasal.js';
 import { ShareButton } from '../components/ShareButton.js';
+import { updateMetaTags } from '../utils/seo.js';
 
 export class PasalDetailPage {
   /**
@@ -91,6 +92,7 @@ export class PasalDetailPage {
       const nextPasal = currentIndex < pasalList.length - 1 ? pasalList[currentIndex + 1] : null;
 
       setPageTitle(pasal.namapasal);
+      this._updateSeoMeta(pasal);
       this.container.innerHTML = this._buildHtml({ pasal, ketAmandemen, prevPasal, nextPasal });
       this._mountShareButton(pasal);
     } catch {
@@ -118,6 +120,25 @@ export class PasalDetailPage {
       text: `${pasal.namapasal}\n${ayatText}`,
       url: window.location.href,
     }).mount();
+  }
+
+  /**
+   * Perbarui SEO meta tags dengan konten dinamis setelah pasal dimuat (TASK-022).
+   * Override nilai template yang sudah di-set di routes.js dengan deskripsi aktual.
+   *
+   * @param {{ namapasal: string; arrayisi: Array<{ isi: string }> }} pasal
+   */
+  _updateSeoMeta(pasal) {
+    const nomorPasal = pasal.namapasal.replace('Pasal ', '');
+    const cuplikanAyat = pasal.arrayisi[0]?.isi?.substring(0, 120) ?? '';
+    const cuplikanTrimmed = cuplikanAyat.length === 120 ? `${cuplikanAyat}…` : cuplikanAyat;
+
+    updateMetaTags({
+      title: `${pasal.namapasal} UUD 1945 — Isi Lengkap`,
+      description: `Teks lengkap ${pasal.namapasal} UUD 1945 beserta ayat-ayatnya. ${cuplikanTrimmed}`,
+      path: `/pasal/${nomorPasal}`,
+      ogType: 'article',
+    });
   }
 
   /**

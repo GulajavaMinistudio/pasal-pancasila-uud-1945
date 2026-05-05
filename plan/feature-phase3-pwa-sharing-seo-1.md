@@ -104,43 +104,43 @@ polish performa + aksesibilitas hingga semua Lighthouse quality gates terpenuhi.
 - GOAL-003: Mengimplementasikan `updateMetaTags()` utility dan memastikan setiap
   dari 14 route memiliki meta tags yang unik dan optimal untuk mesin pencari.
 
-| Task     | Description                                                                                                                                                                                                             | Completed                                                                   | Date            |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------- |
-| TASK-019 | Buat `src/utils/seo.js` — fungsi `updateMetaTags({ title, description, canonicalUrl, ogImage })`: update `document.title`, `<meta name="description">`, `<link rel="canonical">`, dan semua OG/Twitter tags             |                                                                             |                 |
-| TASK-020 | Implementasi meta tags dasar di `index.html`: `<meta name="description">` default, `<meta property="og:site_name">`, `<meta name="twitter:card" content="summary_large_image">`                                         |                                                                             |                 |
-| TASK-021 | Panggil `updateMetaTags()` di route handler setiap halaman. Template title per route (dari `spec-seo §5`): `/pancasila` → `"Pancasila - 5 Sila Dasar Negara Indonesia                                                   | UUD 1945"`, `/pasal/:nomor` → `"[Nama Pasal] UUD 1945 - Teks Lengkap & Ayat | UUD 1945"`, dst |  |  |
-| TASK-022 | Implementasi dynamic meta description per halaman pasal: `"Teks lengkap [Nama Pasal] UUD 1945 beserta ayat-ayatnya. [Isi ayat 1, max 120 karakter]..."`                                                                 |                                                                             |                 |
-| TASK-023 | Implementasi Open Graph tags per route: `og:title`, `og:description`, `og:url` (canonical), `og:type: "article"` untuk pasal, `og:type: "website"` untuk halaman lain, `og:image` (placeholder: banner statis 1200x630) |                                                                             |                 |
-| TASK-024 | Implementasi Twitter Card tags: `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`                                                                                                                 |                                                                             |                 |
-| TASK-025 | Buat banner image statis `public/images/og-banner.png` — 1200x630px, desain merah-putih dengan teks "Pancasila & UUD 1945" untuk digunakan sebagai default og:image                                                     |                                                                             |                 |
+| Task     | Description                                                                                                                                                                                                                                                             | Completed | Date       |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-019 | Buat `src/utils/seo.js` — fungsi `updateMetaTags({ title, description, canonicalUrl, ogImage })`: update `document.title`, `<meta name="description">`, `<link rel="canonical">`, dan semua OG/Twitter tags                                                             | ✅         | 2026-05-05 |
+| TASK-020 | Implementasi meta tags dasar di `index.html`: `<meta name="description">` default, `<meta property="og:site_name">`, `<meta name="twitter:card" content="summary_large_image">`                                                                                         | ✅         | 2026-05-05 |
+| TASK-021 | Panggil `updateMetaTags()` di route handler setiap halaman. Template title per route (dari `spec-seo §5`): `/pancasila` → `"Pancasila - 5 Sila Dasar Negara Indonesia \| UUD 1945"`, `/pasal/:nomor` → `"[Nama Pasal] UUD 1945 - Teks Lengkap & Ayat \| UUD 1945"`, dst | ✅         | 2026-05-05 |
+| TASK-022 | Implementasi dynamic meta description per halaman pasal: `"Teks lengkap [Nama Pasal] UUD 1945 beserta ayat-ayatnya. [Isi ayat 1, max 120 karakter]..."`                                                                                                                 | ✅         | 2026-05-05 |
+| TASK-023 | Implementasi Open Graph tags per route: `og:title`, `og:description`, `og:url` (canonical), `og:type: "article"` untuk pasal, `og:type: "website"` untuk halaman lain, `og:image` (placeholder: banner statis 1200x630)                                                 | ✅         | 2026-05-05 |
+| TASK-024 | Implementasi Twitter Card tags: `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`                                                                                                                                                                 | ✅         | 2026-05-05 |
+| TASK-025 | Buat banner image statis `public/images/og-banner.png` — 1200x630px, desain merah-putih dengan teks "Pancasila & UUD 1945" untuk digunakan sebagai default og:image                                                                                                     | ✅         | 2026-05-05 |
 
 ### Implementation Phase 3.4 — SEO: JSON-LD Structured Data
 
 - GOAL-004: Mengimplementasikan JSON-LD Structured Data untuk meningkatkan rich
   results di Google Search dan mendukung business goal SEO ranking halaman 1.
 
-| Task     | Description                                                                                                                                                                     | Completed | Date |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-026 | Buat `src/utils/jsonld.js` — fungsi `injectJsonLd(schema)` yang inject `<script type="application/ld+json">` ke `<head>`, dan `removeJsonLd()` untuk cleanup saat route berubah |           |      |
-| TASK-027 | Implementasi `createWebPageSchema({ name, description, url })` — schema `WebPage` untuk halaman statis (Pancasila, Pembukaan, Bab Pasal, dll)                                   |           |      |
-| TASK-028 | Implementasi `createArticleSchema({ headline, description, url, dateModified })` — schema `Article` untuk halaman detail pasal (`/pasal/:nomor`)                                |           |      |
-| TASK-029 | Implementasi `createBreadcrumbSchema(items)` — schema `BreadcrumbList` untuk halaman detail: `Home > Pasal > Pasal 7A`                                                          |           |      |
-| TASK-030 | Integrasikan JSON-LD di route handlers: `/pasal/:nomor` inject Article + Breadcrumb, `/` dan `/pancasila` inject WebPage + Breadcrumb, halaman lain inject WebPage              |           |      |
-| TASK-031 | Tambahkan `WebSite` schema dengan `SearchAction` di `index.html` (sitewide): `"@type": "SearchAction"`, `"target": "https://[BASE_URL]/cari?q={search_term_string}"`            |           |      |
+| Task     | Description                                                                                                                                                                     | Completed | Date       |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-026 | Buat `src/utils/jsonld.js` — fungsi `injectJsonLd(schema)` yang inject `<script type="application/ld+json">` ke `<head>`, dan `removeJsonLd()` untuk cleanup saat route berubah | ✅         | 2026-05-05 |
+| TASK-027 | Implementasi `createWebPageSchema({ name, description, url })` — schema `WebPage` untuk halaman statis (Pancasila, Pembukaan, Bab Pasal, dll)                                   | ✅         | 2026-05-05 |
+| TASK-028 | Implementasi `createArticleSchema({ headline, description, url, dateModified })` — schema `Article` untuk halaman detail pasal (`/pasal/:nomor`)                                | ✅         | 2026-05-05 |
+| TASK-029 | Implementasi `createBreadcrumbSchema(items)` — schema `BreadcrumbList` untuk halaman detail: `Home > Pasal > Pasal 7A`                                                          | ✅         | 2026-05-05 |
+| TASK-030 | Integrasikan JSON-LD di route handlers: `/pasal/:nomor` inject Article + Breadcrumb, `/` dan `/pancasila` inject WebPage + Breadcrumb, halaman lain inject WebPage              | ✅         | 2026-05-05 |
+| TASK-031 | Tambahkan `WebSite` schema dengan `SearchAction` di `index.html` (sitewide): `"@type": "SearchAction"`, `"target": "https://[BASE_URL]/cari?q={search_term_string}"`            | ✅         | 2026-05-05 |
 
 ### Implementation Phase 3.5 — Sitemap & robots.txt
 
 - GOAL-005: Mengimplementasikan sitemap.xml yang dihasilkan otomatis saat build time
   dan robots.txt yang benar untuk crawling mesin pencari.
 
-| Task     | Description                                                                                                                                                                                            | Completed | Date |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ---- |
-| TASK-032 | Buat `scripts/generate-sitemap.js` — Node.js script yang membaca 7 JSON data, generate semua URL dinamis (per pasal, per sila, per bab), dan output `public/sitemap.xml` sebelum proses build          |           |      |
-| TASK-033 | Daftar URL statis di sitemap: `/`, `/pancasila`, `/butir-pancasila`, `/pembukaan`, `/pasal`, `/bab-pasal`, `/uud-asli`, `/amandemen`, `/tentang`                                                       |           |      |
-| TASK-034 | Daftar URL dinamis di sitemap: `/sila/1`–`/sila/5`, `/pasal/[semua nomor pasal]`, `/bab-pasal/1`–`/bab-pasal/21`                                                                                       |           |      |
-| TASK-035 | Set `<priority>` dan `<changefreq>` per URL: homepage `1.0 monthly`, konten `0.8 monthly`, `/cari` dikecualikan dari sitemap                                                                           |           |      |
-| TASK-036 | Tambahkan script `generate-sitemap` ke `package.json` dan integrasi ke `prebuild`: `"prebuild": "node scripts/generate-sitemap.js"` agar `public/sitemap.xml` tersedia sebelum `vite build` dijalankan |           |      |
-| TASK-037 | Buat `public/robots.txt`: `User-agent: *`, `Disallow: /cari`, `Allow: /`, `Sitemap: https://[BASE_URL]/sitemap.xml` (ganti BASE_URL dengan domain production)                                          |           |      |
+| Task     | Description                                                                                                                                                                                            | Completed | Date       |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ---------- |
+| TASK-032 | Buat `scripts/generate-sitemap.js` — Node.js script yang membaca 7 JSON data, generate semua URL dinamis (per pasal, per sila, per bab), dan output `public/sitemap.xml` sebelum proses build          | ✅         | 2026-05-05 |
+| TASK-033 | Daftar URL statis di sitemap: `/`, `/pancasila`, `/butir-pancasila`, `/pembukaan`, `/pasal`, `/bab-pasal`, `/uud-asli`, `/amandemen`, `/tentang`                                                       | ✅         | 2026-05-05 |
+| TASK-034 | Daftar URL dinamis di sitemap: `/sila/1`–`/sila/5`, `/pasal/[semua nomor pasal]`, `/bab-pasal/1`–`/bab-pasal/21`                                                                                       | ✅         | 2026-05-05 |
+| TASK-035 | Set `<priority>` dan `<changefreq>` per URL: homepage `1.0 monthly`, konten `0.8 monthly`, `/cari` dikecualikan dari sitemap                                                                           | ✅         | 2026-05-05 |
+| TASK-036 | Tambahkan script `generate-sitemap` ke `package.json` dan integrasi ke `prebuild`: `"prebuild": "node scripts/generate-sitemap.js"` agar `public/sitemap.xml` tersedia sebelum `vite build` dijalankan | ✅         | 2026-05-05 |
+| TASK-037 | Buat `public/robots.txt`: `User-agent: *`, `Disallow: /cari`, `Allow: /`, `Sitemap: https://[BASE_URL]/sitemap.xml` (ganti BASE_URL dengan domain production)                                          | ✅         | 2026-05-05 |
 
 ### Implementation Phase 3.6 — Google Analytics 4
 

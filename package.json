@@ -7,7 +7,9 @@
     "scripts": {
         "dev": "vite",
         "generate-icons": "node scripts/generate-icons.js",
-        "prebuild": "node scripts/generate-icons.js",
+        "generate-og-banner": "node scripts/generate-og-banner.js",
+        "generate-sitemap": "node scripts/generate-sitemap.js",
+        "prebuild": "node scripts/generate-icons.js && node scripts/generate-og-banner.js && node scripts/generate-sitemap.js",
         "build": "vite build",
         "preview": "vite preview",
         "test": "vitest run --coverage",

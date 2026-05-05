@@ -3,10 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO (TASK-020) — diperbarui secara dinamis oleh updateMetaTags() saat navigasi -->
     <meta
       name="description"
-      content="Pancasila &amp; UUD 1945 — Referensi lengkap Pancasila dan Undang-Undang Dasar 1945 Republik Indonesia"
+      content="Baca Pancasila, Pembukaan UUD 1945, dan seluruh Pasal UUD 1945 secara online. Lengkap, akurat, dan dapat diakses kapan saja."
     />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Indonesian" />
+    <meta name="author" content="Pancasila &amp; UUD 1945 Web App" />
+
+    <!-- Open Graph (TASK-020) — default untuk halaman utama -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pancasila &amp; UUD 1945" />
+    <meta property="og:title" content="Pancasila &amp; UUD 1945 — Konstitusi Indonesia" />
+    <meta
+      property="og:description"
+      content="Baca Pancasila, Pembukaan UUD 1945, dan seluruh Pasal UUD 1945 secara online. Lengkap, akurat, dan dapat diakses kapan saja."
+    />
+    <meta property="og:image" content="https://pasaluud1945.web.app/images/og-banner.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="id_ID" />
+
+    <!-- Twitter Card (TASK-020) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pancasila &amp; UUD 1945 — Konstitusi Indonesia" />
+    <meta
+      name="twitter:description"
+      content="Baca Pancasila, Pembukaan UUD 1945, dan seluruh Pasal UUD 1945 secara online. Lengkap, akurat, dan dapat diakses kapan saja."
+    />
+    <meta name="twitter:image" content="https://pasaluud1945.web.app/images/og-banner.png" />
+
+    <!-- Alternate language — memperjelas bahasa konten ke Google (GUD-SEO-005) -->
+    <link rel="alternate" hreflang="id" href="https://pasaluud1945.web.app/" />
 
     <!-- Theme color — merah primer aplikasi (TASK-008) -->
     <meta name="theme-color" content="#C62828" />
@@ -30,6 +60,27 @@
       rel="stylesheet"
     />
     <title>Pancasila &amp; UUD 1945</title>
+
+    <!-- WebSite JSON-LD dengan SearchAction — sitewide (TASK-031) -->
+    <!-- Script ini bersifat statis dan tidak dikelola oleh injectJsonLd() di runtime -->
+    <script type="application/ld+json" id="__jsonld-website">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Pancasila & UUD 1945",
+        "url": "https://pasaluud1945.web.app",
+        "description": "Baca Pancasila, Pembukaan UUD 1945, dan seluruh Pasal UUD 1945 secara online. Lengkap, akurat, dan dapat diakses kapan saja.",
+        "inLanguage": "id",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://pasaluud1945.web.app/cari?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
     <script>
       // SPA Routing Receiver — memulihkan path yang di-redirect dari 404.html
       // Script ini hanya aktif saat request datang dari GitHub Pages 404.html redirect
