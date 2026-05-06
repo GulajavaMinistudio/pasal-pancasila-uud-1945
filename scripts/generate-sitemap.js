@@ -29,10 +29,11 @@ const ROOT_DIR = join(__dirname, '..');
 const BASE_URL = 'https://pasaluud1945.web.app';
 const OUTPUT_FILE = join(ROOT_DIR, 'public', 'sitemap.xml');
 const PASAL_DATA_FILE = join(ROOT_DIR, 'public', 'data', 'pasaluud45.json');
+const BAB_PASAL_DATA_FILE = join(ROOT_DIR, 'public', 'data', 'babpasal.json');
 
 // =============================================================================
 // Definisi Route Statis
-// Urutan: homepage dulu, lalu konten utama (priority tinggi), konten pendukung
+// Sesuai TASK-033: hanya route statis utama tanpa route dinamis
 // Catatan: /cari TIDAK dimasukkan — tidak ada konten unik per URL
 // =============================================================================
 
@@ -43,24 +44,32 @@ const PASAL_DATA_FILE = join(ROOT_DIR, 'public', 'data', 'pasaluud45.json');
 /** @type {UrlEntry[]} */
 const STATIC_ROUTES = [
   { path: '/', priority: '1.0', changefreq: 'monthly' },
-  { path: '/pancasila', priority: '0.9', changefreq: 'yearly' },
-  { path: '/pembukaan', priority: '0.9', changefreq: 'yearly' },
-  { path: '/pasal', priority: '0.9', changefreq: 'yearly' },
-  { path: '/sila/1', priority: '0.8', changefreq: 'yearly' },
-  { path: '/sila/2', priority: '0.8', changefreq: 'yearly' },
-  { path: '/sila/3', priority: '0.8', changefreq: 'yearly' },
-  { path: '/sila/4', priority: '0.8', changefreq: 'yearly' },
-  { path: '/sila/5', priority: '0.8', changefreq: 'yearly' },
-  { path: '/butir-pancasila', priority: '0.8', changefreq: 'yearly' },
-  { path: '/bab-pasal', priority: '0.8', changefreq: 'yearly' },
-  { path: '/uud-asli', priority: '0.7', changefreq: 'yearly' },
-  { path: '/amandemen', priority: '0.7', changefreq: 'yearly' },
-  { path: '/tentang', priority: '0.4', changefreq: 'monthly' },
+  { path: '/pancasila', priority: '0.8', changefreq: 'monthly' },
+  { path: '/butir-pancasila', priority: '0.8', changefreq: 'monthly' },
+  { path: '/pembukaan', priority: '0.8', changefreq: 'monthly' },
+  { path: '/pasal', priority: '0.8', changefreq: 'monthly' },
+  { path: '/bab-pasal', priority: '0.8', changefreq: 'monthly' },
+  { path: '/uud-asli', priority: '0.8', changefreq: 'monthly' },
+  { path: '/amandemen', priority: '0.8', changefreq: 'monthly' },
+  { path: '/tentang', priority: '0.8', changefreq: 'monthly' },
 ];
 
 // =============================================================================
 // Helpers
 // =============================================================================
+
+/**
+ * Hasilkan URL entry untuk sila/1–sila/5.
+ *
+ * @returns {UrlEntry[]}
+ */
+function buildDynamicSilaRoutes() {
+  return Array.from({ length: 5 }, (_, i) => ({
+    path: `/sila/${i + 1}`,
+    priority: '0.8',
+    changefreq: 'monthly',
+  }));
+}
 
 /**
  * Baca namapasal dari pasaluud45.json dan hasilkan URL entry per pasal.
@@ -77,20 +86,25 @@ function buildDynamicPasalRoutes() {
   return parsed.data.map((pasal) => ({
     path: `/pasal/${pasal.namapasal.replace('Pasal ', '')}`,
     priority: '0.8',
-    changefreq: 'yearly',
+    changefreq: 'monthly',
   }));
 }
 
 /**
- * Hasilkan URL entry untuk bab-pasal/1–21.
+ * Hasilkan URL entry untuk bab-pasal/1–21 berdasarkan data babpasal.json.
  *
  * @returns {UrlEntry[]}
  */
 function buildBabPasalRoutes() {
-  return Array.from({ length: 21 }, (_, i) => ({
-    path: `/bab-pasal/${i + 1}`,
-    priority: '0.7',
-    changefreq: 'yearly',
+  const raw = readFileSync(BAB_PASAL_DATA_FILE, 'utf-8');
+
+  /** @type {{ isi_bab_pasal: Array<unknown> }} */
+  const parsed = JSON.parse(raw);
+
+  return parsed.isi_bab_pasal.map((_, index) => ({
+    path: `/bab-pasal/${index + 1}`,
+    priority: '0.8',
+    changefreq: 'monthly',
   }));
 }
 
@@ -120,10 +134,16 @@ function renderUrlBlock({ path, changefreq, priority }) {
  * @returns {string}
  */
 function buildSitemapXml() {
+  const dynamicSilaRoutes = buildDynamicSilaRoutes();
   const dynamicPasalRoutes = buildDynamicPasalRoutes();
   const babPasalRoutes = buildBabPasalRoutes();
 
-  const allRoutes = [...STATIC_ROUTES, ...dynamicPasalRoutes, ...babPasalRoutes];
+  const allRoutes = [
+    ...STATIC_ROUTES,
+    ...dynamicSilaRoutes,
+    ...dynamicPasalRoutes,
+    ...babPasalRoutes,
+  ];
 
   const urlBlocks = allRoutes.map(renderUrlBlock).join('\n');
 

@@ -10,7 +10,10 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    // TASK-047: Code splitting — setiap page sebagai chunk terpisah
+    cssCodeSplit: true,
+    reportCompressedSize: true,
+    // TASK-047: Vendor dipisah via manualChunks.
+    // Page modules dipecah per route melalui dynamic import pada src/router/routes.js.
     rollupOptions: {
       output: {
         manualChunks(id) {

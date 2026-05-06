@@ -14,6 +14,8 @@
  *   - Dependensi router diinjeksi via constructor
  */
 
+import { trackEvent } from '../utils/analytics.js';
+
 /**
  * Definisi item navigasi utama (desktop nav + desktop breadcrumb).
  * @type {Array<{ path: string; label: string }>}
@@ -154,7 +156,10 @@ export class AppHeader {
       const navLink = e.target.closest('[data-nav-path]');
       if (navLink) {
         e.preventDefault();
-        this.router.navigate(navLink.getAttribute('data-nav-path'));
+        const path = navLink.getAttribute('data-nav-path');
+        const tabName = NAV_ITEMS.find((item) => item.path === path)?.label || path;
+        trackEvent('navigation', 'tab_click', tabName);
+        this.router.navigate(path);
         return;
       }
 
@@ -168,8 +173,10 @@ export class AppHeader {
   /** @param {string} action */
   _handleAction(action) {
     if (action === 'search') {
+      trackEvent('navigation', 'tab_click', 'Cari');
       this.router.navigate('/cari');
     } else if (action === 'about') {
+      trackEvent('navigation', 'tab_click', 'Tentang');
       this.router.navigate('/tentang');
     }
   }

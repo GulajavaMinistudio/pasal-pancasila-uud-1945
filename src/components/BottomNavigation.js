@@ -23,6 +23,8 @@
  *   - Dependensi router diinjeksi via constructor
  */
 
+import { trackEvent } from '../utils/analytics.js';
+
 /**
  * @typedef {{ path: string; label: string; icon: string }} NavTab
  */
@@ -153,7 +155,10 @@ export class BottomNavigation {
       if (!item) return;
 
       e.preventDefault();
-      this.router.navigate(item.getAttribute('data-bottom-nav-path'));
+      const path = item.getAttribute('data-bottom-nav-path');
+      const tabName = NAV_TABS.find((tab) => tab.path === path)?.label || path;
+      trackEvent('navigation', 'tab_click', tabName);
+      this.router.navigate(path);
     });
   }
 }

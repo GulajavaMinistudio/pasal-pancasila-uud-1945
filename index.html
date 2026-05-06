@@ -55,11 +55,53 @@
     <!-- Public Sans — typeface institusional (preconnect untuk performa) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <title>Pancasila &amp; UUD 1945</title>
+
+    <!-- Google Analytics 4 (TASK-038)
+         Measurement ID diambil dari env Vite: VITE_GA_MEASUREMENT_ID -->
+    <script>
+      (function () {
+        var gaId = '%VITE_GA_MEASUREMENT_ID%';
+        var hasValidGaId = typeof gaId === 'string' && /^G-[A-Z0-9]+$/.test(gaId);
+        if (!hasValidGaId) return;
+
+        window.__GA_MEASUREMENT_ID__ = gaId;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag =
+          window.gtag ||
+          function () {
+            dataLayer.push(arguments);
+          };
+
+        window.gtag('js', new Date());
+        window.gtag('config', gaId, {
+          send_page_view: false,
+          anonymize_ip: true,
+        });
+
+        var gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+        document.head.appendChild(gaScript);
+      })();
+    </script>
 
     <!-- WebSite JSON-LD dengan SearchAction — sitewide (TASK-031) -->
     <!-- Script ini bersifat statis dan tidak dikelola oleh injectJsonLd() di runtime -->

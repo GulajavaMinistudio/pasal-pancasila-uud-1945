@@ -37,21 +37,6 @@
  *   *                  → 404 Not Found
  */
 
-import { AmandemenDetailPage } from '../pages/AmandemenDetailPage.js';
-import { AmandemenPage } from '../pages/AmandemenPage.js';
-import { BabPasalDetailPage } from '../pages/BabPasalDetailPage.js';
-import { BabPasalListPage } from '../pages/BabPasalListPage.js';
-import { ButirPancasilaPage } from '../pages/ButirPancasilaPage.js';
-import { CariPage } from '../pages/CariPage.js';
-import { HomePage } from '../pages/HomePage.js';
-import { NotFoundPage } from '../pages/NotFoundPage.js';
-import { PancasilaPage } from '../pages/PancasilaPage.js';
-import { PasalDetailPage } from '../pages/PasalDetailPage.js';
-import { PasalListPage } from '../pages/PasalListPage.js';
-import { PembukaanPage } from '../pages/PembukaanPage.js';
-import { SilaDetailPage } from '../pages/SilaDetailPage.js';
-import { TentangPage } from '../pages/TentangPage.js';
-import { UUDAsliPage } from '../pages/UUDAsliPage.js';
 import { updateMetaTags } from '../utils/seo.js';
 import {
   createArticleSchema,
@@ -60,6 +45,28 @@ import {
   injectJsonLd,
   removeJsonLd,
 } from '../utils/jsonld.js';
+
+const PAGE_MODULE_LOADERS = import.meta.glob('../pages/*.js');
+
+/**
+ * @param {string} pageModuleName
+ * @returns {Promise<new (...args: Array<any>) => { mount: () => Promise<void> | void }>}
+ */
+async function loadPageClass(pageModuleName) {
+  const modulePath = `../pages/${pageModuleName}.js`;
+  const loader = PAGE_MODULE_LOADERS[modulePath];
+  if (!loader) {
+    throw new Error(`Module halaman tidak ditemukan: ${modulePath}`);
+  }
+
+  const module = await loader();
+  const PageClass = module[pageModuleName];
+  if (!PageClass) {
+    throw new Error(`Ekspor halaman tidak ditemukan: ${pageModuleName}`);
+  }
+
+  return PageClass;
+}
 
 /**
  * @typedef {{
@@ -89,6 +96,24 @@ import {
 export function registerRoutes(router, deps) {
   const { contentEl, sidebarEl } = deps;
 
+  /**
+   * @param {string} pageModuleName
+   * @param {(PageClass: new (...args: Array<any>) => { mount: () => Promise<void> | void }) => { mount: () => Promise<void> | void }} createPage
+   */
+  function mountLazyPage(pageModuleName, createPage) {
+    void loadPageClass(pageModuleName)
+      .then((PageClass) => createPage(PageClass))
+      .then((page) => page.mount())
+      .catch((error) => {
+        console.error(`[Router] Gagal memuat halaman ${pageModuleName}:`, error);
+        contentEl.innerHTML = `
+          <div class="alert alert-danger my-4" role="alert" data-route-load-error>
+            Halaman tidak dapat dimuat. Silakan muat ulang halaman.
+          </div>
+        `;
+      });
+  }
+
   // ── Static Routes (no parameters) ──────────────────────────────────────────
 
   router.addRoute('/', () => {
@@ -107,8 +132,7 @@ export function registerRoutes(router, deps) {
       }),
       createBreadcrumbSchema([{ name: 'Beranda', path: '/' }]),
     ]);
-    const page = new HomePage(contentEl, { sidebarEl });
-    page.mount();
+    mountLazyPage('HomePage', (HomePage) => new HomePage(contentEl, { sidebarEl }));
   });
 
   router.addRoute('/pancasila', () => {
@@ -130,11 +154,14 @@ export function registerRoutes(router, deps) {
         { name: 'Pancasila', path: '/pancasila' },
       ]),
     ]);
-    const page = new PancasilaPage(contentEl, {
-      sidebarEl,
-      silaRepository: deps.silaRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'PancasilaPage',
+      (PancasilaPage) =>
+        new PancasilaPage(contentEl, {
+          sidebarEl,
+          silaRepository: deps.silaRepository,
+        })
+    );
   });
 
   router.addRoute('/butir-pancasila', () => {
@@ -152,11 +179,14 @@ export function registerRoutes(router, deps) {
         url: '/butir-pancasila',
       })
     );
-    const page = new ButirPancasilaPage(contentEl, {
-      sidebarEl,
-      butirRepository: deps.butirRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'ButirPancasilaPage',
+      (ButirPancasilaPage) =>
+        new ButirPancasilaPage(contentEl, {
+          sidebarEl,
+          butirRepository: deps.butirRepository,
+        })
+    );
   });
 
   router.addRoute('/pembukaan', () => {
@@ -174,11 +204,14 @@ export function registerRoutes(router, deps) {
         url: '/pembukaan',
       })
     );
-    const page = new PembukaanPage(contentEl, {
-      sidebarEl,
-      pembukaanRepository: deps.pembukaanRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'PembukaanPage',
+      (PembukaanPage) =>
+        new PembukaanPage(contentEl, {
+          sidebarEl,
+          pembukaanRepository: deps.pembukaanRepository,
+        })
+    );
   });
 
   router.addRoute('/pasal', () => {
@@ -196,12 +229,15 @@ export function registerRoutes(router, deps) {
         url: '/pasal',
       })
     );
-    const page = new PasalListPage(contentEl, {
-      sidebarEl,
-      pasalRepository: deps.pasalRepository,
-      pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'PasalListPage',
+      (PasalListPage) =>
+        new PasalListPage(contentEl, {
+          sidebarEl,
+          pasalRepository: deps.pasalRepository,
+          pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+        })
+    );
   });
 
   router.addRoute('/bab-pasal', () => {
@@ -219,11 +255,14 @@ export function registerRoutes(router, deps) {
         url: '/bab-pasal',
       })
     );
-    const page = new BabPasalListPage(contentEl, {
-      sidebarEl,
-      babRepository: deps.babRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'BabPasalListPage',
+      (BabPasalListPage) =>
+        new BabPasalListPage(contentEl, {
+          sidebarEl,
+          babRepository: deps.babRepository,
+        })
+    );
   });
 
   router.addRoute('/uud-asli', () => {
@@ -241,11 +280,14 @@ export function registerRoutes(router, deps) {
         url: '/uud-asli',
       })
     );
-    const page = new UUDAsliPage(contentEl, {
-      sidebarEl,
-      uudAsliRepository: deps.uudAsliRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'UUDAsliPage',
+      (UUDAsliPage) =>
+        new UUDAsliPage(contentEl, {
+          sidebarEl,
+          uudAsliRepository: deps.uudAsliRepository,
+        })
+    );
   });
 
   router.addRoute('/amandemen', () => {
@@ -263,11 +305,14 @@ export function registerRoutes(router, deps) {
         url: '/amandemen',
       })
     );
-    const page = new AmandemenPage(contentEl, {
-      sidebarEl,
-      pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'AmandemenPage',
+      (AmandemenPage) =>
+        new AmandemenPage(contentEl, {
+          sidebarEl,
+          pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+        })
+    );
   });
 
   router.addRoute('/cari', () => {
@@ -285,12 +330,15 @@ export function registerRoutes(router, deps) {
         url: '/cari',
       })
     );
-    const page = new CariPage(contentEl, {
-      sidebarEl,
-      router: deps.router,
-      pasalRepository: deps.pasalRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'CariPage',
+      (CariPage) =>
+        new CariPage(contentEl, {
+          sidebarEl,
+          router: deps.router,
+          pasalRepository: deps.pasalRepository,
+        })
+    );
   });
 
   router.addRoute('/tentang', () => {
@@ -308,8 +356,7 @@ export function registerRoutes(router, deps) {
         url: '/tentang',
       })
     );
-    const page = new TentangPage(contentEl, { sidebarEl });
-    page.mount();
+    mountLazyPage('TentangPage', (TentangPage) => new TentangPage(contentEl, { sidebarEl }));
   });
 
   // ── Dynamic Routes (with parameters) ───────────────────────────────────────
@@ -327,14 +374,17 @@ export function registerRoutes(router, deps) {
         url: `/sila/${nomor}`,
       })
     );
-    const page = new SilaDetailPage(contentEl, {
-      nomor,
-      sidebarEl,
-      router: deps.router,
-      silaRepository: deps.silaRepository,
-      butirRepository: deps.butirRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'SilaDetailPage',
+      (SilaDetailPage) =>
+        new SilaDetailPage(contentEl, {
+          nomor,
+          sidebarEl,
+          router: deps.router,
+          silaRepository: deps.silaRepository,
+          butirRepository: deps.butirRepository,
+        })
+    );
   });
 
   router.addRoute('/pasal/:nomor', ({ nomor }) => {
@@ -356,14 +406,17 @@ export function registerRoutes(router, deps) {
         { name: `Pasal ${nomor}`, path: `/pasal/${nomor}` },
       ]),
     ]);
-    const page = new PasalDetailPage(contentEl, {
-      nomor,
-      sidebarEl,
-      router: deps.router,
-      pasalRepository: deps.pasalRepository,
-      pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'PasalDetailPage',
+      (PasalDetailPage) =>
+        new PasalDetailPage(contentEl, {
+          nomor,
+          sidebarEl,
+          router: deps.router,
+          pasalRepository: deps.pasalRepository,
+          pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+        })
+    );
   });
 
   router.addRoute('/bab-pasal/:nomor', ({ nomor }) => {
@@ -379,13 +432,16 @@ export function registerRoutes(router, deps) {
         url: `/bab-pasal/${nomor}`,
       })
     );
-    const page = new BabPasalDetailPage(contentEl, {
-      nomor,
-      sidebarEl,
-      router: deps.router,
-      babRepository: deps.babRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'BabPasalDetailPage',
+      (BabPasalDetailPage) =>
+        new BabPasalDetailPage(contentEl, {
+          nomor,
+          sidebarEl,
+          router: deps.router,
+          babRepository: deps.babRepository,
+        })
+    );
   });
 
   // CATATAN URUTAN: /amandemen/:nomor HARUS didaftarkan SEBELUM /amandemen
@@ -404,21 +460,26 @@ export function registerRoutes(router, deps) {
         url: `/amandemen/${nomor}`,
       })
     );
-    const page = new AmandemenDetailPage(contentEl, {
-      nomor,
-      sidebarEl,
-      router: deps.router,
-      uudAsliRepository: deps.uudAsliRepository,
-      pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
-    });
-    void page.mount();
+    mountLazyPage(
+      'AmandemenDetailPage',
+      (AmandemenDetailPage) =>
+        new AmandemenDetailPage(contentEl, {
+          nomor,
+          sidebarEl,
+          router: deps.router,
+          uudAsliRepository: deps.uudAsliRepository,
+          pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+        })
+    );
   });
 
   // ── 404 Fallback ────────────────────────────────────────────────────────────
 
   router.setNotFoundHandler(() => {
     removeJsonLd();
-    const page = new NotFoundPage(contentEl, { router: deps.router });
-    page.mount();
+    mountLazyPage(
+      'NotFoundPage',
+      (NotFoundPage) => new NotFoundPage(contentEl, { router: deps.router })
+    );
   });
 }

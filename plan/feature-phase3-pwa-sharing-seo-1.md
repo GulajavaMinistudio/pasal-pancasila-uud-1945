@@ -147,15 +147,15 @@ polish performa + aksesibilitas hingga semua Lighthouse quality gates terpenuhi.
 - GOAL-006: Mengintegrasikan Google Analytics 4 untuk tracking page views dan events,
   dengan mode anonim yang mematuhi privasi pengguna.
 
-| Task     | Description                                                                                                                                                     | Completed | Date |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-038 | Tambahkan Google Analytics 4 `gtag.js` script ke `index.html` dengan Measurement ID dari environment variable: `GA_MEASUREMENT_ID` (via Vite `import.meta.env`) |           |      |
-| TASK-039 | Buat `src/utils/analytics.js` — wrapper functions: `trackPageView(path)`, `trackEvent(category, action, label)`                                                 |           |      |
-| TASK-040 | Panggil `trackPageView(path)` di setiap route navigation di router                                                                                              |           |      |
-| TASK-041 | Implementasi event tracking: `trackEvent('share', 'click', pagePath)` saat share button diklik                                                                  |           |      |
-| TASK-042 | Implementasi event tracking: `trackEvent('search', 'query', query)` saat hasil pencarian muncul                                                                 |           |      |
-| TASK-043 | Implementasi event tracking: `trackEvent('navigation', 'tab_click', tabName)` saat tab diklik                                                                   |           |      |
-| TASK-044 | Pastikan analytics hanya aktif di production build (bukan development): `if (import.meta.env.PROD)`                                                             |           |      |
+| Task     | Description                                                                                                                                                     | Completed | Date       |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-038 | Tambahkan Google Analytics 4 `gtag.js` script ke `index.html` dengan Measurement ID dari environment variable: `GA_MEASUREMENT_ID` (via Vite `import.meta.env`) | ✅         | 2026-05-06 |
+| TASK-039 | Buat `src/utils/analytics.js` — wrapper functions: `trackPageView(path)`, `trackEvent(category, action, label)`                                                 | ✅         | 2026-05-06 |
+| TASK-040 | Panggil `trackPageView(path)` di setiap route navigation di router                                                                                              | ✅         | 2026-05-06 |
+| TASK-041 | Implementasi event tracking: `trackEvent('share', 'click', pagePath)` saat share button diklik                                                                  | ✅         | 2026-05-06 |
+| TASK-042 | Implementasi event tracking: `trackEvent('search', 'query', query)` saat hasil pencarian muncul                                                                 | ✅         | 2026-05-06 |
+| TASK-043 | Implementasi event tracking: `trackEvent('navigation', 'tab_click', tabName)` saat tab diklik                                                                   | ✅         | 2026-05-06 |
+| TASK-044 | Pastikan analytics hanya aktif di production build (bukan development): `if (import.meta.env.PROD)`                                                             | ✅         | 2026-05-06 |
 
 ### Implementation Phase 3.7 — Performa & Bundle Optimization
 
@@ -164,13 +164,13 @@ polish performa + aksesibilitas hingga semua Lighthouse quality gates terpenuhi.
 
 | Task     | Description                                                                                                                                                   | Completed | Date |
 | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-045 | Jalankan `vite build` dan analisis bundle size dengan `npx vite-bundle-visualizer` atau `rollup-plugin-visualizer`                                            |           |      |
-| TASK-046 | Implementasi dynamic import untuk page modules: `const { PasalDetailPage } = await import('./pages/PasalDetailPage.js')` — hanya load halaman saat dibutuhkan |           |      |
-| TASK-047 | Konfigurasi `vite.config.js` untuk code splitting: setiap halaman sebagai chunk terpisah                                                                      |           |      |
-| TASK-048 | Verifikasi total bundle < 200KB gzipped (Bootstrap ~30KB + Fuse.js ~10KB + app code ~50KB = estimasi ~90KB)                                                   |           |      |
-| TASK-049 | Tambahkan `<link rel="preconnect">` untuk Google Fonts dan `<link rel="dns-prefetch">`                                                                        |           |      |
-| TASK-050 | Implementasi `loading="lazy"` pada semua gambar (jika ada)                                                                                                    |           |      |
-| TASK-051 | Pastikan tidak ada render-blocking CSS atau JS di critical path                                                                                               |           |      |
+| TASK-045 | Jalankan `vite build` dan analisis bundle size dengan `npx vite-bundle-visualizer` atau `rollup-plugin-visualizer`                                            | ✅         | 2026-05-06 |
+| TASK-046 | Implementasi dynamic import untuk page modules: `const { PasalDetailPage } = await import('./pages/PasalDetailPage.js')` — hanya load halaman saat dibutuhkan | ✅         | 2026-05-06 |
+| TASK-047 | Konfigurasi `vite.config.js` untuk code splitting: setiap halaman sebagai chunk terpisah                                                                      | ✅         | 2026-05-06 |
+| TASK-048 | Verifikasi total bundle < 200KB gzipped (Bootstrap ~30KB + Fuse.js ~10KB + app code ~50KB = estimasi ~90KB)                                                   | ✅         | 2026-05-06 |
+| TASK-049 | Tambahkan `<link rel="preconnect">` untuk Google Fonts dan `<link rel="dns-prefetch">`                                                                        | ✅         | 2026-05-06 |
+| TASK-050 | Implementasi `loading="lazy"` pada semua gambar (jika ada)                                                                                                    | ✅         | 2026-05-06 |
+| TASK-051 | Pastikan tidak ada render-blocking CSS atau JS di critical path                                                                                               | ✅         | 2026-05-06 |
 
 ### Implementation Phase 3.8 — Aksesibilitas & Polish
 

@@ -56,6 +56,7 @@ import { BottomNavigation } from './components/BottomNavigation.js';
 import { AppLayout } from './components/AppLayout.js';
 import { PageContainer } from './components/PageContainer.js';
 import { OfflineIndicator } from './components/OfflineIndicator.js';
+import { trackPageView } from './utils/analytics.js';
 import {
   loadBabPasal,
   loadButirPancasila,
@@ -153,6 +154,7 @@ const uudAsliRepository = { loadPasalUUDNoAmandemen };
 router.onNavigate((path) => {
   appHeader.setActivePath(path);
   bottomNav.setActivePath(path);
+  trackPageView(path);
 });
 
 // =============================================================================

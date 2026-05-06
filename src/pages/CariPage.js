@@ -14,6 +14,7 @@
  */
 
 import { SearchPasal } from '../components/SearchPasal.js';
+import { trackEvent } from '../utils/analytics.js';
 import { initializePasalSearchIndex, searchPasal } from '../utils/search.js';
 import {
   bindRetryAction,
@@ -140,6 +141,9 @@ export class CariPage {
     }
 
     this._results = searchPasal(this._query, { limit: 50 });
+    if (this._results.length > 0) {
+      trackEvent('search', 'query', this._query);
+    }
     this._updateSearchView();
   }
 

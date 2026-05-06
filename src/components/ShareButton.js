@@ -25,6 +25,7 @@
  */
 
 import { shareContent } from '../utils/share.js';
+import { trackEvent } from '../utils/analytics.js';
 
 /** Durasi toast "Tautan disalin!" tampil sebelum mulai dismiss (ms). */
 const TOAST_VISIBLE_MS = 2000;
@@ -77,6 +78,8 @@ export class ShareButton {
 
   async _handleClick() {
     if (!this._btn || this._btn.disabled) return;
+
+    trackEvent('share', 'click', window.location.pathname);
 
     this._setLoadingState(true);
 
