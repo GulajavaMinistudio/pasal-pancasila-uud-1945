@@ -2,9 +2,9 @@
 goal: Phase 3 — PWA, Sharing & SEO Pancasila & UUD 1945 Web App
 version: 1.0
 date_created: 2026-04-28
-last_updated: 2026-04-28
+last_updated: 2026-05-07
 owner: Development Team
-status: 'In Progress'
+status: 'Completed'
 tags:
   - feature
   - phase3
@@ -20,7 +20,7 @@ tags:
 
 # Introduction
 
-![Status: In Progress](https://img.shields.io/badge/status-In%20Progress-orange)
+![Status: Completed](https://img.shields.io/badge/status-Completed-brightgreen)
 
 Phase 3 mengimplementasikan fitur-fitur non-konten yang menjadikan aplikasi ini production-ready:
 Progressive Web App (PWA) dengan offline support, fitur berbagi konten (Web Share API),
@@ -82,7 +82,7 @@ polish performa + aksesibilitas hingga semua Lighthouse quality gates terpenuhi.
 | TASK-008 | Tambahkan Apple meta tags dan theme color di `index.html`; pastikan manifest link dan registration diinject oleh `vite-plugin-pwa` saat build                                                                                   | ✅         | 2026-05-05 |
 | TASK-009 | Verifikasi build menghasilkan `dist/manifest.json` dan service worker generated tanpa error; cek installability di Chrome DevTools → Application → Manifest                                                                     | ✅         | 2026-05-05 |
 | TASK-010 | Buat `src/components/OfflineIndicator.js` — banner/toast non-intrusif yang tampil saat event `offline` dan hilang saat event `online`; mount di layout global                                                                   | ✅         | 2026-05-05 |
-| TASK-011 | Test offline mode: aktifkan "Offline" di DevTools Network → semua halaman dan pencarian masih berfungsi, serta indikator offline tampil sesuai status jaringan                                                                  | ⏳         | —          |
+| TASK-011 | Test offline mode: aktifkan "Offline" di DevTools Network → semua halaman dan pencarian masih berfungsi, serta indikator offline tampil sesuai status jaringan                                                                  | ✅         | 2026-05-07 |
 
 ### Implementation Phase 3.2 — Fitur Berbagi Konten
 
@@ -162,8 +162,8 @@ polish performa + aksesibilitas hingga semua Lighthouse quality gates terpenuhi.
 - GOAL-007: Memastikan bundle JavaScript gzipped < 200KB dan semua Lighthouse
   Performance thresholds terpenuhi.
 
-| Task     | Description                                                                                                                                                   | Completed | Date |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
+| Task     | Description                                                                                                                                                   | Completed | Date       |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
 | TASK-045 | Jalankan `vite build` dan analisis bundle size dengan `npx vite-bundle-visualizer` atau `rollup-plugin-visualizer`                                            | ✅         | 2026-05-06 |
 | TASK-046 | Implementasi dynamic import untuk page modules: `const { PasalDetailPage } = await import('./pages/PasalDetailPage.js')` — hanya load halaman saat dibutuhkan | ✅         | 2026-05-06 |
 | TASK-047 | Konfigurasi `vite.config.js` untuk code splitting: setiap halaman sebagai chunk terpisah                                                                      | ✅         | 2026-05-06 |
@@ -177,46 +177,46 @@ polish performa + aksesibilitas hingga semua Lighthouse quality gates terpenuhi.
 - GOAL-008: Memenuhi semua aksesibilitas requirements (WCAG 2.1 AA, Lighthouse A≥90)
   dan melakukan visual polish final sebelum launch.
 
-| Task     | Description                                                                                                             | Completed | Date |
-| -------- | ----------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-052 | Jalankan Axe accessibility audit (via Playwright atau browser extension) pada semua halaman utama                       |           |      |
-| TASK-053 | Fix semua Axe violations: missing `alt` text, incorrect heading hierarchy, missing ARIA labels                          |           |      |
-| TASK-054 | Verifikasi keyboard navigation: Tab key berpindah di semua elemen interaktif dengan `:focus-visible` yang terlihat      |           |      |
-| TASK-055 | Verifikasi kontras warna semua teks memenuhi WCAG AA (4.5:1) menggunakan Chrome DevTools                                |           |      |
-| TASK-056 | Implementasi `prefers-reduced-motion` — semua animasi/transisi dihentikan jika user mengaktifkan reduced motion         |           |      |
-| TASK-057 | Verifikasi semua gambar/ikon memiliki `aria-label` atau `alt` text yang deskriptif                                      |           |      |
-| TASK-058 | Verifikasi semantik HTML: `<nav>`, `<main>`, `<header>`, `<article>`, `<section>` digunakan dengan benar                |           |      |
-| TASK-059 | Visual regression test: buat baseline screenshots di 4 breakpoint (375px, 768px, 1024px, 1440px) menggunakan Playwright |           |      |
+| Task     | Description                                                                                                             | Completed | Date       |
+| -------- | ----------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-052 | Jalankan Axe accessibility audit (via Playwright atau browser extension) pada semua halaman utama                       | ✅         | 2026-05-07 |
+| TASK-053 | Fix semua Axe violations: missing `alt` text, incorrect heading hierarchy, missing ARIA labels                          | ✅         | 2026-05-07 |
+| TASK-054 | Verifikasi keyboard navigation: Tab key berpindah di semua elemen interaktif dengan `:focus-visible` yang terlihat      | ✅         | 2026-05-07 |
+| TASK-055 | Verifikasi kontras warna semua teks memenuhi WCAG AA (4.5:1) menggunakan Chrome DevTools                                | ✅         | 2026-05-07 |
+| TASK-056 | Implementasi `prefers-reduced-motion` — semua animasi/transisi dihentikan jika user mengaktifkan reduced motion         | ✅         | 2026-05-07 |
+| TASK-057 | Verifikasi semua gambar/ikon memiliki `aria-label` atau `alt` text yang deskriptif                                      | ✅         | 2026-05-07 |
+| TASK-058 | Verifikasi semantik HTML: `<nav>`, `<main>`, `<header>`, `<article>`, `<section>` digunakan dengan benar                | ✅         | 2026-05-07 |
+| TASK-059 | Visual regression test: buat baseline screenshots di 4 breakpoint (375px, 768px, 1024px, 1440px) menggunakan Playwright | ✅         | 2026-05-07 |
 
 ### Implementation Phase 3.9 — Lighthouse CI Final Audit
 
 - GOAL-009: Menjalankan Lighthouse CI audit dan memastikan semua 4 scores terpenuhi
   sebelum Phase 4 dimulai.
 
-| Task     | Description                                                                                 | Completed | Date |
-| -------- | ------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-060 | Jalankan `npm run build && npm run preview` lalu Lighthouse audit manual di Chrome DevTools |           |      |
-| TASK-061 | Fix semua isu Performance: lazy loading, code splitting, resource hints                     |           |      |
-| TASK-062 | Fix semua isu Accessibility: ARIA, kontras, keyboard nav, semantic HTML                     |           |      |
-| TASK-063 | Fix semua isu SEO: meta tags, canonical URLs, robots.txt, sitemap                           |           |      |
-| TASK-064 | Fix semua isu PWA: manifest, icons, HTTPS, Service Worker                                   |           |      |
-| TASK-065 | Verifikasi Lighthouse CI pass di GitHub Actions (semua 4 scores memenuhi threshold)         |           |      |
+| Task     | Description                                                                                 | Completed | Date       |
+| -------- | ------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-060 | Jalankan `npm run build && npm run preview` lalu Lighthouse audit manual di Chrome DevTools | ✅         | 2026-05-07 |
+| TASK-061 | Fix semua isu Performance: lazy loading, code splitting, resource hints                     | ✅         | 2026-05-07 |
+| TASK-062 | Fix semua isu Accessibility: ARIA, kontras, keyboard nav, semantic HTML                     | ✅         | 2026-05-07 |
+| TASK-063 | Fix semua isu SEO: meta tags, canonical URLs, robots.txt, sitemap                           | ✅         | 2026-05-07 |
+| TASK-064 | Fix semua isu PWA: manifest, icons, HTTPS, Service Worker                                   | ✅         | 2026-05-07 |
+| TASK-065 | Verifikasi Lighthouse CI pass di GitHub Actions (semua 4 scores memenuhi threshold)         | ✅         | 2026-05-07 |
 
 ### Implementation Phase 3.10 — Testing Phase 3
 
 - GOAL-010: Memastikan semua fitur Phase 3 teruji dengan test otomatis sebelum launch.
 
-| Task     | Description                                                                                                                  | Completed | Date |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- | ---- |
-| TASK-066 | E2E test PWA: Service Worker ter-register, manifest valid (Playwright)                                                       |           |      |
-| TASK-067 | E2E test offline: aktifkan offline mode, semua 14 route masih bisa diakses (Playwright)                                      |           |      |
-| TASK-068 | E2E test share: klik tombol bagikan di halaman pasal, verifikasi Web Share API dipanggil (Playwright + mock navigator.share) |           |      |
-| TASK-069 | E2E test share fallback: clipboard copy berhasil di browser yang tidak support Web Share API                                 |           |      |
-| TASK-070 | E2E test SEO: buka `/pasal/1`, verifikasi `<title>` dan `<meta name="description">` berisi konten pasal (Playwright)         |           |      |
-| TASK-071 | E2E test JSON-LD: buka `/pasal/1`, verifikasi `<script type="application/ld+json">` ada dan valid                            |           |      |
-| TASK-072 | E2E test sitemap: buka `/sitemap.xml`, verifikasi berisi URL yang benar dan valid XML                                        |           |      |
-| TASK-073 | E2E test robots.txt: buka `/robots.txt`, verifikasi `Disallow: /cari` ada                                                    |           |      |
-| TASK-074 | Lighthouse CI pass di CI pipeline (Performance≥90, Accessibility≥90, SEO≥95, PWA≥80)                                         |           |      |
+| Task     | Description                                                                                                                  | Completed | Date       |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- | ---------- |
+| TASK-066 | E2E test PWA: Service Worker ter-register, manifest valid (Playwright)                                                       | ✅         | 2026-05-07 |
+| TASK-067 | E2E test offline: aktifkan offline mode, semua 14 route masih bisa diakses (Playwright)                                      | ✅         | 2026-05-07 |
+| TASK-068 | E2E test share: klik tombol bagikan di halaman pasal, verifikasi Web Share API dipanggil (Playwright + mock navigator.share) | ✅         | 2026-05-07 |
+| TASK-069 | E2E test share fallback: clipboard copy berhasil di browser yang tidak support Web Share API                                 | ✅         | 2026-05-07 |
+| TASK-070 | E2E test SEO: buka `/pasal/1`, verifikasi `<title>` dan `<meta name="description">` berisi konten pasal (Playwright)         | ✅         | 2026-05-07 |
+| TASK-071 | E2E test JSON-LD: buka `/pasal/1`, verifikasi `<script type="application/ld+json">` ada dan valid                            | ✅         | 2026-05-07 |
+| TASK-072 | E2E test sitemap: buka `/sitemap.xml`, verifikasi berisi URL yang benar dan valid XML                                        | ✅         | 2026-05-07 |
+| TASK-073 | E2E test robots.txt: buka `/robots.txt`, verifikasi `Disallow: /cari` ada                                                    | ✅         | 2026-05-07 |
+| TASK-074 | Lighthouse CI pass di CI pipeline (Performance≥90, Accessibility≥90, SEO≥95, PWA≥80)                                         | ✅         | 2026-05-07 |
 
 ---
 
@@ -261,23 +261,24 @@ File baru yang dibuat di Phase 3:
 - **FILE-008**: `src/components/ShareButton.js` — komponen tombol bagikan
 - **FILE-009**: `src/components/OfflineIndicator.js` — indikator status offline/online
 - **FILE-010**: `scripts/generate-sitemap.js` — sitemap generator script
-- **FILE-011**: `tests/e2e/pwa.spec.js` — E2E tests PWA
-- **FILE-012**: `tests/e2e/share.spec.js` — E2E tests sharing
-- **FILE-013**: `tests/e2e/seo.spec.js` — E2E tests SEO meta tags
+- **FILE-011**: `test/e2e/pwa.spec.js` — E2E tests PWA (20 tests: manifest, service worker, offline indicator, PWA icons)
+- **FILE-012**: `test/e2e/share.spec.js` — E2E tests sharing (12 tests: share button visibility, clipboard fallback, accessibility)
+- **FILE-013**: `test/e2e/seo.spec.js` — E2E tests SEO meta tags, JSON-LD, sitemap, robots.txt (28 tests)
+- **FILE-014**: `test/e2e/visual-regression.spec.js` — Visual regression baseline screenshots (16 tests: 4 halaman × 4 breakpoint)
 
 File yang dimodifikasi di Phase 3:
 
-- **FILE-014**: `index.html` — tambah Apple meta tags, GA4 script, dan WebSite JSON-LD
-- **FILE-015**: `src/main.js` — registrasi SW via `virtual:pwa-register` dan listener status jaringan
-- **FILE-016**: `src/router/routes.js` — panggil `updateMetaTags()` dan `injectJsonLd()` di setiap route
-- **FILE-017**: `src/components/AppLayout.js` — mount `OfflineIndicator` secara global
-- **FILE-018**: `src/pages/PasalDetailPage.js` — integrasi ShareButton dan JSON-LD Article
-- **FILE-019**: `src/pages/SilaDetailPage.js` — integrasi ShareButton
-- **FILE-020**: `src/pages/PembukaanPage.js` — integrasi ShareButton
-- **FILE-021**: `src/pages/ButirPancasilaPage.js` — integrasi ShareButton level halaman
-- **FILE-022**: `package.json` — tambah `generate-sitemap` ke `prebuild`
-- **FILE-023**: `vite.config.js` — konfigurasi `VitePWA`, manifest, Workbox caching, dan code splitting
-- **FILE-024**: `lighthouserc.json` — update thresholds
+- **FILE-015**: `index.html` — tambah Apple meta tags, GA4 script, dan WebSite JSON-LD
+- **FILE-016**: `src/main.js` — registrasi SW via `virtual:pwa-register` dan listener status jaringan
+- **FILE-017**: `src/router/routes.js` — panggil `updateMetaTags()` dan `injectJsonLd()` di setiap route
+- **FILE-018**: `src/components/AppLayout.js` — mount `OfflineIndicator` secara global
+- **FILE-019**: `src/pages/PasalDetailPage.js` — integrasi ShareButton dan JSON-LD Article
+- **FILE-020**: `src/pages/SilaDetailPage.js` — integrasi ShareButton
+- **FILE-021**: `src/pages/PembukaanPage.js` — integrasi ShareButton
+- **FILE-022**: `src/pages/ButirPancasilaPage.js` — integrasi ShareButton level halaman
+- **FILE-023**: `package.json` — tambah `generate-sitemap` ke `prebuild`
+- **FILE-024**: `vite.config.js` — konfigurasi `VitePWA`, manifest, Workbox caching, dan code splitting
+- **FILE-025**: `lighthouserc.json` — update thresholds
 
 ---
 

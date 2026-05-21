@@ -46,7 +46,7 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   --color-on-surface:         #271816;  // Primary text (very dark warm)
   --color-on-surface-variant: #5b403d;  // Secondary text (brownish gray)
   --color-text-primary:       #5d5d5d;  // Body text (Abu-abu Gelap)
-  --color-text-secondary:     #989898;  // Meta / caption text
+  --color-text-secondary:     #767676;  // Meta / caption text (WCAG AA 4.5:1 on white)
   --color-text-on-primary:    #ffffff;  // Text on red background
 
   // --- Border / Outline Tokens ---
@@ -61,7 +61,7 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   // --- Bottom Nav Active State ---
   --color-bottom-nav-active:    #C62828;
   --color-bottom-nav-active-bg: #FFEBEE;  // Light red tint (red-50)
-  --color-bottom-nav-inactive:  #989898;  // Abu-abu (inactive tab)
+  --color-bottom-nav-inactive:  #767676;  // Abu-abu (inactive tab, WCAG AA 4.5:1)
 
   // --- Typography Scale (from DESIGN.md) ---
   --fs-display-lg:    3rem;      // 48px, 700, -0.02em
