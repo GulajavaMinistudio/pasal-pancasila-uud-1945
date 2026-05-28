@@ -95,7 +95,7 @@ export class HomePage {
           </div>
           <h1 class="home-hero__title">Pancasila &amp; UUD 1945</h1>
           <p class="home-hero__subtitle">
-            Portal resmi untuk mengeksplorasi landasan ideologi dan konstitusi negara Republik
+            Portal internet untuk mengeksplorasi landasan ideologi dan konstitusi negara Republik
             Indonesia. Pelajari butir-butir, pasal-pasal, dan sejarah amandemen dengan antarmuka
             yang bersih dan berwibawa.
           </p>
