@@ -15,6 +15,7 @@ import {
   setSidebarContent,
 } from './pageHelpers.js';
 import { ShareButton } from '../components/ShareButton.js';
+import { escapeHtml } from '../utils/sanitize.js';
 
 export class PembukaanPage {
   /**
@@ -86,8 +87,8 @@ export class PembukaanPage {
       <article class="alinea-card content-card">
         <span class="alinea-card__badge" aria-hidden="true">${index + 1}</span>
         <div class="alinea-card__content">
-          <h2 class="alinea-card__title">Alinea ${ALINEA_LABELS[index]}</h2>
-          <p class="alinea-card__text">${text}</p>
+          <h2 class="alinea-card__title">Alinea ${escapeHtml(ALINEA_LABELS[index])}</h2>
+          <p class="alinea-card__text">${escapeHtml(text)}</p>
           <div class="alinea-card__actions">
             ${buildShareButton('Bagikan Alinea')}
           </div>

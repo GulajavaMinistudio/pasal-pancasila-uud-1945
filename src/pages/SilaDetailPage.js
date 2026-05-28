@@ -19,6 +19,7 @@ import {
 } from './pageHelpers.js';
 import { ShareButton } from '../components/ShareButton.js';
 import { updateMetaTags } from '../utils/seo.js';
+import { escapeHtml } from '../utils/sanitize.js';
 
 export class SilaDetailPage {
   /**
@@ -166,8 +167,8 @@ export class SilaDetailPage {
             <div class="sila-hero__content">
               <span class="sila-hero__chip">Pancasila</span>
               <h1 class="sila-hero__ordinal">Sila ${state.nomorSila}</h1>
-              <p class="sila-hero__title">${titleText}</p>
-              <p class="sila-hero__description">${SILA_SUMMARIES[state.nomorSila - 1]}</p>
+              <p class="sila-hero__title">${escapeHtml(titleText)}</p>
+              <p class="sila-hero__description">${escapeHtml(SILA_SUMMARIES[state.nomorSila - 1])}</p>
             </div>
           </div>
         </section>
@@ -206,7 +207,7 @@ export class SilaDetailPage {
           <i class="bi bi-check-circle-fill"></i>
         </span>
         <span class="sila-point-card__number d-none d-md-inline-flex" aria-hidden="true">${index + 1}</span>
-        <p class="sila-point-card__text">${text}</p>
+        <p class="sila-point-card__text">${escapeHtml(text)}</p>
       </article>
     `;
   }

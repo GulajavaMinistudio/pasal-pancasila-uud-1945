@@ -16,6 +16,7 @@ import {
   toAppHref,
 } from './pageHelpers.js';
 import { ShareButton } from '../components/ShareButton.js';
+import { escapeHtml } from '../utils/sanitize.js';
 
 export class ButirPancasilaPage {
   /**
@@ -101,8 +102,8 @@ export class ButirPancasilaPage {
                 aria-expanded="${isOpen ? 'true' : 'false'}">
           <span class="butir-accordion__number" aria-hidden="true">${nomor}</span>
           <span class="butir-accordion__meta">
-            <span class="butir-accordion__title">${item.namasila.replace('Sila ', 'Sila ')}</span>
-            <span class="butir-accordion__subtitle">${SILA_SUMMARIES[index]}</span>
+            <span class="butir-accordion__title">${escapeHtml(item.namasila)}</span>
+            <span class="butir-accordion__subtitle">${escapeHtml(SILA_SUMMARIES[index])}</span>
           </span>
           <span class="butir-accordion__summary">${item.arrayisi.length} butir</span>
           <i class="bi bi-chevron-down butir-accordion__icon" aria-hidden="true"></i>
@@ -122,7 +123,7 @@ export class ButirPancasilaPage {
                 (butir, butirIndex) => `
                   <div class="butir-accordion__point">
                     <span class="butir-accordion__point-number" aria-hidden="true">${butirIndex + 1}</span>
-                    <p class="butir-accordion__point-text">${butir.isi}</p>
+                    <p class="butir-accordion__point-text">${escapeHtml(butir.isi)}</p>
                   </div>
                 `
               )

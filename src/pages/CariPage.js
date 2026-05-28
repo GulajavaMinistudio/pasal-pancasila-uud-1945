@@ -26,6 +26,7 @@ import {
   setSidebarContent,
   toAppHref,
 } from './pageHelpers.js';
+import { escapeHtml, escapeAttr } from '../utils/sanitize.js';
 
 const SEARCH_DEBOUNCE_MS = 300;
 
@@ -189,12 +190,12 @@ function _buildResultCardHtml(result) {
 
   const titleHtml = titleMatch
     ? _buildHighlightedText(titleMatch.value, titleMatch.indices)
-    : _escapeHtml(item.namapasal);
+    : escapeHtml(item.namapasal);
 
   const excerptSource = ayatMatch ? ayatMatch.value : _buildDefaultExcerpt(item.arrayisi);
   const excerptHtml = ayatMatch
     ? _buildHighlightedText(excerptSource, ayatMatch.indices)
-    : _escapeHtml(excerptSource);
+    : escapeHtml(excerptSource);
 
   return `
     <a
@@ -202,7 +203,7 @@ function _buildResultCardHtml(result) {
       href="${toAppHref(`/pasal/${encodeURIComponent(pasalNomor)}`)}"
       role="listitem"
       data-search-result
-      data-pasal="${_escapeAttr(item.namapasal)}"
+      data-pasal="${escapeAttr(item.namapasal)}"
     >
       <div class="pasal-card__header">
         <div class="pasal-card__meta">
@@ -255,7 +256,7 @@ function _buildDefaultExcerpt(ayatList) {
  */
 function _buildHighlightedText(text, indices) {
   if (!Array.isArray(indices) || indices.length === 0) {
-    return _escapeHtml(text);
+    return escapeHtml(text);
   }
 
   let cursor = 0;
@@ -265,12 +266,12 @@ function _buildHighlightedText(text, indices) {
     const safeStart = Math.max(0, start);
     const safeEnd = Math.max(safeStart, end);
 
-    html += _escapeHtml(text.slice(cursor, safeStart));
-    html += `<mark class="cari-mark">${_escapeHtml(text.slice(safeStart, safeEnd + 1))}</mark>`;
+    html += escapeHtml(text.slice(cursor, safeStart));
+    html += `<mark class="cari-mark">${escapeHtml(text.slice(safeStart, safeEnd + 1))}</mark>`;
     cursor = safeEnd + 1;
   }
 
-  html += _escapeHtml(text.slice(cursor));
+  html += escapeHtml(text.slice(cursor));
   return html;
 }
 
@@ -295,21 +296,3 @@ function _replaceQueryInUrl(query) {
   window.history.replaceState(null, '', toAppHref(path));
 }
 
-/**
- * @param {string} value
- */
-function _escapeHtml(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
-/**
- * @param {string} value
- */
-function _escapeAttr(value) {
-  return _escapeHtml(value).replaceAll('"', '&quot;');
-}

@@ -22,35 +22,12 @@ import {
   buildPhaseOneSidebarItems,
   configurePageContainer,
   renderLoadingState,
+  ROMAN_NUMERALS,
   setPageTitle,
   setSidebarContent,
   toAppHref,
 } from './pageHelpers.js';
-
-/** @type {readonly string[]} */
-const ROMAN_NUMERALS = [
-  'I',
-  'II',
-  'III',
-  'IV',
-  'V',
-  'VI',
-  'VII',
-  'VIII',
-  'IX',
-  'X',
-  'XI',
-  'XII',
-  'XIII',
-  'XIV',
-  'XV',
-  'XVI',
-  'XVII',
-  'XVIII',
-  'XIX',
-  'XX',
-  'XXI',
-];
+import { escapeHtml, escapeAttr } from '../utils/sanitize.js';
 
 export class BabPasalListPage {
   /**
@@ -139,17 +116,17 @@ export class BabPasalListPage {
           return `
             <li class="bab-accordion__pasal-item bab-accordion__pasal-item--deleted">
               <i class="bi bi-x-circle" aria-hidden="true"></i>
-              <span>${namaPasal}</span>
+              <span>${escapeHtml(namaPasal)}</span>
             </li>
           `;
         }
         const nomorPasalUrl = namaPasal.replace('Pasal ', '');
         return `
           <li class="bab-accordion__pasal-item" role="listitem">
-            <a href="${toAppHref(`/pasal/${nomorPasalUrl}`)}"
+            <a href="${toAppHref(`/pasal/${escapeAttr(nomorPasalUrl)}`)}"
                class="bab-accordion__pasal-link">
               <i class="bi bi-file-text" aria-hidden="true"></i>
-              <span>${namaPasal}</span>
+              <span>${escapeHtml(namaPasal)}</span>
             </a>
           </li>
         `;
@@ -166,11 +143,11 @@ export class BabPasalListPage {
           aria-controls="${accordionId}"
           data-bab-toggle>
           <span class="bab-accordion__badge" aria-hidden="true">
-            <span class="bab-accordion__roman">${roman}</span>
+            <span class="bab-accordion__roman">${escapeHtml(roman)}</span>
           </span>
           <span class="bab-accordion__info">
-            <span class="bab-accordion__label">${fullName}</span>
-            <span class="bab-accordion__keterangan">${keterangan}</span>
+            <span class="bab-accordion__label">${escapeHtml(fullName)}</span>
+            <span class="bab-accordion__keterangan">${escapeHtml(keterangan)}</span>
           </span>
           <span class="bab-accordion__meta">
             <span class="badge badge-pasal-count">${pasalCount} Pasal</span>
@@ -183,7 +160,7 @@ export class BabPasalListPage {
              role="region"
              aria-labelledby="${headerId}"
              hidden>
-          <ul class="bab-accordion__pasal-list" role="list" aria-label="Pasal dalam ${fullName}">
+          <ul class="bab-accordion__pasal-list" role="list" aria-label="Pasal dalam ${escapeAttr(fullName)}">
             ${pasalListHtml}
           </ul>
           <div class="bab-accordion__footer">

@@ -16,6 +16,7 @@ import {
   SILA_SUMMARIES,
   toAppHref,
 } from './pageHelpers.js';
+import { escapeHtml } from '../utils/sanitize.js';
 
 export class PancasilaPage {
   /**
@@ -89,20 +90,20 @@ export class PancasilaPage {
       <a class="pancasila-card content-card"
          href="${toAppHref(`/sila/${nomor}`)}"
          aria-label="Lihat detail Sila ${nomor}">
-        <span class="pancasila-card__icon" aria-hidden="true">
-          <i class="bi ${SILA_DECORATIVE_ICONS[index]}"></i>
-        </span>
+         <span class="pancasila-card__icon" aria-hidden="true">
+           <i class="bi ${SILA_DECORATIVE_ICONS[index]}"></i>
+         </span>
 
-        <div class="pancasila-card__number" aria-hidden="true">${nomor}</div>
+         <div class="pancasila-card__number" aria-hidden="true">${nomor}</div>
 
-        <div class="pancasila-card__content">
-          <h2 class="pancasila-card__title">${cleanTitle}</h2>
-          <p class="pancasila-card__summary">${SILA_SUMMARIES[index]}</p>
-        </div>
+         <div class="pancasila-card__content">
+           <h2 class="pancasila-card__title">${escapeHtml(cleanTitle)}</h2>
+           <p class="pancasila-card__summary">${escapeHtml(SILA_SUMMARIES[index])}</p>
+         </div>
 
-        <span class="pancasila-card__arrow" aria-hidden="true">
-          <i class="bi bi-arrow-right"></i>
-        </span>
+         <span class="pancasila-card__arrow" aria-hidden="true">
+           <i class="bi bi-arrow-right"></i>
+         </span>
       </a>
     `;
   }

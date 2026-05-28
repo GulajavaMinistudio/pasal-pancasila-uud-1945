@@ -18,6 +18,8 @@
  * Layer: Presentation/Components — tidak ada fetch, tidak ada data loading
  */
 
+import { escapeHtml, escapeAttr } from '../utils/sanitize.js';
+
 /**
  * Konstanta warna badge sesuai TASK-017 dan comparison.ts.
  * @type {Record<number, string>}
@@ -97,7 +99,7 @@ function _buildCardHeaderHtml(namapasal, amandemenNumber) {
 
   return `
     <div class="comparison-card__header">
-      <h2 class="comparison-card__title">${_escapeHtml(namapasal)}</h2>
+      <h2 class="comparison-card__title">${escapeHtml(namapasal)}</h2>
       ${badgeHtml}
     </div>
   `;
@@ -197,12 +199,12 @@ function _buildAyatRowHtml(ayat) {
 
   const rowClass = `comparison-row comparison-row--${status}`;
   const origCellContent = originalText
-    ? `<p class="comparison-ayat__text">${_escapeHtml(originalText)}</p>`
+    ? `<p class="comparison-ayat__text">${escapeHtml(originalText)}</p>`
     : `<span class="comparison-ayat__empty" aria-label="Tidak ada teks">—</span>`;
 
   const amndCellContent = amendedText
     ? `${_buildAyatAmandemenBadgeHtml(amandemenNumber, status)}
-       <p class="comparison-ayat__text">${_escapeHtml(amendedText)}</p>`
+       <p class="comparison-ayat__text">${escapeHtml(amendedText)}</p>`
     : `<span class="comparison-ayat__empty" aria-label="Tidak ada teks">—</span>`;
 
   return `
@@ -230,7 +232,7 @@ function _buildNewPasalRowHtml(ayat) {
   const { index, amendedText, status, amandemenNumber } = ayat;
   const badgeHtml = _buildAyatAmandemenBadgeHtml(amandemenNumber, status);
   const textHtml = amendedText
-    ? `<p class="comparison-ayat__text">${_escapeHtml(amendedText)}</p>`
+    ? `<p class="comparison-ayat__text">${escapeHtml(amendedText)}</p>`
     : '';
 
   return `
@@ -261,30 +263,11 @@ function _buildAyatAmandemenBadgeHtml(amandemenNumber, status) {
     <span
       class="comparison-ayat__badge"
       style="background-color: ${color};"
-      aria-label="${_escapeAttr(label)}"
+      aria-label="${escapeAttr(label)}"
       data-amandemen-badge="${amandemenNumber}"
     >
-      ${_escapeHtml(label)}
+      ${escapeHtml(label)}
     </span>
   `;
 }
 
-/**
- * @param {string} text
- * @returns {string}
- */
-function _escapeHtml(text) {
-  return String(text)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-/**
- * @param {string} text
- * @returns {string}
- */
-function _escapeAttr(text) {
-  return String(text).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}

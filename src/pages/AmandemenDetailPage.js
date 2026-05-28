@@ -35,20 +35,21 @@ import {
 } from './pageHelpers.js';
 import { buildPasalComparison } from '../utils/comparison.js';
 import { PasalComparisonCard } from '../components/PasalComparisonCard.js';
+import { escapeHtml } from '../utils/sanitize.js';
 
 export class AmandemenDetailPage {
   /**
    * @param {HTMLElement} containerEl
-   * @param {{\r
-   *   nomor: string;\r
-   *   sidebarEl: HTMLElement;\r
-   *   router: { navigate: (path: string) => void };\r
-   *   uudAsliRepository: {\r
-   *     loadPasalUUDNoAmandemen: () => Promise<readonly import('../types/data').PasalUUDNoAmandemenItem[]>;\r
-   *   };\r
-   *   pasalKetAmandemenRepository: {\r
-   *     loadPasalUUDKetAmandemen: () => Promise<readonly import('../types/data').PasalUUDKetAmandemenItem[]>;\r
-   *   };\r
+   * @param {{
+   *   nomor: string;
+   *   sidebarEl: HTMLElement;
+   *   router: { navigate: (path: string) => void };
+   *   uudAsliRepository: {
+   *     loadPasalUUDNoAmandemen: () => Promise<readonly import('../types/data').PasalUUDNoAmandemenItem[]>;
+   *   };
+   *   pasalKetAmandemenRepository: {
+   *     loadPasalUUDKetAmandemen: () => Promise<readonly import('../types/data').PasalUUDKetAmandemenItem[]>;
+   *   };
    * }} deps
    */
   constructor(containerEl, { nomor, sidebarEl, router, uudAsliRepository, pasalKetAmandemenRepository }) {
@@ -69,7 +70,15 @@ export class AmandemenDetailPage {
       items: buildPhaseOneSidebarItems('/amandemen'),
     });
 
-    const namapasal = `Pasal ${this.nomor}`;
+    const cleanNomor = (this.nomor || '').trim();
+    const isValidFormat = /^[0-9]+[A-Z]*$/i.test(cleanNomor);
+    const namapasal = `Pasal ${cleanNomor}`;
+
+    if (!isValidFormat) {
+      this._renderNotFoundState(namapasal);
+      return;
+    }
+
     setPageTitle(`Perbandingan ${namapasal}`);
     renderLoadingState(this.container, `Memuat perbandingan ${namapasal}...`);
 
@@ -127,7 +136,7 @@ export class AmandemenDetailPage {
     setPageTitle('Pasal Tidak Ditemukan');
     this.container.innerHTML = buildErrorStateHtml({
       title: 'Pasal tidak ditemukan',
-      message: `${namapasal} tidak memiliki data perbandingan amandemen. Pastikan nomor pasal yang dimasukkan benar.`,
+      message: `${escapeHtml(namapasal)} tidak memiliki data perbandingan amandemen. Pastikan nomor pasal yang dimasukkan benar.`,
       retryLabel: 'Kembali ke Daftar Amandemen',
     });
 

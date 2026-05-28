@@ -27,6 +27,7 @@ import {
   toAppHref,
 } from './pageHelpers.js';
 import { buildAmandemenBadgeHtml, buildAmandemenMap } from '../utils/pasal.js';
+import { escapeHtml, escapeAttr } from '../utils/sanitize.js';
 
 export class PasalListPage {
   /**
@@ -123,19 +124,19 @@ export class PasalListPage {
 
     return `
       <a class="pasal-card content-card"
-         href="${toAppHref(`/pasal/${nomorUrl}`)}"
+         href="${toAppHref(`/pasal/${escapeAttr(nomorUrl)}`)}"
          role="listitem"
-         data-pasal="${pasal.namapasal}">
+         data-pasal="${escapeAttr(pasal.namapasal)}">
         <div class="pasal-card__header">
           <div class="pasal-card__meta">
-            ${babLabel ? `<span class="pasal-card__bab-label">${babLabel}</span>` : ''}
-            <h2 class="pasal-card__title">${pasal.namapasal}</h2>
+            ${babLabel ? `<span class="pasal-card__bab-label">${escapeHtml(babLabel)}</span>` : ''}
+            <h2 class="pasal-card__title">${escapeHtml(pasal.namapasal)}</h2>
           </div>
           <div class="pasal-card__arrow" aria-hidden="true">
             <i class="bi bi-arrow-right"></i>
           </div>
         </div>
-        <p class="pasal-card__excerpt">${excerpt}</p>
+        <p class="pasal-card__excerpt">${escapeHtml(excerpt)}</p>
         <div class="pasal-card__footer">
           <span class="badge-ayat">${ayatCount} Ayat</span>
           ${amandemenBadge}

@@ -290,6 +290,35 @@ export function registerRoutes(router, deps) {
     );
   });
 
+  // CATATAN URUTAN: /amandemen/:nomor HARUS didaftarkan SEBELUM /amandemen
+  // agar router (first-match) tidak mencocokkan "/amandemen/7" ke route statis "/amandemen".
+  router.addRoute('/amandemen/:nomor', ({ nomor }) => {
+    updateMetaTags({
+      title: `Amandemen Pasal ${nomor} UUD 1945 — Perbandingan Teks`,
+      description: `Perbandingan teks Pasal ${nomor} UUD 1945 antara versi asli dan pasca-amandemen I–IV (1999–2002).`,
+      path: `/amandemen/${nomor}`,
+      ogType: 'article',
+    });
+    injectJsonLd(
+      createWebPageSchema({
+        name: `Amandemen Pasal ${nomor} UUD 1945 — Perbandingan Teks`,
+        description: `Perbandingan teks Pasal ${nomor} UUD 1945 antara versi asli dan pasca-amandemen I–IV (1999–2002).`,
+        url: `/amandemen/${nomor}`,
+      })
+    );
+    mountLazyPage(
+      'AmandemenDetailPage',
+      (AmandemenDetailPage) =>
+        new AmandemenDetailPage(contentEl, {
+          nomor,
+          sidebarEl,
+          router: deps.router,
+          uudAsliRepository: deps.uudAsliRepository,
+          pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
+        })
+    );
+  });
+
   router.addRoute('/amandemen', () => {
     updateMetaTags({
       title: 'Amandemen UUD 1945 — Riwayat Perubahan I–IV',
@@ -440,35 +469,6 @@ export function registerRoutes(router, deps) {
           sidebarEl,
           router: deps.router,
           babRepository: deps.babRepository,
-        })
-    );
-  });
-
-  // CATATAN URUTAN: /amandemen/:nomor HARUS didaftarkan SEBELUM /amandemen
-  // agar router (first-match) tidak mencocokkan "/amandemen/7" ke route statis "/amandemen".
-  router.addRoute('/amandemen/:nomor', ({ nomor }) => {
-    updateMetaTags({
-      title: `Amandemen Pasal ${nomor} UUD 1945 — Perbandingan Teks`,
-      description: `Perbandingan teks Pasal ${nomor} UUD 1945 antara versi asli dan pasca-amandemen I–IV (1999–2002).`,
-      path: `/amandemen/${nomor}`,
-      ogType: 'article',
-    });
-    injectJsonLd(
-      createWebPageSchema({
-        name: `Amandemen Pasal ${nomor} UUD 1945 — Perbandingan Teks`,
-        description: `Perbandingan teks Pasal ${nomor} UUD 1945 antara versi asli dan pasca-amandemen I–IV (1999–2002).`,
-        url: `/amandemen/${nomor}`,
-      })
-    );
-    mountLazyPage(
-      'AmandemenDetailPage',
-      (AmandemenDetailPage) =>
-        new AmandemenDetailPage(contentEl, {
-          nomor,
-          sidebarEl,
-          router: deps.router,
-          uudAsliRepository: deps.uudAsliRepository,
-          pasalKetAmandemenRepository: deps.pasalKetAmandemenRepository,
         })
     );
   });

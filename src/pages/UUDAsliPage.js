@@ -24,6 +24,7 @@ import {
   setPageTitle,
   setSidebarContent,
 } from './pageHelpers.js';
+import { escapeHtml, escapeAttr } from '../utils/sanitize.js';
 
 /** Sentinel untuk tampilkan semua bab */
 const ALL_BAB_VALUE = '__all__';
@@ -203,7 +204,7 @@ function _buildFilterDropdownHtml(babList, selectedBab) {
     `<option value="${ALL_BAB_VALUE}" ${selectedBab === ALL_BAB_VALUE ? 'selected' : ''}>Semua Bab</option>`,
     ...babList.map(
       (bab) =>
-        `<option value="${_escapeAttr(bab)}" ${selectedBab === bab ? 'selected' : ''}>${_escapeHtml(bab)}</option>`
+        `<option value="${escapeAttr(bab)}" ${selectedBab === bab ? 'selected' : ''}>${escapeHtml(bab)}</option>`
     ),
   ].join('');
 
@@ -235,14 +236,14 @@ function _buildPasalItemHtml(pasal) {
   const excerpt = firstAyat.length > 120 ? `${firstAyat.slice(0, 120)}…` : firstAyat;
 
   return `
-    <div class="uud-asli-card content-card" role="listitem" data-pasal="${_escapeAttr(pasal.namapasal)}">
+    <div class="uud-asli-card content-card" role="listitem" data-pasal="${escapeAttr(pasal.namapasal)}">
       <div class="uud-asli-card__header">
         <div class="uud-asli-card__meta">
-          <span class="uud-asli-card__bab-label">${_escapeHtml(pasal.babpasal)}</span>
-          <h2 class="uud-asli-card__title">${_escapeHtml(pasal.namapasal)}</h2>
+          <span class="uud-asli-card__bab-label">${escapeHtml(pasal.babpasal)}</span>
+          <h2 class="uud-asli-card__title">${escapeHtml(pasal.namapasal)}</h2>
         </div>
       </div>
-      <p class="uud-asli-card__excerpt">${_escapeHtml(excerpt)}</p>
+      <p class="uud-asli-card__excerpt">${escapeHtml(excerpt)}</p>
       <div class="uud-asli-card__footer">
         <span class="badge-ayat">${ayatCount} Ayat</span>
         <span class="badge-asli">
@@ -254,26 +255,3 @@ function _buildPasalItemHtml(pasal) {
   `;
 }
 
-/**
- * Escape HTML entities untuk output yang aman.
- *
- * @param {string} text
- * @returns {string}
- */
-function _escapeHtml(text) {
-  return String(text)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-/**
- * Escape untuk nilai atribut HTML.
- *
- * @param {string} text
- * @returns {string}
- */
-function _escapeAttr(text) {
-  return String(text).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}

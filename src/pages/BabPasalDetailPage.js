@@ -24,35 +24,12 @@ import {
   buildShareButton,
   configurePageContainer,
   renderLoadingState,
+  ROMAN_NUMERALS,
   setPageTitle,
   setSidebarContent,
   toAppHref,
 } from './pageHelpers.js';
-
-/** @type {readonly string[]} */
-const ROMAN_NUMERALS = [
-  'I',
-  'II',
-  'III',
-  'IV',
-  'V',
-  'VI',
-  'VII',
-  'VIII',
-  'IX',
-  'X',
-  'XI',
-  'XII',
-  'XIII',
-  'XIV',
-  'XV',
-  'XVI',
-  'XVII',
-  'XVIII',
-  'XIX',
-  'XX',
-  'XXI',
-];
+import { escapeHtml, escapeAttr } from '../utils/sanitize.js';
 
 /**
  * Mengonversi parameter URL (string "1"–"21") menjadi index 0-based.
@@ -154,7 +131,7 @@ export class BabPasalDetailPage {
         ${buildBreadcrumbHtml([
           { label: 'UUD 1945', path: '/pasal' },
           { label: 'Batang Tubuh', path: '/bab-pasal' },
-          { label: fullName },
+          { label: escapeHtml(fullName) },
         ])}
 
         <a href="${toAppHref('/bab-pasal')}" class="page-back-link">
@@ -165,11 +142,11 @@ export class BabPasalDetailPage {
         <div class="bab-detail-header content-card">
           <div class="bab-detail-header__top">
             <div class="bab-detail-header__badge" aria-hidden="true">
-              <span class="bab-detail-header__roman">${roman}</span>
+              <span class="bab-detail-header__roman">${escapeHtml(roman)}</span>
             </div>
             <div class="bab-detail-header__text">
-              <h1 class="bab-detail-header__title">${fullName}</h1>
-              <p class="bab-detail-header__subtitle">${keterangan}</p>
+              <h1 class="bab-detail-header__title">${escapeHtml(fullName)}</h1>
+              <p class="bab-detail-header__subtitle">${escapeHtml(keterangan)}</p>
             </div>
           </div>
           <div class="page-heading__actions">
@@ -182,7 +159,7 @@ export class BabPasalDetailPage {
           <span class="page-section-count">${bab.isi_bab.length} Pasal</span>
         </div>
 
-        <div class="bab-detail-pasal-list" role="list" aria-label="Daftar pasal dalam ${fullName}">
+        <div class="bab-detail-pasal-list" role="list" aria-label="Daftar pasal dalam ${escapeAttr(fullName)}">
           ${bab.isi_bab.map((namaPasal) => this._buildPasalItemHtml(namaPasal)).join('')}
         </div>
 
@@ -203,20 +180,20 @@ export class BabPasalDetailPage {
           <span class="bab-detail-pasal-item__icon">
             <i class="bi bi-x-circle" aria-hidden="true"></i>
           </span>
-          <span class="bab-detail-pasal-item__text">${namaPasal}</span>
+          <span class="bab-detail-pasal-item__text">${escapeHtml(namaPasal)}</span>
         </div>
       `;
     }
 
     const nomorPasalUrl = namaPasal.replace('Pasal ', '');
     return `
-      <a href="${toAppHref(`/pasal/${nomorPasalUrl}`)}"
+      <a href="${toAppHref(`/pasal/${escapeAttr(nomorPasalUrl)}`)}"
          class="bab-detail-pasal-item content-card"
          role="listitem">
         <span class="bab-detail-pasal-item__icon">
           <i class="bi bi-file-text" aria-hidden="true"></i>
         </span>
-        <span class="bab-detail-pasal-item__text">${namaPasal}</span>
+        <span class="bab-detail-pasal-item__text">${escapeHtml(namaPasal)}</span>
         <i class="bi bi-chevron-right bab-detail-pasal-item__arrow" aria-hidden="true"></i>
       </a>
     `;
@@ -234,10 +211,10 @@ export class BabPasalDetailPage {
       ? `
         <a href="${toAppHref(`/bab-pasal/${prevBab.nomor}`)}"
            class="bab-nav__prev"
-           aria-label="Bab sebelumnya: ${prevBab.fullName}">
+           aria-label="Bab sebelumnya: ${escapeAttr(prevBab.fullName)}">
           <i class="bi bi-chevron-left" aria-hidden="true"></i>
           <span class="bab-nav__label">Sebelumnya</span>
-          <span class="bab-nav__name">${prevBab.fullName}</span>
+          <span class="bab-nav__name">${escapeHtml(prevBab.fullName)}</span>
         </a>
       `
       : `<span class="bab-nav__placeholder"></span>`;
@@ -246,8 +223,8 @@ export class BabPasalDetailPage {
       ? `
         <a href="${toAppHref(`/bab-pasal/${nextBab.nomor}`)}"
            class="bab-nav__next"
-           aria-label="Bab berikutnya: ${nextBab.fullName}">
-          <span class="bab-nav__name">${nextBab.fullName}</span>
+           aria-label="Bab berikutnya: ${escapeAttr(nextBab.fullName)}">
+          <span class="bab-nav__name">${escapeHtml(nextBab.fullName)}</span>
           <span class="bab-nav__label">Berikutnya</span>
           <i class="bi bi-chevron-right" aria-hidden="true"></i>
         </a>

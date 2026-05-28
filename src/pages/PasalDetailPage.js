@@ -30,6 +30,7 @@ import {
 } from './pageHelpers.js';
 import { buildAmandemenBadgeHtml, buildAmandemenMap, parsePasalNomor } from '../utils/pasal.js';
 import { ShareButton } from '../components/ShareButton.js';
+import { escapeHtml, escapeAttr } from '../utils/sanitize.js';
 import { updateMetaTags } from '../utils/seo.js';
 
 export class PasalDetailPage {
@@ -187,7 +188,7 @@ export class PasalDetailPage {
         ${buildBreadcrumbHtml([
           { label: 'UUD 1945', path: '/pasal' },
           { label: 'Batang Tubuh', path: '/bab-pasal' },
-          { label: babLabel || pasal.namapasal },
+          { label: escapeHtml(babLabel) || escapeHtml(pasal.namapasal) },
         ])}
 
         <div class="page-topbar">
@@ -202,13 +203,13 @@ export class PasalDetailPage {
 
         <div class="pasal-detail-header content-card">
           <div class="d-flex align-items-center gap-2 flex-wrap mb-2">
-            <h1 class="pasal-detail-header__title">${pasal.namapasal}</h1>
+            <h1 class="pasal-detail-header__title">${escapeHtml(pasal.namapasal)}</h1>
             ${amandemenBadge}
           </div>
-          ${babLabel ? `<p class="pasal-detail-header__bab">${babLabel}</p>` : ''}
+          ${babLabel ? `<p class="pasal-detail-header__bab">${escapeHtml(babLabel)}</p>` : ''}
         </div>
 
-        <div class="pasal-ayat-list" role="list" aria-label="Ayat-ayat ${pasal.namapasal}">
+        <div class="pasal-ayat-list" role="list" aria-label="Ayat-ayat ${escapeAttr(pasal.namapasal)}">
           ${ayatListHtml}
         </div>
 
@@ -229,7 +230,7 @@ export class PasalDetailPage {
       <div class="pasal-ayat-card content-card" role="listitem">
         <div class="pasal-ayat-card__inner">
           <div class="pasal-ayat-card__number" aria-hidden="true">${nomor}</div>
-          <p class="pasal-ayat-card__text">${isiAyat}</p>
+          <p class="pasal-ayat-card__text">${escapeHtml(isiAyat)}</p>
         </div>
         <div class="pasal-ayat-card__ghost" aria-hidden="true">${nomor}</div>
       </div>
@@ -247,8 +248,8 @@ export class PasalDetailPage {
 
     const prevHtml = prevNomorUrl
       ? `<a class="pasal-nav__prev"
-            href="${toAppHref(`/pasal/${prevNomorUrl}`)}"
-            aria-label="Pasal sebelumnya: ${prevPasal?.namapasal}">
+            href="${toAppHref(`/pasal/${escapeAttr(prevNomorUrl)}`)}"
+            aria-label="Pasal sebelumnya: ${escapeAttr(prevPasal?.namapasal)}">
            <i class="bi bi-arrow-left" aria-hidden="true"></i>
            <span>Sebelumnya</span>
          </a>`
@@ -259,9 +260,9 @@ export class PasalDetailPage {
 
     const nextHtml = nextNomorUrl
       ? `<a class="pasal-nav__next"
-            href="${toAppHref(`/pasal/${nextNomorUrl}`)}"
-            aria-label="Pasal selanjutnya: ${nextPasal?.namapasal}">
-           <span>${nextPasal?.namapasal}</span>
+            href="${toAppHref(`/pasal/${escapeAttr(nextNomorUrl)}`)}"
+            aria-label="Pasal selanjutnya: ${escapeAttr(nextPasal?.namapasal)}">
+           <span>${escapeHtml(nextPasal?.namapasal)}</span>
            <i class="bi bi-arrow-right" aria-hidden="true"></i>
          </a>`
       : `<span class="pasal-nav__next pasal-nav__next--empty" aria-hidden="true">
@@ -307,8 +308,8 @@ function _buildCompareLink(nomorUrl, namapasal) {
     <div class="pasal-compare-section" data-compare-section>
       <a
         class="pasal-compare-link"
-        href="${toAppHref(`/amandemen/${encodeURIComponent(nomorUrl)}`)}"
-        aria-label="Bandingkan ${namapasal} dengan UUD 1945 asli"
+        href="${toAppHref(`/amandemen/${escapeAttr(encodeURIComponent(nomorUrl))}`)}"
+        aria-label="Bandingkan ${escapeAttr(namapasal)} dengan UUD 1945 asli"
         data-compare-link
       >
         <i class="bi bi-columns-gap me-2" aria-hidden="true"></i>

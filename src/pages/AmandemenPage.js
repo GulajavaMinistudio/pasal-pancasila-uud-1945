@@ -32,6 +32,7 @@ import {
   setSidebarContent,
   toAppHref,
 } from './pageHelpers.js';
+import { escapeHtml, escapeAttr } from '../utils/sanitize.js';
 
 /** Urutan tampilan amandemen */
 const AMANDEMEN_ORDER = ['1', '2', '3', '4'];
@@ -211,17 +212,17 @@ function _buildPasalRowHtml(pasal, amandemenKey) {
   return `
     <article
       class="card amandemen-card border rounded-3"
-      data-pasal="${_escapeAttr(pasal.namapasal)}"
+      data-pasal="${escapeAttr(pasal.namapasal)}"
       data-amandemen-item
     >
       <div class="card-body p-3">
         <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
           <div class="flex-grow-1 min-w-0">
             <span class="amandemen-row__bab d-block text-uppercase small lh-sm mb-1">
-              ${_escapeHtml(pasal.babpasal)}
+              ${escapeHtml(pasal.babpasal)}
             </span>
             <h3 class="amandemen-row__title h6 fw-bold mb-0">
-              ${_escapeHtml(pasal.namapasal)}
+              ${escapeHtml(pasal.namapasal)}
             </h3>
           </div>
           <span
@@ -235,7 +236,7 @@ function _buildPasalRowHtml(pasal, amandemenKey) {
           <a
             class="amandemen-compare-link"
             href="${toAppHref(`/amandemen/${urlSafe}`)}"
-            aria-label="Lihat perbandingan ${_escapeAttr(pasal.namapasal)}"
+            aria-label="Lihat perbandingan ${escapeAttr(pasal.namapasal)}"
             data-compare-link
           >
             <i class="bi bi-arrow-left-right d-md-none me-2" aria-hidden="true"></i>
@@ -248,26 +249,3 @@ function _buildPasalRowHtml(pasal, amandemenKey) {
   `;
 }
 
-/**
- * Escape HTML entities untuk output yang aman.
- *
- * @param {string} text
- * @returns {string}
- */
-function _escapeHtml(text) {
-  return String(text)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-/**
- * Escape untuk nilai atribut HTML.
- *
- * @param {string} text
- * @returns {string}
- */
-function _escapeAttr(text) {
-  return String(text).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}

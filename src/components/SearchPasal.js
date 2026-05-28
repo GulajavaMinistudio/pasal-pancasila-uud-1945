@@ -11,6 +11,8 @@
  * Komponen murni presentational + input handling.
  */
 
+import { escapeAttr } from '../utils/sanitize.js';
+
 const DEFAULT_PLACEHOLDER = 'Cari pasal UUD 1945...';
 const DEFAULT_DEBOUNCE_MS = 300;
 
@@ -93,8 +95,8 @@ export class SearchPasal {
           <input
             type="search"
             class="search-pasal__input"
-            placeholder="${_escapeAttr(this.placeholder)}"
-            value="${_escapeAttr(this.initialQuery)}"
+            placeholder="${escapeAttr(this.placeholder)}"
+            value="${escapeAttr(this.initialQuery)}"
             aria-label="Pencarian pasal"
             data-search-input
           />
@@ -133,14 +135,3 @@ export class SearchPasal {
   }
 }
 
-/**
- * @param {string} value
- * @returns {string}
- */
-function _escapeAttr(value) {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('"', '&quot;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;');
-}

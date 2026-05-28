@@ -15,6 +15,8 @@
  *   - Tidak menerima dependensi eksternal
  */
 
+import { toAppHref, setPageTitle } from './pageHelpers.js';
+
 /** Daftar tautan pintasan yang ditampilkan di halaman 404 */
 const SHORTCUT_LINKS = [
   { path: '/', label: 'Beranda', icon: 'bi-house-fill' },
@@ -37,7 +39,7 @@ export class NotFoundPage {
    */
   mount() {
     this.container.innerHTML = this._buildHtml();
-    document.title = '404 — Halaman Tidak Ditemukan | Pancasila & UUD 1945';
+    setPageTitle('Halaman Tidak Ditemukan');
     this._bindEvents();
   }
 
@@ -74,7 +76,7 @@ export class NotFoundPage {
         </div>
 
         <!-- Tombol kembali ke beranda -->
-        <a href="/"
+        <a href="${toAppHref('/')}"
            class="btn fw-semibold px-4 py-2 text-white"
            style="background-color: var(--color-primary);"
            data-nav-to="/">
@@ -93,7 +95,7 @@ export class NotFoundPage {
   _buildShortcutHtml(link) {
     return `
       <a class="btn btn-outline-secondary btn-sm fw-semibold"
-         href="${link.path}"
+         href="${toAppHref(link.path)}"
          data-nav-to="${link.path}">
         <i class="bi ${link.icon} me-1" aria-hidden="true"></i>
         ${link.label}
