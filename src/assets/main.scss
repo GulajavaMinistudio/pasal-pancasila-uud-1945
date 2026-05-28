@@ -447,7 +447,8 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
 // Referensi: DESIGN.md "Level 1 (Cards): white + soft shadow + 1px border"
 
 .content-card {
-  background-color: var(--color-surface);
+  background-color: #ffffff;
+  background-image: none;
   border: 1px solid var(--color-outline-variant);
   border-radius: $border-radius;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -512,20 +513,30 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
 .home-hero__badge {
   position: relative;
   z-index: 1;
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 14rem;
+  height: 14rem;
+  padding: 1rem;
   margin: 0 auto 1rem;
   border-radius: 50%;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: var(--color-surface);
-  box-shadow: 0 12px 30px rgba(39, 24, 22, 0.12);
+  box-shadow:
+    inset 0 0 0 2px rgba(198, 40, 40, 0.1),
+    0 12px 30px rgba(39, 24, 22, 0.12);
   color: var(--color-primary);
 
   i {
     font-size: 2.25rem;
   }
+}
+
+.home-hero__logo {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
 }
 
 .home-hero__title {
@@ -566,6 +577,7 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
   justify-content: space-between;
   gap: 1rem;
   padding: 1.25rem;
+  background-color: #ffffff;
   text-decoration: none;
   color: inherit;
   border-radius: 1rem;

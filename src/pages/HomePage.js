@@ -85,7 +85,13 @@ export class HomePage {
             ${buildShareButton()}
           </div>
           <div class="home-hero__badge" aria-hidden="true">
-            <i class="bi bi-shield-check"></i>
+            <img
+              src="${toAppHref('/images/logo_pancasila.svg')}"
+              class="home-hero__logo"
+              alt=""
+              loading="eager"
+              decoding="async"
+            />
           </div>
           <h1 class="home-hero__title">Pancasila &amp; UUD 1945</h1>
           <p class="home-hero__subtitle">
