@@ -23,6 +23,7 @@
 import {
   buildPhaseOneSidebarItems,
   configurePageContainer,
+  toAppHref,
   setPageTitle,
   setSidebarContent,
 } from './pageHelpers.js';
@@ -32,6 +33,9 @@ const APP_VERSION = 'v1.0.0';
 
 /** Nama resmi aplikasi */
 const APP_NAME = 'Pancasila &amp; UUD 1945';
+
+/** Situs resmi Mahkamah Konstitusi Republik Indonesia */
+const MKRI_WEBSITE_URL = 'https://www.mkri.id/';
 
 /**
  * URL tautan Google Forms — placeholder untuk v1.
@@ -97,7 +101,13 @@ function _buildHeroSectionHtml() {
         role="img"
         aria-label="Logo aplikasi Pancasila dan UUD 1945"
       >
-        <i class="bi bi-shield-fill tentang-logo-icon" aria-hidden="true"></i>
+        <img
+          src="${toAppHref('/images/logo_pancasila.svg')}"
+          class="home-hero__logo"
+          alt=""
+          loading="eager"
+          decoding="async"
+        />
       </div>
       <h1 class="tentang-app-name h4 fw-bold mb-2">${APP_NAME}</h1>
       <span class="tentang-version-badge badge rounded-pill border">
@@ -151,6 +161,18 @@ function _buildSumberDataSectionHtml() {
           <p class="text-secondary small mb-0">
             Naskah komprehensif merujuk pada publikasi resmi
             Majelis Permusyawaratan Rakyat Republik Indonesia.
+          </p>
+          <p class="small mb-0 mt-2">
+            Referensi tambahan:
+            <a
+              href="${MKRI_WEBSITE_URL}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Buka situs resmi Mahkamah Konstitusi (membuka tab baru)"
+              data-mkri-link
+            >
+              Situs Resmi Mahkamah Konstitusi
+            </a>
           </p>
         </div>
       </div>

@@ -69,6 +69,13 @@ describe('TentangPage', () => {
     expect(container.querySelector('.tentang-logo-circle')).not.toBeNull();
   });
 
+  it('menggunakan logo Pancasila seperti halaman utama', () => {
+    const { container } = mountPage();
+    const logo = container.querySelector('.tentang-logo-circle img');
+    expect(logo).not.toBeNull();
+    expect(logo?.getAttribute('src')).toContain('/images/logo_pancasila.svg');
+  });
+
   // ── Deskripsi ─────────────────────────────────────────────────────────────
 
   it('menampilkan deskripsi aplikasi yang mengandung kata "Pancasila"', () => {
@@ -95,6 +102,15 @@ describe('TentangPage', () => {
     const { container } = mountPage();
     const sumber = container.querySelector('.tentang-sumber-data');
     expect(sumber?.textContent).toContain('Sekretariat Jenderal MPR RI');
+  });
+
+  it('section Sumber Data menampilkan tautan situs resmi Mahkamah Konstitusi', () => {
+    const { container } = mountPage();
+    const link = container.querySelector('[data-mkri-link]');
+    expect(link).not.toBeNull();
+    expect(link?.getAttribute('href')).toBe('https://www.mkri.id/');
+    expect(link?.getAttribute('target')).toBe('_blank');
+    expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
   });
 
   // ── Tautan Bantuan & Dukungan ─────────────────────────────────────────────

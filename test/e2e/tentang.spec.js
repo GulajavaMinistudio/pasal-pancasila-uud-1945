@@ -10,7 +10,7 @@
 import { expect, test } from '@playwright/test';
 
 // Base path GitHub Pages — konsisten dengan vite.config.js
-const BASE = '/pasal-pancasila-uud-1945';
+const BASE = '/pancasila-uud-indonesia-1945';
 
 // =============================================================================
 // TASK-065: Halaman Tentang Aplikasi ("/tentang")
@@ -34,6 +34,12 @@ test.describe('Halaman Tentang Aplikasi ("/tentang") — TASK-065', () => {
 
   test('menampilkan logo circle aplikasi', async ({ page }) => {
     await expect(page.locator('.tentang-logo-circle')).toBeVisible();
+  });
+
+  test('logo yang dipakai adalah logo Pancasila dari asset beranda', async ({ page }) => {
+    const logo = page.locator('.tentang-logo-circle img');
+    await expect(logo).toBeVisible();
+    await expect(logo).toHaveAttribute('src', /\/images\/logo_pancasila\.svg$/);
   });
 
   test('menampilkan nama aplikasi "Pancasila & UUD 1945"', async ({ page }) => {
@@ -66,6 +72,16 @@ test.describe('Halaman Tentang Aplikasi ("/tentang") — TASK-065', () => {
   test('section Sumber Data menyebut "Sekretariat Jenderal MPR RI"', async ({ page }) => {
     const sumber = page.locator('.tentang-sumber-data');
     await expect(sumber).toContainText('Sekretariat Jenderal MPR RI');
+  });
+
+  test('section Sumber Data menampilkan tautan situs resmi Mahkamah Konstitusi', async ({
+    page,
+  }) => {
+    const link = page.locator('[data-mkri-link]');
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute('href', 'https://www.mkri.id/');
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
   // ── Tautan Bantuan & Dukungan ─────────────────────────────────────────────
