@@ -102,6 +102,14 @@ test.describe('Halaman Tentang Aplikasi ("/tentang") — TASK-065', () => {
     await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
+  test('tautan Koreksi Pasal mengarah ke Google Form koreksi', async ({ page }) => {
+    const link = page.locator('[data-koreksi-link]');
+    await expect(link).toHaveAttribute(
+      'href',
+      'https://docs.google.com/forms/d/e/1FAIpQLScNf_fnznWZ2AuZSU4POK2p5LLW_pgCmtgCi2e2YwpHXyzoVQ/viewform?usp=sharing&ouid=102632751110040165422'
+    );
+  });
+
   test('menampilkan tautan Saran Masukan yang terlihat', async ({ page }) => {
     const link = page.locator('[data-saran-link]');
     await expect(link).toBeVisible();
@@ -116,6 +124,11 @@ test.describe('Halaman Tentang Aplikasi ("/tentang") — TASK-065', () => {
   test('tautan Saran Masukan memiliki rel="noopener noreferrer"', async ({ page }) => {
     const link = page.locator('[data-saran-link]');
     await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  test('tautan Saran Masukan mengarah ke Google Form saran/masukan', async ({ page }) => {
+    const link = page.locator('[data-saran-link]');
+    await expect(link).toHaveAttribute('href', 'https://forms.gle/37Qjckyc5UcCwdsK8');
   });
 
   // ── Navigasi ──────────────────────────────────────────────────────────────

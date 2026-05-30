@@ -44,8 +44,9 @@ const MKRI_WEBSITE_URL = 'https://www.mkri.id/';
  * @type {{ koreksi: string; saran: string }}
  */
 const FORM_URLS = {
-  koreksi: '#',
-  saran: '#',
+  koreksi:
+    'https://docs.google.com/forms/d/e/1FAIpQLScNf_fnznWZ2AuZSU4POK2p5LLW_pgCmtgCi2e2YwpHXyzoVQ/viewform?usp=sharing&ouid=102632751110040165422',
+  saran: 'https://forms.gle/37Qjckyc5UcCwdsK8',
 };
 
 export class TentangPage {

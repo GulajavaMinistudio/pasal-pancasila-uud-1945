@@ -139,6 +139,14 @@ describe('TentangPage', () => {
     expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
   });
 
+  it('tautan Koreksi Pasal mengarah ke Google Form koreksi', () => {
+    const { container } = mountPage();
+    const link = container.querySelector('[data-koreksi-link]');
+    expect(link?.getAttribute('href')).toBe(
+      'https://docs.google.com/forms/d/e/1FAIpQLScNf_fnznWZ2AuZSU4POK2p5LLW_pgCmtgCi2e2YwpHXyzoVQ/viewform?usp=sharing&ouid=102632751110040165422'
+    );
+  });
+
   it('menampilkan tautan Saran Masukan [data-saran-link]', () => {
     const { container } = mountPage();
     const link = container.querySelector('[data-saran-link]');
@@ -161,6 +169,12 @@ describe('TentangPage', () => {
     const { container } = mountPage();
     const link = container.querySelector('[data-saran-link]');
     expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
+  });
+
+  it('tautan Saran Masukan mengarah ke Google Form saran/masukan', () => {
+    const { container } = mountPage();
+    const link = container.querySelector('[data-saran-link]');
+    expect(link?.getAttribute('href')).toBe('https://forms.gle/37Qjckyc5UcCwdsK8');
   });
 
   // ── Section Bantuan ───────────────────────────────────────────────────────
