@@ -12,6 +12,8 @@
 //   - Tailwind config di semua mockup HTML (ground truth visual)
 // =============================================================================
 
+@use 'sass:color';
+
 // --- Color System -----------------------------------------------------------
 // Merah Tua = brand primary (header, CTA, active states)
 // Sumber: mockup Tailwind config "primary-container: #c62828"
@@ -25,7 +27,7 @@ $dark:      #212529;
 
 // --- Link -------------------------------------------------------------------
 $link-color:            #C62828;
-$link-hover-color:      darken(#C62828, 10%);
+$link-hover-color:      color.adjust(#C62828, $lightness: -10%);
 $link-decoration:       none;
 $link-hover-decoration: underline;
 
