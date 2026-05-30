@@ -26,7 +26,10 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        // Bootstrap SCSS overrides dikonfigurasi di Phase 1.4
+        // Bootstrap 5.3 masih memicu warning deprecation dari Dart Sass.
+        // Warning ini tidak memengaruhi hasil build, dan disenyapkan agar output dev lebih bersih.
+        quietDeps: true,
+        silenceDeprecations: ['import', 'global-builtin', 'color-functions', 'if-function'],
       },
     },
   },
