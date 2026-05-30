@@ -14,7 +14,7 @@
  * oleh modul ini — ia bersifat statis dan tidak pernah berubah.
  *
  * BASE_URL: baca dari VITE_CANONICAL_BASE_URL (env var untuk custom domain).
- *           Fallback: 'https://pasaluud1945.web.app'
+ *           Fallback: 'https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945'
  *
  * Referensi:
  *   - spec-seo-pasaluud1945.md §4.3–4.5
@@ -25,7 +25,7 @@
 /** @type {string} */
 const BASE_URL =
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_CANONICAL_BASE_URL) ||
-  'https://pasaluud1945.web.app';
+  'https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945';
 
 /** ID elemen <script> JSON-LD yang dikelola secara dinamis per navigasi */
 const JSONLD_SCRIPT_ID = '__jsonld-page';

@@ -10,7 +10,7 @@
  * atribut `content` / `href` diperbarui tanpa menambah elemen duplikat.
  *
  * BASE_URL: baca dari VITE_CANONICAL_BASE_URL (env var untuk custom domain).
- *           Fallback: 'https://pasaluud1945.web.app'
+ *           Fallback: 'https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945'
  *
  * Referensi:
  *   - spec-seo-pasaluud1945.md §3.1, §4.1, §5.1
@@ -21,7 +21,7 @@
 /** @type {string} */
 const BASE_URL =
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_CANONICAL_BASE_URL) ||
-  'https://pasaluud1945.web.app';
+  'https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945';
 
 /** @type {string} */
 const DEFAULT_OG_IMAGE = `${BASE_URL}/images/og-banner.png`;
