@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// GitHub Pages: https://gulajavaministudio.github.io/pasal-pancasila-uud-1945/
+// GitHub Pages: https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945/
 // Ganti ke base: '/' jika menggunakan custom domain
-const BASE_PATH = '/pasal-pancasila-uud-1945/';
+const BASE_PATH = '/pancasila-uud-indonesia-1945/';
 
 export default defineConfig({
   base: BASE_PATH,

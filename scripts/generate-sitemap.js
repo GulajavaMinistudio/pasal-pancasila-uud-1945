@@ -26,7 +26,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const ROOT_DIR = join(__dirname, '..');
 
-const BASE_URL = 'https://pasaluud1945.web.app';
+const BASE_URL = 'https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945';
 const OUTPUT_FILE = join(ROOT_DIR, 'public', 'sitemap.xml');
 const PASAL_DATA_FILE = join(ROOT_DIR, 'public', 'data', 'pasaluud45.json');
 const BAB_PASAL_DATA_FILE = join(ROOT_DIR, 'public', 'data', 'babpasal.json');

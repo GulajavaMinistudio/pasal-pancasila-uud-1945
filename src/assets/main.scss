@@ -382,6 +382,7 @@ $bootstrap-icons-font-dir: 'bootstrap-icons/font/fonts';
 .page-container {
   padding: var(--spacing-md);    // 16px
   max-width: 100%;
+  margin: 0 auto;
 
   @include media-breakpoint-up(md) {
     padding: var(--spacing-lg);  // 24px

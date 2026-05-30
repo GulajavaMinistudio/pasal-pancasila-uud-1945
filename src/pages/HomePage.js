@@ -4,7 +4,6 @@
  */
 
 import {
-  buildShareButton,
   configurePageContainer,
   setPageTitle,
   setSidebarContent,
@@ -81,9 +80,6 @@ export class HomePage {
         <section class="home-hero content-card">
           <div class="home-hero__orb home-hero__orb--right" aria-hidden="true"></div>
           <div class="home-hero__orb home-hero__orb--left" aria-hidden="true"></div>
-          <div class="home-hero__actions">
-            ${buildShareButton()}
-          </div>
           <div class="home-hero__badge" aria-hidden="true">
             <img
               src="${toAppHref('/images/logo_pancasila.svg')}"

@@ -4,4 +4,4 @@ Allow: /
 # Tidak perlu di-crawl — halaman pencarian tidak memiliki konten unik
 Disallow: /cari
 
-Sitemap: https://pasaluud1945.web.app/sitemap.xml
+Sitemap: https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945/sitemap.xml
