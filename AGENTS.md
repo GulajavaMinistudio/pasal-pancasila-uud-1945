@@ -1,36 +1,36 @@
-# AGENTS.md — Aplikasi Pancasila dan UUD 1945
+# AGENTS.md — Pancasila & UUD 1945 Web App
 
 ## Repository Overview
 <!-- markdownlint-disable -->
 
-Aplikasi web **Pancasila & UUD 1945** adalah Progressive Web App (PWA) statis berbasis
-Vanilla JavaScript + Vite + Bootstrap 5 yang memigrasi konten dari aplikasi Android (v4.0.0)
-ke web. Seluruh data bersumber dari 7 file JSON statis — tidak ada backend API atau database.
+**Pancasila & UUD 1945** is a static Progressive Web App (PWA) built with
+Vanilla JavaScript + Vite + Bootstrap 5, migrating content from the Android app (v4.0.0)
+to the web. All data comes from 7 static JSON files — no backend API or database.
 
-### Struktur Direktori Proyek
+### Project Directory Structure
 
 ```text
 pasaluud1945web/
 ├── index.html                    # HTML entry point
 ├── vite.config.js                # Konfigurasi Vite bundler
-├── tsconfig.json                 # TypeScript (type-check only, tidak transpile)
+├── tsconfig.json                 # TypeScript (type-check only, does not transpile)
 ├── package.json
-├── src/                          # Source code aplikasi (dibuat di Phase 1)
+├── src/                          # Application source code (created in Phase 1)
 │   ├── main.js                   # Entry point — init router, mount layout
 │   ├── types/
-│   │   └── data.ts               # TypeScript interfaces untuk 7 schema JSON
+│   │   └── data.ts               # TypeScript interfaces for 7 JSON schemas
 │   ├── data/
-│   │   ├── loader.js             # Fungsi async loader + in-memory cache
-│   │   └── fixture/              # Salinan JSON immutable untuk testing
+│   │   ├── loader.js             # Async loader function + in-memory cache
+│   │   └── fixture/              # Immutable JSON copies for testing
 │   ├── router/
 │   │   ├── router.js             # Router class (history.pushState, popstate)
-│   │   └── routes.js             # Definisi 14 route dengan handler mapping
+│   │   └── routes.js             # 14 route definitions with handler mapping
 │   ├── components/               # UI components reusable
-│   │   ├── AppHeader.js          # Navbar (Bootstrap), judul, ikon search/share
+│   │   ├── AppHeader.js          # Navbar (Bootstrap), title, search/share icons
 │   │   ├── BottomNavigation.js   # Bottom nav bar — mobile only (d-md-none)
 │   │   ├── AppLayout.js          # Layout container (sidebar desktop, full mobile)
-│   │   └── PageContainer.js      # Wrapper konten dengan padding standar
-│   ├── pages/                    # Page handlers — satu file per route
+│   │   └── PageContainer.js      # Content wrapper with standard padding
+│   ├── pages/                    # Page handlers — one file per route
 │   │   ├── HomePage.js           # /
 │   │   ├── PancasilaPage.js      # /pancasila
 │   │   ├── SilaDetailPage.js     # /sila/:nomor
@@ -42,80 +42,80 @@ pasaluud1945web/
 │   │   ├── BabPasalDetailPage.js # /bab-pasal/:nomor
 │   │   ├── UUDAsliPage.js        # /uud-asli
 │   │   ├── AmandemenPage.js      # /amandemen
-│   │   ├── AmandemenDetailPage.js# /amandemen/:nomor (perbandingan side-by-side)
+│   │   ├── AmandemenDetailPage.js# /amandemen/:nomor (side-by-side comparison)
 │   │   ├── CariPage.js           # /cari?q=...
 │   │   ├── TentangPage.js        # /tentang
 │   │   └── NotFoundPage.js       # 404 fallback
 │   ├── utils/
 │   │   └── share.js              # Web Share API + Clipboard API fallback
 │   └── assets/
-│       ├── _variables.scss       # Bootstrap overrides dan design tokens
+│       ├── _variables.scss       # Bootstrap overrides and design tokens
 │       └── main.scss             # Main stylesheet (import Bootstrap + tokens)
 ├── public/
-│   └── data/                     # 7 file JSON data (migrasi dari Android assets)
+│   └── data/                     # 7 JSON data files (migrated from Android assets)
 ├── test/
-│   ├── unit/                     # Unit tests (Vitest) — fungsi utilitas, router
+│   ├── unit/                     # Unit tests (Vitest) — utility functions, router
 │   ├── component/                # Component tests (Vitest browser mode) — DOM
 │   └── e2e/                      # End-to-end tests (Playwright)
-├── assets/                       # File JSON sumber (Android origin, pre-migration)
-├── spec/                         # 5 dokumen spesifikasi teknis
-├── plan/                         # 5 dokumen implementation plan (4 fase)
-└── docs/                         # PRD, project brief, dan mockup HTML
+├── assets/                       # Source JSON files (Android origin, pre-migration)
+├── spec/                         # 5 technical specification documents
+├── plan/                         # 5 implementation plan documents (4 phases)
+└── docs/                         # PRD, project brief, and mockup HTML
     ├── mockup_desktop_web/       # 12 mockup desktop (HTML)
     └── mockup_mobile_web/        # 9 mockup mobile (HTML)
 ```
 
-### Arsitektur: Clean Architecture (Vanilla JS)
+### Architecture: Clean Architecture (Vanilla JS)
 
 ```text
 Presentation   src/components/ + src/pages/
-               ↑ Render UI, event binding, delegasi ke layer bawah
+               ↑ Render UI, event binding, delegate to lower layers
 Application    src/router/
-               ↑ Orkestrasi navigasi dan alur antar halaman
+               ↑ Orchestrate navigation and page flow
 Domain         src/types/
-               ↑ Kontrak data (TypeScript interfaces), aturan bisnis
+               ↑ Data contracts (TypeScript interfaces), business rules
 Infrastructure src/data/
-               ↑ Data loading, caching, fixtures — tidak ada import ke Presentation
+               ↑ Data loading, caching, fixtures — no imports from Presentation
 ```
 
-**Pattern**: ES6 Module pattern — setiap komponen/halaman adalah ES6 module (class atau
-factory function). Constructor injection manual tanpa dependency injection container.
-Tidak ada framework JS (React/Vue/Angular) — pure Vanilla JavaScript.
+**Pattern**: ES6 Module pattern — each component/page is an ES6 module (class or
+factory function). Manual constructor injection without a DI container.
+No JS framework (React/Vue/Angular) — pure Vanilla JavaScript.
 
 ### Routing (14 Routes)
 
-| Route               | Konten                                        |
-| ------------------- | --------------------------------------------- |
-| `/`                 | Landing page — navigasi ke 7 konten utama     |
-| `/pancasila`        | Daftar 5 Sila Pancasila                       |
-| `/sila/:nomor`      | Detail dan butir-butir sila (1–5)             |
-| `/butir-pancasila`  | Semua sila dengan butir expand/collapse       |
-| `/pembukaan`        | 4 Alinea Pembukaan UUD 1945                   |
-| `/pasal`            | Daftar semua Pasal UUD 1945 pasca-amandemen   |
-| `/pasal/:nomor`     | Detail isi pasal tertentu                     |
-| `/bab-pasal`        | Navigasi 21 Bab UUD 1945                      |
-| `/bab-pasal/:nomor` | Navigasi langsung ke bab tertentu             |
-| `/uud-asli`         | Pasal UUD 1945 versi asli sebelum amandemen   |
-| `/amandemen`        | Daftar pasal dengan keterangan amandemen I–IV |
-| `/amandemen/:nomor` | Perbandingan side-by-side asli vs amandemen   |
-| `/cari`             | Pencarian real-time (Fuse.js, debounce 300ms) |
-| `/tentang`          | Informasi tentang aplikasi                    |
+| Route               | Content                                        |
+| ------------------- | ---------------------------------------------- |
+| `/`                 | Landing page — navigation to 7 main contents   |
+| `/pancasila`        | List of 5 Pancasila Principles                 |
+| `/sila/:nomor`      | Detail and precepts of a principle (1–5)       |
+| `/butir-pancasila`  | All principles with expand/collapse precepts   |
+| `/pembukaan`        | 4 Paragraphs of the Preamble of UUD 1945       |
+| `/pasal`            | List of all UUD 1945 articles (post-amendment) |
+| `/pasal/:nomor`     | Detail of a specific article                   |
+| `/bab-pasal`        | Navigation of 21 UUD 1945 chapters             |
+| `/bab-pasal/:nomor` | Direct navigation to a specific chapter        |
+| `/uud-asli`         | UUD 1945 articles — original pre-amendment     |
+| `/amandemen`        | Articles with amendment notes I–IV             |
+| `/amandemen/:nomor` | Side-by-side comparison: original vs amendment |
+| `/cari`             | Real-time search (Fuse.js, debounce 300ms)     |
+| `/tentang`          | About the application                          |
 
 ### Data Files (`public/data/`)
 
-| File                            | Konten                                         |
-| ------------------------------- | ---------------------------------------------- |
-| `silapancasila.json`            | 5 Sila Pancasila (teks lengkap)                |
-| `butir_pancasila.json`          | Butir-butir pengamalan Pancasila per sila      |
-| `pembukaanuud.json`             | 4 Alinea Pembukaan UUD 1945                    |
-| `pasaluud45.json`               | Pasal 1–37 UUD 1945 pasca-amandemen            |
-| `pasaluud45noamandemen.json`    | Pasal UUD 1945 versi asli (sebelum amandemen)  |
-| `pasaluud45_ket_amandemen.json` | Keterangan amandemen (I–IV) per pasal          |
-| `babpasal.json`                 | Navigasi 21 Bab UUD 1945 beserta pasal per bab |
+| File                            | Content                                          |
+| ------------------------------- | ------------------------------------------------ |
+| `silapancasila.json`            | 5 Pancasila Principles (full text)               |
+| `butir_pancasila.json`          | Pancasila precepts per principle                 |
+| `pembukaanuud.json`             | 4 Paragraphs of the Preamble of UUD 1945         |
+| `pasaluud45.json`               | Articles 1–37 of UUD 1945 (post-amendment)       |
+| `pasaluud45noamandemen.json`    | UUD 1945 articles — original (pre-amendment)     |
+| `pasaluud45_ket_amandemen.json` | Amendment notes (I–IV) per article               |
+| `babpasal.json`                 | Navigation of 21 UUD 1945 chapters with articles |
 
 ### Tech Stack
 
-| Kategori          | Teknologi                                         |
+| Category          | Technology                                        |
 | ----------------- | ------------------------------------------------- |
 | **Bundler**       | Vite 7.3.2                                        |
 | **Language**      | Vanilla JavaScript ES6+ (TypeScript type-check)   |
@@ -123,12 +123,12 @@ Tidak ada framework JS (React/Vue/Angular) — pure Vanilla JavaScript.
 | **Search**        | Fuse.js (fuzzy search client-side)                |
 | **PWA**           | vite-plugin-pwa (Workbox — auto Service Worker)   |
 | **Testing**       | Vitest 3.2.4 (unit/component) + Playwright (E2E)  |
-| **Hosting**       | GitHub Pages (manual deploy ke branch `gh-pages`) |
+| **Hosting**       | GitHub Pages (manual deploy to `gh-pages` branch) |
 | **Runtime**       | Node.js 24.14.1 (build only)                      |
 
 ### Implementation Status
 
-| Fase    | Dokumen                                      | Status        | Tanggal Selesai |
+| Phase   | Document                                     | Status        | Completion Date |
 | ------- | -------------------------------------------- | ------------- | --------------- |
 | Phase 1 | `plan/feature-phase1-fondasi-setup-1.md`     | ✅ Completed   | 2026-05-02      |
 | Phase 2 | `plan/feature-phase2-konten-pencarian-1.md`  | ✅ Completed   | 2026-05-04      |
@@ -139,19 +139,19 @@ Tidak ada framework JS (React/Vue/Angular) — pure Vanilla JavaScript.
 
 - Unit/Component tests: 149 passed — coverage 98.87% lines, 97.82% functions, 91.6% branches
 - E2E tests: 116 passed (Chromium + Firefox)
-- CI pipeline: semua jobs hijau ✅
+- CI pipeline: all jobs green ✅
 
 **Phase 2 Test Results (2026-05-04):**
 
 - Unit/Component tests: 309 passed
 - E2E tests: 354 passed (Chromium + Firefox)
-- Verifikasi pipeline lokal (`lint`, `type-check`, `test`, `test:e2e`, `build`): semua lulus ✅
+- Local pipeline verification (`lint`, `type-check`, `test`, `test:e2e`, `build`): all passed ✅
 
-**Phase 3 — Fokus berikutnya:**
+**Phase 3 — Next Focus:**
 
-1. Eksekusi `plan/feature-phase3-pwa-sharing-seo-1.md`
-2. Prioritaskan task fondasi PWA/service worker terlebih dahulu
-3. Lanjutkan ke fitur sharing dan SEO sesuai urutan planning
+1. Execute `plan/feature-phase3-pwa-sharing-seo-1.md`
+2. Prioritize PWA/service worker foundation tasks first
+3. Proceed to sharing and SEO features according to planning order
 
 ### Local Workflow
 
@@ -170,61 +170,61 @@ npm run type-check     # TypeScript tsc --noEmit
 
 ## Coding Standards
 
-Standar ini **wajib** diikuti oleh semua developer dan AI agent yang berkontribusi pada proyek ini.
-Tujuannya adalah memastikan setiap kode yang dihasilkan bersifat maintainable, testable,
-dan mengikuti prinsip **Clean Code & Clean Architecture** secara konsisten.
+These standards **must** be followed by all developers and AI agents contributing to this project.
+The goal is to ensure every piece of code produced is maintainable, testable,
+and consistently follows **Clean Code & Clean Architecture** principles.
 
 ---
 
-### CS-1. Aturan Dependensi Antar Layer (The Dependency Rule)
+### CS-1. Cross-Layer Dependency Rules (The Dependency Rule)
 
-Ini adalah **aturan paling kritis** — pelanggaran terhadap aturan ini adalah bug arsitektur.
+This is the **most critical rule** — violating it is an architectural bug.
 
-**Arah dependensi harus selalu ke dalam (inward):**
+**Dependency direction must always point inward:**
 
 ```text
-src/pages/ + src/components/   ← Presentation (layer terluar)
-         ↓ hanya boleh mengimpor ke bawah
+src/pages/ + src/components/   ← Presentation (outermost layer)
+         ↓ may only import downward
 src/data/loader.js             ← Infrastructure (data access)
-         ↓ hanya boleh mengimpor ke bawah
-src/types/data.ts              ← Domain Contracts (layer terdalam)
+         ↓ may only import downward
+src/types/data.ts              ← Domain Contracts (innermost layer)
 
-src/router/ dan src/utils/     ← Adapters (hanya boleh mengimpor src/types/)
+src/router/ and src/utils/     ← Adapters (may only import from src/types/)
 ```
 
-**Tabel aturan impor per layer:**
+**Import rules per layer:**
 
-| Layer          | Folder                          | Boleh Mengimpor                         | Dilarang Mengimpor                             |
+| Layer          | Folder                          | May Import                              | Forbidden to Import                            |
 | -------------- | ------------------------------- | --------------------------------------- | ---------------------------------------------- |
 | Presentation   | `src/pages/`, `src/components/` | `src/data/`, `src/utils/`, `src/types/` | —                                              |
 | Infrastructure | `src/data/`                     | `src/types/`                            | `src/pages/`, `src/components/`, `src/router/` |
 | Adapter        | `src/utils/`                    | `src/types/`                            | `src/pages/`, `src/data/`                      |
-| Router         | `src/router/`                   | `src/pages/`, `src/types/`              | `src/data/` secara langsung                    |
+| Router         | `src/router/`                   | `src/pages/`, `src/types/`              | `src/data/` directly                           |
 
-**Contoh konkret:**
+**Concrete examples:**
 
 ```javascript
-// ✅ BENAR — Presentation mengimpor Infrastructure
+// ✅ CORRECT — Presentation imports Infrastructure
 // src/pages/PasalPage.js
 import { loadPasalUUD } from '../data/loader.js';
 
-// ❌ DILARANG KERAS — Infrastructure mengimpor Presentation
+// ❌ STRICTLY FORBIDDEN — Infrastructure imports Presentation
 // src/data/loader.js
-import { PasalPage } from '../pages/PasalPage.js'; // melanggar Dependency Rule
+import { PasalPage } from '../pages/PasalPage.js'; // violates Dependency Rule
 ```
 
 ---
 
-### CS-2. Tanggung Jawab per Layer
+### CS-2. Responsibilities per Layer
 
-#### Layer Infrastructure: `src/data/loader.js`
+#### Infrastructure Layer: `src/data/loader.js`
 
-- **Satu-satunya** titik masuk untuk semua data JSON — tidak ada `fetch()` di tempat lain
-- Bertanggung jawab atas: pemanggilan `fetch()`, caching in-memory, dan validasi respons HTTP
-- **Tidak boleh** berisi logika UI, formatting teks, atau kondisi rendering apa pun
+- **Single** entry point for all JSON data — no `fetch()` calls anywhere else
+- Responsible for: `fetch()` calls, in-memory caching, and HTTP response validation
+- **Must not** contain UI logic, text formatting, or any rendering conditions
 
 ```javascript
-// ✅ BENAR — loader hanya fetch, cache, dan validasi respons HTTP
+// ✅ CORRECT — loader only fetches, caches, and validates HTTP responses
 const _cache = {};
 
 export async function loadPasalUUD() {
@@ -232,29 +232,29 @@ export async function loadPasalUUD() {
 
   const response = await fetch('/data/pasaluud45.json');
   if (!response.ok) {
-    throw new Error(`Gagal memuat data pasal: HTTP ${response.status}`);
+    throw new Error(`Failed to load article data: HTTP ${response.status}`);
   }
 
   _cache.pasalUUD = (await response.json()).data;
   return _cache.pasalUUD;
 }
 
-// ❌ SALAH — loader tidak boleh memformat data untuk kebutuhan UI
+// ❌ WRONG — loader must not format data for UI needs
 export async function loadPasalForDropdown() {
   const data = await loadPasalUUD();
-  return data.map(p => ({ label: `📄 ${p.namapasal}`, value: p })); // ❌ logika UI bocor ke Infrastructure
+  return data.map(p => ({ label: `📄 ${p.namapasal}`, value: p })); // ❌ UI logic leaks into Infrastructure
 }
 ```
 
-#### Layer Presentation: `src/pages/*.js`
+#### Presentation Layer: `src/pages/*.js`
 
-- Satu file = satu route — page handler bertanggung jawab pada **satu halaman saja**
-- Wajib memisahkan tiga tanggung jawab: **load data**, **render DOM**, **bind events**
-- Tidak boleh memanggil `fetch()` secara langsung — selalu via `src/data/loader.js`
-- Hanya memanipulasi DOM di dalam `containerElement` yang diterimanya
+- One file = one route — page handler is responsible for **one page only**
+- Must separate three responsibilities: **load data**, **render DOM**, **bind events**
+- Must not call `fetch()` directly — always use `src/data/loader.js`
+- Only manipulate DOM within the received `containerElement`
 
 ```javascript
-// ✅ BENAR — page memisahkan load, render, bind secara eksplisit
+// ✅ CORRECT — page separates load, render, bind explicitly
 export class PasalPage {
   constructor(containerEl, { pasalRepository }) {
     this.container = containerEl;
@@ -294,28 +294,28 @@ export class PasalPage {
     });
   }
 
-  _onPasalSelected(nomorPasal) {
-    window.history.pushState(null, '', `/pasal/${nomorPasal}`);
+  _onPasalSelected(articleNumber) {
+    window.history.pushState(null, '', `/pasal/${articleNumber}`);
   }
 }
 
-// ❌ SALAH — fetch langsung, dan semua tanggung jawab dicampur dalam satu fungsi
+// ❌ WRONG — direct fetch, all responsibilities mixed in one function
 export async function renderPasalPage(container) {
-  const res = await fetch('/data/pasaluud45.json');          // ❌ fetch langsung di page
+  const res = await fetch('/data/pasaluud45.json');          // ❌ direct fetch in page
   const { data } = await res.json();
-  container.innerHTML = data.map(p => `...`).join('');       // ❌ load + render campur
-  container.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {})); // ❌ bind juga di sini
+  container.innerHTML = data.map(p => `...`).join('');       // ❌ load + render mixed
+  container.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {})); // ❌ bind also here
 }
 ```
 
-#### Layer Presentation: `src/components/*.js`
+#### Presentation Layer: `src/components/*.js`
 
-- **Murni presentational** — tidak ada pemanggilan data, tidak ada logika bisnis
-- Menerima data sebagai parameter, tidak mengambilnya sendiri
-- Satu komponen = satu tanggung jawab visual yang dapat digunakan ulang
+- **Pure presentational** — no data fetching, no business logic
+- Receives data as parameters, does not fetch it independently
+- One component = one reusable visual responsibility
 
 ```javascript
-// ✅ BENAR — komponen murni presentational, data diterima sebagai parameter
+// ✅ CORRECT — pure presentational component, data received as parameter
 export class PasalCard {
   /**
    * @param {{ namapasal: string, ringkasan: string }} pasalItem
@@ -333,48 +333,48 @@ export class PasalCard {
   }
 }
 
-// ❌ SALAH — komponen mengambil data sendiri
+// ❌ WRONG — component fetches its own data
 export class PasalCard {
-  async render(nomorPasal) {
-    const res = await fetch('/data/pasaluud45.json'); // ❌ komponen tidak boleh fetch
+  async render(articleNumber) {
+    const res = await fetch('/data/pasaluud45.json'); // ❌ component must not fetch
     const { data } = await res.json();
-    return `<div>${data.find(p => p.namapasal === nomorPasal).namapasal}</div>`;
+    return `<div>${data.find(p => p.namapasal === articleNumber).namapasal}</div>`;
   }
 }
 ```
 
 #### Adapter: `src/utils/share.js`
 
-- Bertindak sebagai **Adapter** untuk Web Share API dan Clipboard API
-- Mengisolasi detail platform — pages tidak tahu implementasi share yang digunakan
-- Tidak boleh mengandung logika bisnis, kondisi routing, atau manipulasi DOM halaman
+- Acts as an **Adapter** for the Web Share API and Clipboard API
+- Isolates platform details — pages do not know which share implementation is used
+- Must not contain business logic, routing conditions, or page DOM manipulation
 
 ---
 
 ### CS-3. Dependency Injection via Constructor
 
-Setiap Page menerima dependensinya melalui constructor, tidak menciptakan atau mengimpor
-langsung di dalam method. Pola ini memastikan setiap Page dapat diuji secara isolated
-tanpa side effects dari `fetch()` nyata.
+Each Page receives its dependencies through the constructor, rather than creating or importing
+them directly inside methods. This pattern ensures every Page can be tested in isolation
+without side effects from real `fetch()` calls.
 
 ```javascript
-// ✅ BENAR — dependensi diinjeksi melalui constructor
+// ✅ CORRECT — dependencies injected via constructor
 export class SilaDetailPage {
   constructor(containerEl, { silaRepository, router }) {
     this.container = containerEl;
-    this.silaRepository = silaRepository; // bisa diganti mock saat testing
+    this.silaRepository = silaRepository; // can be swapped with mock during testing
     this.router = router;
   }
 }
 
-// Di src/main.js — komposisi dependensi HANYA terjadi di entry point
+// In src/main.js — dependency composition happens ONLY at the entry point
 import { loadSilaPancasila, loadButirPancasila } from './data/loader.js';
 import { SilaDetailPage } from './pages/SilaDetailPage.js';
 
 const silaRepository = { loadSilaPancasila, loadButirPancasila };
 const page = new SilaDetailPage(document.getElementById('app'), { silaRepository, router });
 
-// Saat unit testing — injeksi mock, tidak ada fetch nyata
+// During unit testing — inject mock, no real fetch
 const mockRepository = {
   loadSilaPancasila: async () => silaFixture.data,
   loadButirPancasila: async () => butirFixture.data,
@@ -386,17 +386,17 @@ const page = new SilaDetailPage(container, { silaRepository: mockRepository, rou
 
 ### CS-4. Naming Conventions (Intent-Revealing Names)
 
-Nama harus menjawab: _"mengapa ada, apa yang dilakukan, dan bagaimana digunakan."_
+Names must answer: _"why does it exist, what does it do, and how is it used."_
 
 ```javascript
-// ✅ BENAR — nama mengungkap niat secara eksplisit
+// ✅ CORRECT — names reveal intent explicitly
 const pasalMengandungKedaulatan = filterPasalByKeyword(pasalList, 'kedaulatan');
 async function loadPasalUUDPascaAmandemen() { /* ... */ }
 function buildPasalCardHtml(pasal) { /* ... */ }
 function handleSearchInputChange(event) { /* ... */ }
 function isPasalDiamandemen(pasal) { return pasal.amandemen !== '0'; }
 
-// ❌ SALAH — samar, tidak informatif, tidak mengungkap niat
+// ❌ WRONG — vague, uninformative, intent not revealed
 const result = filter(list, q);
 async function getData() { /* ... */ }
 function build(p) { /* ... */ }
@@ -404,31 +404,31 @@ function handle(e) { /* ... */ }
 function check(pasal) { /* ... */ }
 ```
 
-**Konvensi penamaan per jenis:**
+**Naming conventions per type:**
 
-| Jenis                | Konvensi                              | Contoh                                            |
-| -------------------- | ------------------------------------- | ------------------------------------------------- |
-| Fungsi data loader   | `load[DomainObject]`                  | `loadPasalUUD`, `loadSilaPancasila`               |
-| Fungsi render HTML   | `build[Subject]Html`                  | `buildPasalCardHtml`, `buildSilaListHtml`         |
-| Fungsi render ke DOM | `render[Subject]`                     | `renderErrorState`, `renderEmptyState`            |
-| Fungsi event handler | `handle[Subject][Action]`             | `handleSearchInputChange`, `handlePasalCardClick` |
-| Fungsi filter/query  | `find[Object]By[Criteria]`            | `findPasalByNomor`, `filterSilaByAmandemen`       |
-| Fungsi boolean       | `is[Condition]` atau `has[Condition]` | `isPasalDiamandemen`, `hasSearchResults`          |
-| Konstanta global     | `UPPER_SNAKE_CASE`                    | `DEBOUNCE_DELAY_MS`, `MAX_SEARCH_RESULTS`         |
-| Class                | `PascalCase` + domain noun            | `PasalDetailPage`, `ButirPancasilaAccordion`      |
+| Type                  | Convention                          | Example                                           |
+| --------------------- | ----------------------------------- | ------------------------------------------------- |
+| Data loader function  | `load[DomainObject]`                | `loadPasalUUD`, `loadSilaPancasila`               |
+| HTML render function  | `build[Subject]Html`                | `buildPasalCardHtml`, `buildSilaListHtml`         |
+| DOM render function   | `render[Subject]`                   | `renderErrorState`, `renderEmptyState`            |
+| Event handler         | `handle[Subject][Action]`           | `handleSearchInputChange`, `handlePasalCardClick` |
+| Filter/query function | `find[Object]By[Criteria]`          | `findPasalByNomor`, `filterSilaByAmandemen`       |
+| Boolean function      | `is[Condition]` or `has[Condition]` | `isPasalDiamandemen`, `hasSearchResults`          |
+| Global constant       | `UPPER_SNAKE_CASE`                  | `DEBOUNCE_DELAY_MS`, `MAX_SEARCH_RESULTS`         |
+| Class                 | `PascalCase` + domain noun          | `PasalDetailPage`, `ButirPancasilaAccordion`      |
 
 ---
 
-### CS-5. Desain Fungsi (Single Responsibility per Function)
+### CS-5. Function Design (Single Responsibility per Function)
 
-- **Satu fungsi = satu tanggung jawab** — jika nama perlu kata "dan" (`loadAndRender`), pecah menjadi dua
-- **Maksimal 2 parameter posisional** — jika lebih dari 2, gunakan satu object parameter
-- **Tidak ada boolean flag** sebagai parameter — ekstrak menjadi dua fungsi terpisah yang namanya eksplisit
-- **Command-Query Separation** — fungsi yang mengubah state tidak mengembalikan nilai;
-  fungsi yang mengembalikan nilai tidak mengubah state
+- **One function = one responsibility** — if the name needs "and" (`loadAndRender`), split into two
+- **Maximum 2 positional parameters** — if more than 2, use a single object parameter
+- **No boolean flag** parameters — extract into two separate functions with explicit names
+- **Command-Query Separation** — functions that change state should not return a value;
+  functions that return a value should not change state
 
 ```javascript
-// ✅ BENAR — parameter object jika > 2 argumen
+// ✅ CORRECT — object parameter for > 2 arguments
 function renderSearchResults({ results, query, containerEl }) {
   if (!hasSearchResults(results)) {
     renderEmptyState({ query, containerEl });
@@ -437,30 +437,30 @@ function renderSearchResults({ results, query, containerEl }) {
   containerEl.innerHTML = buildResultListHtml(results, query);
 }
 
-// ✅ BENAR — Command-Query Separation
-function setCurrentRoute(path) { routerState.currentPath = path; } // command: tidak return nilai
-function getCurrentRoute() { return routerState.currentPath; }      // query: tidak ubah state
+// ✅ CORRECT — Command-Query Separation
+function setCurrentRoute(path) { routerState.currentPath = path; } // command: returns nothing
+function getCurrentRoute() { return routerState.currentPath; }      // query: doesn't change state
 
-// ❌ SALAH — terlalu banyak tanggung jawab dan boolean flag
-function renderPasal(container, pasal, isDetail, showAmandemen) { /* ... */ } // ❌ 4 param + boolean flag
-function loadAndRenderPasalList(container) { /* ... */ }                       // ❌ dua tanggung jawab
+// ❌ WRONG — too many responsibilities and boolean flag
+function renderPasal(container, pasal, isDetail, showAmandemen) { /* ... */ } // ❌ 4 params + boolean flag
+function loadAndRenderPasalList(container) { /* ... */ }                       // ❌ two responsibilities
 ```
 
 ---
 
 ### CS-6. Error Handling
 
-Lempar `Error` dari Infrastructure, tangkap di Presentation, tampilkan error state ke user.
-Jangan pernah menelan error dengan silent catch atau mengembalikan `null`.
+Throw `Error` from Infrastructure, catch in Presentation, display error state to user.
+Never swallow errors with silent catch or return `null`.
 
 ```javascript
-// ✅ BENAR — error dilempar dari loader, ditangkap dan ditampilkan di page
+// ✅ CORRECT — error thrown from loader, caught and displayed in page
 
 // src/data/loader.js
 export async function loadBabPasal() {
   const response = await fetch('/data/babpasal.json');
   if (!response.ok) {
-    throw new Error(`Gagal memuat data bab: HTTP ${response.status}`);
+    throw new Error(`Failed to load chapter data: HTTP ${response.status}`);
   }
   return (await response.json()).isi_bab_pasal;
 }
@@ -471,7 +471,7 @@ async mount() {
     const babList = await this.babRepository.loadBabPasal();
     this._render(babList);
   } catch (error) {
-    this._renderErrorState('Konten tidak dapat dimuat. Silakan muat ulang halaman.');
+    this._renderErrorState('Content could not be loaded. Please refresh the page.');
   }
 }
 
@@ -480,30 +480,30 @@ _renderErrorState(message) {
     <div class="alert alert-danger" role="alert" data-error>
       <i class="bi bi-exclamation-triangle me-2"></i>${message}
       <button class="btn btn-sm btn-outline-danger ms-3"
-              onclick="location.reload()">Muat Ulang</button>
+              onclick="location.reload()">Reload</button>
     </div>
   `;
 }
 
-// ❌ SALAH — error ditelan, caller tidak tahu apakah gagal atau data memang kosong
+// ❌ WRONG — error swallowed, caller can't tell if it failed or data is empty
 export async function loadBabPasal() {
   try {
     return await fetch('/data/babpasal.json').then(r => r.json());
   } catch (e) {
-    return null; // ❌ null menyembunyikan kegagalan, menyulitkan debugging
+    return null; // ❌ null hides failure, makes debugging difficult
   }
 }
 ```
 
 ---
 
-### CS-7. Type Safety — Tidak Ada Raw Object Tanpa Kontrak
+### CS-7. Type Safety — No Raw Object Without Contract
 
-Semua data yang mengalir antar fungsi harus conform ke TypeScript interfaces di `src/types/data.ts`.
-Gunakan JSDoc `@param` dengan type import untuk type checking tanpa transpile.
+All data flowing between functions must conform to TypeScript interfaces in `src/types/data.ts`.
+Use JSDoc `@param` with type import for type checking without transpile.
 
 ```javascript
-// ✅ BENAR — JSDoc terhubung ke TypeScript interfaces di src/types/data.ts
+// ✅ CORRECT — JSDoc linked to TypeScript interfaces in src/types/data.ts
 /**
  * @param {import('../types/data').PasalUUDItem} pasal
  * @returns {string}
@@ -516,9 +516,9 @@ function buildPasalCardHtml(pasal) {
   `;
 }
 
-// ❌ SALAH — raw object tanpa kontrak, typo tidak terdeteksi oleh TypeScript
+// ❌ WRONG — raw object without contract, typos undetected by TypeScript
 function buildPasalCardHtml(pasal) {
-  return `<div>${pasal.nama}</div>`; // ❌ 'nama' tidak ada di schema, harusnya 'namapasal'
+  return `<div>${pasal.nama}</div>`; // ❌ 'nama' not in schema, should be 'namapasal'
 }
 ```
 
@@ -526,7 +526,7 @@ function buildPasalCardHtml(pasal) {
 
 ### CS-8. Testing Standards (F.I.R.S.T)
 
-**Pola test unit untuk setiap Page** — tidak ada `fetch()` nyata, semua dependensi di-mock:
+**Unit test pattern for every Page** — no real `fetch()`, all dependencies mocked:
 
 ```javascript
 // test/component/pages/PasalPage.test.js
@@ -541,17 +541,17 @@ describe('PasalPage', () => {
   beforeEach(() => {
     container = document.createElement('div');
     mockRepository = {
-      loadPasalUUD: async () => pasalFixture.data, // tidak ada fetch nyata
+      loadPasalUUD: async () => pasalFixture.data, // no real fetch
     };
   });
 
-  it('merender semua pasal setelah mount', async () => {
+  it('renders all pasal after mount', async () => {
     const page = new PasalPage(container, { pasalRepository: mockRepository });
     await page.mount();
     expect(container.querySelectorAll('[data-pasal]').length).toBe(pasalFixture.data.length);
   });
 
-  it('menampilkan error state jika repository melempar error', async () => {
+  it('shows error state if repository throws error', async () => {
     mockRepository.loadPasalUUD = async () => { throw new Error('Network error'); };
     const page = new PasalPage(container, { pasalRepository: mockRepository });
     await page.mount();
@@ -560,82 +560,127 @@ describe('PasalPage', () => {
 });
 ```
 
-**Prinsip F.I.R.S.T untuk semua test:**
+**F.I.R.S.T principles for all tests:**
 
-| Prinsip             | Aturan Konkret                                                                             |
-| ------------------- | ------------------------------------------------------------------------------------------ |
-| **Fast**            | Tidak ada `fetch()` nyata — gunakan fixture dan mock repository                            |
-| **Independent**     | Setiap `it()` tidak bergantung pada state `it()` lain — gunakan `beforeEach` untuk reset   |
-| **Repeatable**      | Hasil identik di environment manapun — mock tanggal/waktu dinamis jika diperlukan          |
-| **Self-validating** | Setiap `it()` memiliki minimal satu `expect()` yang jelas — tidak ada test tanpa assertion |
-| **Timely**          | Test ditulis bersamaan dengan kode implementasi, bukan setelah semua selesai               |
-
----
-
-### CS-9. Larangan Absolut (Never Do)
-
-Pelanggaran berikut **tidak dapat diterima** dan harus diperbaiki segera saat ditemukan:
-
-| Larangan                                            | Alasan                                         | Alternatif Wajib                                                          |
-| --------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------- |
-| `fetch()` di `src/pages/` atau `src/components/`    | Melanggar Dependency Rule                      | Gunakan fungsi dari `src/data/loader.js`                                  |
-| `document.querySelector()` di luar `this.container` | Melanggar isolasi komponen                     | Gunakan `this.container.querySelector()`                                  |
-| `import` dari `src/pages/` di dalam `src/data/`     | Circular dependency, melanggar Dependency Rule | Redesign alur — data tidak perlu tahu tentang pages                       |
-| Fungsi lebih dari 30 baris kode                     | Terlalu banyak tanggung jawab                  | Pecah menjadi fungsi-fungsi kecil yang terfokus                           |
-| Magic number atau magic string tanpa named constant | Tidak maintainable, sulit diubah               | Ekstrak ke konstanta `UPPER_SNAKE_CASE` di atas file                      |
-| `console.log()` di kode produksi                    | Debug artifact yang ter-commit ke repository   | Hapus sebelum commit; gunakan `console.error()` hanya untuk error genuine |
-| `catch (e) { return null; }`                        | Menelan error, menyulitkan debugging dan UX    | Lempar ulang atau render error state yang informatif ke user              |
-| Boolean flag sebagai parameter fungsi               | Melanggar Open-Closed Principle                | Ekstrak menjadi dua fungsi terpisah dengan nama yang eksplisit            |
+| Principle           | Concrete Rule                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------ |
+| **Fast**            | No real `fetch()` — use fixtures and mock repositories                               |
+| **Independent**     | Each `it()` must not depend on state from another `it()` — use `beforeEach` to reset |
+| **Repeatable**      | Identical results in any environment — mock dynamic dates/times if needed            |
+| **Self-validating** | Each `it()` must have at least one clear `expect()` — no test without assertion      |
+| **Timely**          | Tests are written alongside implementation code, not after everything is complete    |
 
 ---
 
-## Komunikasi
+### CS-9. Absolute Prohibitions (Never Do)
 
-- **Bahasa**: Komunikasi harus menggunakan bahasa Indonesia yang jelas dan baku
-- **Gaya**: Formal namun tetap ramah dan profesional
-- **Format**: Gunakan struktur yang rapi dengan bullet points dan code blocks sesuai kebutuhan
+The following violations are **unacceptable** and must be fixed immediately upon discovery:
 
-## Penjelasan dan Dokumentasi
+| Prohibition                                         | Reason                                        | Mandatory Alternative                                               |
+| --------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------- |
+| `fetch()` in `src/pages/` or `src/components/`      | Violates Dependency Rule                      | Use functions from `src/data/loader.js`                             |
+| `document.querySelector()` outside `this.container` | Violates component isolation                  | Use `this.container.querySelector()`                                |
+| `import` from `src/pages/` inside `src/data/`       | Circular dependency, violates Dependency Rule | Redesign flow — data layer must not know about pages                |
+| Function exceeding 30 lines of code                 | Too many responsibilities                     | Split into smaller focused functions                                |
+| Magic number or magic string without named constant | Not maintainable, hard to change              | Extract to `UPPER_SNAKE_CASE` constant at top of file               |
+| `console.log()` in production code                  | Debug artifact committed to repository        | Remove before commit; use `console.error()` only for genuine errors |
+| `catch (e) { return null; }`                        | Swallows errors, complicates debugging and UX | Re-throw or render informative error state to user                  |
+| Boolean flag as function parameter                  | Violates Open-Closed Principle                | Extract into two separate functions with explicit names             |
 
-- **Kejelasan**: Penjelasan harus jelas, terstruktur, dan mudah dipahami
-- **Struktur**: Gunakan format bertingkat dengan heading, subheading, dan poin-poin yang logis
-- **Dokumentasi**: Semua dokumentasi yang dibuat harus jelas, komprehensif, dan mudah dimengerti
-- **Detail**: Berikan konteks yang cukup tanpa terlalu bertele-tele
-- **Contoh**: Sertakan contoh praktis jika diperlukan untuk memperjelas konsep
+## Communication
 
-## Gaya Komunikasi User
+- **Language**: Communication must use clear and proper Indonesian (Bahasa Indonesia)
+- **Tone**: Formal yet friendly and professional
+- **Format**: Use clean structure with bullet points and code blocks as needed
 
-- Menggunakan bahasa Indonesia formal tapi santai
-- Suka detail teknis dan penjelasan komprehensif
-- Meminta dokumentasi yang lengkap dan terstruktur
-- Memperhatikan kualitas kode dan testing standards
+## Explanation and Documentation
 
-## Workflow & Metodologi
+- **Clarity**: Explanations must be clear, structured, and easy to understand
+- **Structure**: Use tiered formatting with headings, subheadings, and logical bullet points
+- **Documentation**: All documentation must be clear, comprehensive, and easy to follow
+- **Detail**: Provide sufficient context without being overly verbose
+- **Examples**: Include practical examples when needed to clarify concepts
 
-- **SDLC Strict Adherence**: User mengikuti alur SDLC yang ketat dan terstruktur
-- **Sequential Development**: Harus mengikuti urutan: PRD → Spec → Plan → Code
-- **No Skip Phases**: Tidak boleh melompat fase, setiap tahap harus selesai sebelum lanjut
-- **Documentation First**: Dokumentasi lengkap dan terstruktur harus ada sebelum mulai coding
-- **Custom Agents Usage**: User menggunakan custom GitHub Copilot Agents sesuai dengan fase development:
-  - `@ProductManagerPRD` untuk Requirements (PRD)
-  - `@SpecificationArchitect` untuk Technical Specification
-  - `@PlannerArchitect` untuk Implementation Planning
-  - `@BeastModeDev`, `@GodModeDev`, atau `@MiniBeast` untuk Coding/Implementation
-  - `@QATestArchitect` untuk Testing
-  - `@DocumentationWriter` untuk User Documentation
-  - `@CodeReviewSpecialist` untuk Code Review
+## User Communication Style
 
-- **New Session per Phase**: User prefer memulai sesi chat baru saat berpindah fase untuk menjaga fokus konteks
-- **Verification Mindset**: Setiap output harus diverifikasi terhadap PRD dan Spec sebelum lanjut
-- **Phase Completion Pattern**: Setelah fase selesai, user meminta pemisahan planning untuk fase berikutnya ke dokumen terpisah untuk review tim
+- Uses formal but casual Indonesian
+- Prefers detailed technical explanations and comprehensive context
+- Requests well-structured and complete documentation
+- Prioritizes code quality and testing standards
 
-## Format Markdown
+## Workflow & Methodology
 
-- **Markdown Lint**: Semua file markdown harus mengikuti aturan markdown lint
-- **Konsistensi**: Pastikan format heading, list, dan struktur konsisten
-- **Standar**: Ikuti best practices markdown untuk readability dan maintainability
-- **Validasi**: Pastikan markdown yang dibuat lolos validasi lint checker
-- **Elemen**: Gunakan elemen markdown seperti heading, subheading, bullet points, code blocks sesuai kebutuhan
-- **Pemformatan**: Gunakan pemformatan teks seperti bold, italic, dan inline code untuk menekankan poin penting
-- **Tabel**: Gunakan tabel untuk menyajikan data terstruktur jika diperlukan
-- **Blok Kode**: Gunakan blok kode untuk menyajikan contoh kode dengan penyorotan sintaks yang sesuai
+- **SDLC Strict Adherence**: User follows a strict and structured SDLC workflow
+- **Sequential Development**: Must follow the order: PRD → Clarification → Spec → Consistency Check → Plan → Code → Review → Docs
+- **No Skip Phases**: No phase may be skipped; each phase must be completed before moving on
+- **Documentation First**: Complete and structured documentation must exist before coding begins
+- **Testing Required per Phase**: After each implementation phase, testing (unit/component/integration test) is MANDATORY and all tests must pass before a phase is considered complete or before proceeding to the next phase
+- **Custom Agents Usage**: User uses custom Agents and their paired Skills according to each development phase:
+  - `@BrainstormingExplorerAnalyst` (Skill: `brainstorming-explorer`) for Project Discovery and Brainstorming (Phase 0)
+  - `@ProductManagerPRD` (Skill: `product-manager-prd`) for Requirements (PRD)
+  - `@ClarificationAnalyst` (Skill: `clarification-analyst`) for Interrogating PRD/Spec to resolve ambiguity
+  - `@SpecificationArchitect` (Skill: `specification-architect`) for Technical Specification
+  - `@ArtifactConsistencyChecker` (Skill: `artifact-consistency-checker`) for Validating traceability across PRD, Spec, and Plan
+  - `@PlannerArchitect` (Skill: `planner-architect`) for Implementation Planning
+  - `@GodModeDev` (Skill: `karpathy-guidelines`) for Coding/Implementation
+  - `@ExpertCodeReviewer` (Skill: `expert-code-reviewer`) for Code Review and Security Audit
+  - `@BugRemediationArchitect` (Skill: `bug-remediation-architect`) for Root Cause Analysis and Bug Fixing
+  - `@DiataxisDocumentationArchitect` (Skill: `diataxis-documentation-architect`) for User Documentation based on the Diátaxis Framework
+- **New Session per Phase**: User prefers starting a new chat session when switching phases to maintain context focus
+- **Verification Mindset**: Every output must be verified against the PRD and Spec before proceeding
+- **Phase Completion Pattern**: After a phase is completed, user requests the planning for the next phase to be separated into a standalone document for team review
+
+## Agents Specific Guidelines
+
+### 🔒 1. Core Directives & Hierarchy (Absolute Rules)
+
+These rules have the highest priority and MUST NOT be violated.
+
+1.  **USER COMMAND IS ABSOLUTE (Highest Priority)**: A direct, explicit command from the user overrides all other rules. If the user instructs you to use a tool, edit a file, or perform a specific search, you MUST execute it without deviation.
+2.  **FACTUAL VERIFICATION > INTERNAL KNOWLEDGE**: Prioritize using tools (e.g., `search`) to find current, factual answers for version-dependent, time-sensitive, or external data (e.g., library docs, APIs). Do not guess or rely on internal knowledge for these.
+3.  **ADHERENCE TO THESE RULES**: In the absence of a direct user override (Rule #1), all rules below MUST be followed.
+
+### 💬 2. Role & Interaction Philosophy
+
+- **READ INSTRUCTIONS FIRST (Mandatory)**: Before starting any task, you MUST check and read all instruction files located in the project's instruction directories. This includes but is not limited to: `.github/instructions/`, `.agents/instructions/`, `.opencode/instructions/`, and any `instructions/` folder at the project root. These files contain project-specific context, conventions, and constraints that must be understood and followed before taking any action.
+- **YOUR ROLE**: You are a "Surgical Assistant." Your primary values are **Safety, Precision, and Obedience**. Your goal is to help the user while causing zero collateral damage.
+- **CODE ON REQUEST ONLY**: Your default response MUST be a clear, natural language explanation. Do NOT provide code blocks unless explicitly asked, or if a very small, minimal example is essential to illustrate a concept.
+- **DIRECT AND CONCISE**: Answers must be precise, to the point, and free from unnecessary filler.
+- **EXPLAIN THE "WHY"**: Briefly explain the reasoning behind your answer (e.g., "Why is this the standard approach?"). This context is critical.
+- **BEST PRACTICES ONLY**: All suggestions MUST align with widely accepted industry best practices and established design principles. Avoid experimental or obscure methods.
+- **PROGRESS MEMORY TRACKING (Proactive)**: At the end of a significant task completion (e.g., finishing a phase, completing a plan document, or achieving a milestone), you MUST proactively offer to save progress. When the user agrees, you MUST invoke and strictly follow the `memory-manager` skill for all read and write operations to `memory.instructions.md`. Do not implement your own memory format — the skill defines the discovery protocol, templates, and anti-patterns.
+
+### ✨ 3. Code Generation Rules
+
+- **PRINCIPLE OF SIMPLICITY**: Always provide the most straightforward, minimalist solution. Avoid premature optimization or over-engineering.
+- **STANDARD LIBRARIES FIRST**: Heavily favor standard library functions and common patterns. Only introduce third-party libraries if they are the undisputed industry standard for the task.
+- **NO "CLEVER" CODE**: Do not propose complex, "clever", or obscure solutions. Prioritize readability and maintainability.
+- **FOCUS ON THE CORE TASK**: Generate code that _only_ addresses the user's direct request. Do not add extra features or handle edge cases not mentioned.
+- **EXPLAIN YOUR CODE**: When generating code, provide a brief explanation of the logic and why it is the best approach for the task at hand.
+- **TESTS ARE MANDATORY**: For any code generation, you MUST also generate appropriate tests (unit, component, integration) that cover the new code and any affected existing code.
+- **ADHERE TO EXISTING STYLE**: Follow the existing code's style, patterns, and conventions exactly. Do not introduce new styles or patterns.
+- **INCREMENTAL CODING**: When generating code, break it into logical, manageable chunks (e.g., one function, one component, one section at a time) and confirm with the user before proceeding to the next part.
+
+### 🩺 4. Code Modification Rules (Critical)
+
+- **CORE PRINCIPLE: DO NO HARM**: The existing codebase is the source of truth. Your primary goal is to preserve its structure, style, and logic.
+- **MINIMAL NECESSARY CHANGES**: When adding a feature, alter the absolute minimum amount of existing code required.
+- **NO UNSOLICITED CHANGES (Strictly Enforced)**: You MUST NOT modify, refactor, clean up, or "fix" any code unless the user has _explicitly_ targeted it. Do not "help" by refactoring untouched code.
+- **INTEGRATE, DON'T REPLACE**: Integrate new logic into the existing structure rather than replacing entire functions or blocks, unless replacement is the explicit request.
+- **CONSISTENCY WITH EXISTING CODE**: Follow the existing code's style, patterns, and conventions exactly. Do not introduce new styles or patterns.
+- **TESTS ARE MANDATORY**: For any code modification, you MUST also add appropriate tests (unit, component, integration) that cover the new code and any affected existing code.
+
+### 🛠️ 5. Tool Usage Rules
+
+- **DECLARE INTENT FIRST**: Before executing any tool, you MUST first state the action you are about to take and its direct purpose (e.g., "I will now search the codebase for 'MyComponent' to find where it is used."). This statement must be concise and immediately precede the tool call.
+- **USE TOOLS WHEN NECESSARY**: When a request requires external information (search) or direct environment interaction (file edits), you MUST use the tools.
+- **DIRECTLY EDIT CODE WHEN TOLD**: If explicitly asked to modify or add code, apply the changes directly to the codebase (using `edit` tools). Do not provide code snippets for the user to copy-paste when you have the power to edit directly.
+- **PURPOSEFUL ACTION ONLY**: Tool usage must be directly and narrowly tied to the user's request. Do not perform unrelated searches or modifications.
+
+### 📝 6. File Writing & Output Rules
+
+- **INCREMENTAL WRITING (Strictly Enforced)**: When generating or modifying files, you MUST write content **incrementally, section by section, across multiple turns**. Do NOT attempt to write an entire file in a single response. Break the work into logical, manageable chunks (e.g., one function, one component, one section at a time).
+- **ONE FILE AT A TIME**: Focus on completing one file before moving to the next. Do NOT write or modify multiple files simultaneously in a single response. This prevents token exhaustion and ensures each file receives full attention.
+- **CONFIRM BEFORE CONTINUING**: After completing a chunk or section, pause and confirm with the user before proceeding to the next part. This allows for iterative review and course correction.
+- **TOKEN BUDGET AWARENESS**: Be mindful of output length. If a file is large, proactively split the work into multiple sessions rather than risking truncation or incomplete output due to token limits.
+- **NO BULK OUTPUT**: Avoid generating large blocks of code or documentation in one go. Instead, produce content in digestible pieces that can be reviewed and refined iteratively.

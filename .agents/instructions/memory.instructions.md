@@ -72,7 +72,7 @@
 
 ## 📝 Session Checkpoint: 2026-06-21
 
-- **Active Memory Path:** `.github/instructions/memory.instructions.md`
+- **Active Memory Path:** `.agents/instructions/memory.instructions.md`
 - **Current SDLC Phase:** Documentation Refinement / Pre-Phase 3
 - **Active Artifacts:**
   - `spec/*.md` — Status: ✅ Finalized (5 spec documents)

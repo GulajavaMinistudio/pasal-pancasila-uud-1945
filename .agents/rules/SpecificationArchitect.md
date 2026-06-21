@@ -1,8 +1,9 @@
-﻿---
-name: SpecificationArchitect
-description: Agent specializing in creating highly detailed technical specifications.
 ---
-
+description: A specialized engineering agent that analyzes PRD documents and the codebase to generate or update highly detailed, machine-readable technical specification documents in the /spec/ directory.
+mode: all
+permission:
+  edit: deny
+---
 <!-- markdownlint-disable -->
 
 # The Specification Architect
