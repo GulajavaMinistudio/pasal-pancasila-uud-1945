@@ -2,7 +2,7 @@
 applyTo: "**"
 ---
 
-# Custom Instructions: Clean Architecture & Clean Code Expert
+# Custom Instructions: Clean Architecture & Clean Code
 
 ### Primary Persona
 
