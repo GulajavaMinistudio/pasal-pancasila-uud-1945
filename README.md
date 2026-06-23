@@ -133,8 +133,8 @@ Aplikasi mengikuti identitas visual aplikasi Android existing dengan palet warna
 | ---- | ------------------------ | -------------- | ------------------------------------------------------------------------ |
 | 1    | Fondasi & Setup          | ✅ Selesai      | Project setup, migrasi JSON, navigasi, halaman Pancasila/Butir/Pembukaan |
 | 2    | Konten Utama & Pencarian | ✅ Selesai      | Halaman Pasal, Bab, UUD Asli, Amandemen, pencarian, deep link            |
-| 3    | PWA, Sharing & Polish    | ⏳ Belum Mulai | Service Worker, berbagi, responsif, SEO, Google Analytics                |
-| 4    | Launch & Monitoring      | ⏳ Belum Mulai | UAT, soft launch, monitoring Core Web Vitals, bug fixes                  |
+| 3    | PWA, Sharing & Polish    | ✅ Selesai      | Service Worker, berbagi, responsif, SEO, Google Analytics                |
+| 4    | Launch & Monitoring      | 🔄 Sedang Berjalan | UAT, soft launch, monitoring Core Web Vitals, bug fixes                  |
 
 ## Dokumentasi Proyek
 
@@ -160,7 +160,7 @@ Pengembangan mengikuti alur ketat tanpa melompat fase:
 
 ```text
 PRD → Specification → Planning → Implementation → Testing → Deployment → Monitoring
- ✅       ✅            ✅             🔄             🔄          ✅           ❌
+ ✅       ✅            ✅             ✅             ✅          ✅           🔄
 ```
 
 *(Keterangan: 🔄 Sedang Berjalan, ✅ Selesai, ❌ Belum Mulai)*
