@@ -1,5 +1,7 @@
 # Pancasila & UUD 1945 Web App
 
+🔗 **Live App:** [https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945/](https://gulajavaministudio.github.io/pancasila-uud-indonesia-1945/)
+
 > Aplikasi referensi konstitusional Indonesia berbasis Progressive Web App (PWA) yang menyajikan isi Pancasila, Butir-butir Pancasila, Pembukaan UUD 1945, serta seluruh Pasal UUD 1945.
 
 <!-- markdownlint-disable -->
@@ -35,16 +37,16 @@ Produk ini ditargetkan sebagai **Progressive Web App (PWA)** agar tetap dapat di
 | Komponen          | Teknologi                           | Versi  |
 | ----------------- | ----------------------------------- | ------ |
 | Bahasa            | Vanilla JavaScript (ES6+)           | —      |
-| Build Tool        | Vite                                | 5.0+   |
+| Build Tool        | Vite                                | 7.0+   |
 | CSS Framework     | Bootstrap                           | 5.3+   |
-| Ikon              | Bootstrap Icons                     | 5.3+   |
-| Pencarian         | Fuse.js                             | Latest |
+| Ikon              | Bootstrap Icons                     | 1.11+  |
+| Pencarian         | Fuse.js                             | 7.0+   |
 | Type Safety       | TypeScript (opsional)               | 5.0+   |
-| Unit Test         | Vitest                              | Latest |
+| Unit Test         | Vitest                              | 3.0+   |
 | E2E Test          | Playwright                          | Latest |
 | Performance Audit | Lighthouse CI                       | Latest |
 | CI/CD             | GitHub Actions                      | —      |
-| Hosting           | Vercel / Netlify / Cloudflare Pages | —      |
+| Hosting           | GitHub Pages                        | —      |
 
 ## Sumber Data
 
@@ -127,12 +129,12 @@ Aplikasi mengikuti identitas visual aplikasi Android existing dengan palet warna
 
 ## Milestone Pengembangan
 
-| Fase | Nama                     | Durasi     | Fokus Utama                                                              |
-| ---- | ------------------------ | ---------- | ------------------------------------------------------------------------ |
-| 1    | Fondasi & Setup          | 1–2 minggu | Project setup, migrasi JSON, navigasi, halaman Pancasila/Butir/Pembukaan |
-| 2    | Konten Utama & Pencarian | 2–3 minggu | Halaman Pasal, Bab, UUD Asli, Amandemen, pencarian, deep link            |
-| 3    | PWA, Sharing & Polish    | 1–2 minggu | Service Worker, berbagi, responsif, SEO, Google Analytics                |
-| 4    | Launch & Monitoring      | 1 minggu   | UAT, soft launch, monitoring Core Web Vitals, bug fixes                  |
+| Fase | Nama                     | Status         | Fokus Utama                                                              |
+| ---- | ------------------------ | -------------- | ------------------------------------------------------------------------ |
+| 1    | Fondasi & Setup          | ✅ Selesai      | Project setup, migrasi JSON, navigasi, halaman Pancasila/Butir/Pembukaan |
+| 2    | Konten Utama & Pencarian | ✅ Selesai      | Halaman Pasal, Bab, UUD Asli, Amandemen, pencarian, deep link            |
+| 3    | PWA, Sharing & Polish    | ⏳ Belum Mulai | Service Worker, berbagi, responsif, SEO, Google Analytics                |
+| 4    | Launch & Monitoring      | ⏳ Belum Mulai | UAT, soft launch, monitoring Core Web Vitals, bug fixes                  |
 
 ## Dokumentasi Proyek
 
@@ -156,10 +158,12 @@ Aplikasi mengikuti identitas visual aplikasi Android existing dengan palet warna
 
 Pengembangan mengikuti alur ketat tanpa melompat fase:
 
-```
+```text
 PRD → Specification → Planning → Implementation → Testing → Deployment → Monitoring
- ✅       ✅            ✅             ❌             ❌          ❌           ❌
+ ✅       ✅            ✅             🔄             🔄          ✅           ❌
 ```
+
+*(Keterangan: 🔄 Sedang Berjalan, ✅ Selesai, ❌ Belum Mulai)*
 
 ## Lisensi
 
